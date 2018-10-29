@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml"
+                template="plantilla.xhtml"
+                xmlns:c="http://java.sun.com/jsf/core"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"               
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name ="titulo">
+        Prestamo
+    </ui:define>
+
+    <ui:define name="cabecera">
+        <h1><center>Know Your Costumer: BanQuito</center></h1>
+    </ui:define>
+
+
+    <ui:define name="contenido">
+        <h:form>
+            <p:tabMenu>
+                <p:menuitem value="Overview">
+                    <f:param name="i" value="0" />
+                </p:menuitem>
+                <p:menuitem value="Demos">
+                    <f:param name="i" value="1" />
+                </p:menuitem>
+                <p:menuitem value="Documentation">
+                    <f:param name="i" value="2" />
+                </p:menuitem>
+                <p:menuitem value="Support">
+                    <f:param name="i" value="3" />
+                </p:menuitem>
+                <p:menuitem value="Social">
+                    <f:param name="i" value="4" />
+                </p:menuitem>
+            </p:tabMenu>
+        </h:form>
+    </ui:define>
+</ui:composition>

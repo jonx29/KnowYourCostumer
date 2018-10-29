@@ -22,8 +22,16 @@ and open the template in the editor.
     </head>
     <body>
 
-        <div class="login">
-            
+        <div class="login">            
+            <h:form>
+                <h1>Login</h1>
+                <h:inputText id="usuario"  a:placeholder="Correo Electrónico" required="required" value="#{cls_login.usuario}" />
+                <h:inputSecret id="contrasenia" a:placeholder="Contrasenia" required="required" value="#{cls_login.contrasenia}"/>
+                <h:commandButton id="login" value="Ingresar" action="#{cls_login.ingresar}">  </h:commandButton>
+                <p></p>
+                <h:outputText id="mensaje" value="#{cls_login.mensaje}"/>
+            </h:form>          
+            <br></br><br></br>
         </div>
 
         <div class="shadow"></div>

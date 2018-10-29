@@ -120,3 +120,61 @@ input[type="submit"]:active {
     top:3px;
     box-shadow: inset 0px 1px 0px #2ab7ec, 0px 2px 0px 0px #31524d, 0px 5px 3px #999;
 }
+
+
+/* 
+    Created on : 17/05/2018, 15:53:59
+    Author     : JONATHAN
+*/
+
+H2 { 
+    text-align: center;
+    font-weight: bold;
+    font-color:black;
+}
+label { 
+    align: center;    
+    font-weight: bold;
+    color: black;
+    padding: 20px;
+    font-size: 18px;
+}
+textarea{
+    resize: vertical;
+    max-height: 300px;
+    min-height: 50px;
+    margin-bottom: 20px;
+    height:100px;
+    width: 80%;
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    border:1px solid #ccc;
+}
+input{
+    margin-bottom: 20px;
+    width: 50%;    
+    border-radius: 5px;
+    padding: 10px;
+    border:1px solid #ccc;
+}
+input:focus, textarea:focus{
+    border:2px solid #1668C4;
+}
+
+table{
+    width:30%;
+    margin:auto;
+    border:solid 2px #1A5276;
+    padding:2px;	
+    border-radius: 5px;
+}  
+td{
+    padding:5px 0;
+}
+aside{
+	width: 30%;
+	float: right;
+	padding: 20px;
+	box-sizing: border-box;	
+}
