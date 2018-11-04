@@ -4,13 +4,12 @@ html {
 }
 
 body {
-	background-color: #9AD1ED;
-}
+	background-color:#f1f3f3}
 
 .container {
-	max-width: 450px;
+	max-width: 820px;
 	height: auto;
-	background-color: #EFEFEF;
+	background-color:#EFEFEF ;
 	margin: 5% auto;
 	padding-bottom: 1rem;
 	
