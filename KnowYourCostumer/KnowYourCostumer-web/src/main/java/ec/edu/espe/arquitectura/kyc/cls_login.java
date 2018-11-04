@@ -8,6 +8,7 @@ package ec.edu.espe.arquitectura.kyc;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import ec.edu.espe.arquitectura.Bean_loginLocal;
 
 /**
  *
