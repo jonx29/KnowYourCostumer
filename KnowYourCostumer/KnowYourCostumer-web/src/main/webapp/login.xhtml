@@ -25,7 +25,7 @@ and open the template in the editor.
         <div class="login">            
             <h:form>
                 <h1>Login</h1>
-                <h:inputText id="usuario"  a:placeholder="Correo Electrónico" required="required" value="#{beanLogin.objUsuario.codUsuario}" />
+                <h:inputText id="usuario"  a:placeholder="Correo Electrónico" required="required" value="#{beanLogin.objUsuario.correo}" />
                 <h:inputSecret id="contrasenia" a:placeholder="Contrasenia" required="required" value="#{beanLogin.objUsuario.clave}"/>
                 <h:commandButton id="login" value="Ingresar" action="#{beanLogin.ingresar}">  </h:commandButton>
                 <p></p>

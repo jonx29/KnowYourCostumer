@@ -8,7 +8,6 @@ package ec.edu.espe.arquitectura.web;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import ec.edu.espe.arquitectura.Bean_loginLocal;
 import ec.edu.espe.arquitectura.model.Usuario;
 import ec.edu.espe.arquitectura.service.loginService;
 
@@ -25,7 +24,7 @@ public class beanLogin {
     @EJB
     loginService bean_login;
     private Usuario objUsuario = new Usuario();
-    String mensaje;
+    public String mensaje;
 
     public beanLogin() {
 
@@ -34,10 +33,13 @@ public class beanLogin {
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
     }
-
+    
+    public String getMensaje() {
+        return mensaje;
+    }
+    
     public String ingresar() {
         if (bean_login.usuario(objUsuario.getCorreo(), objUsuario.getClave()).equals("1")) {
-
             return "menu";
         } else {
             mensaje = "Usuario y/o Contrasenia Incorrectos";

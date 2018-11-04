@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml"
+                template="plantilla.xhtml"
+                xmlns:c="http://java.sun.com/jsf/core"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"               
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name ="titulo">
+        Usuarios
+    </ui:define>
+
+    <ui:define name="cabecera">
+        <h1><center>Lista de Clientes Registrados</center></h1>
+    </ui:define>
+
+
+    <ui:define name="contenido">
+        <p:dataTable id="dtPrestamo" value="#" var="PrestamoJsf">
+            <p:column filterBy="#" filterMatchMode="contains"><center><c:facet name="header">Código del Ciente</c:facet><p:outputLabel value="#"/></center></p:column>
+            <p:column filterBy="#" filterMatchMode="contains"><center><c:facet name="header">Nombres</c:facet><p:outputLabel value="#"/></center></p:column>
+            <p:column filterBy="#" filterMatchMode="contains"><center><c:facet name="header">Apellidos</c:facet><p:outputLabel value="#"/> </center></p:column>              
+        </p:dataTable>                
+        <br></br><br></br>
+        <table width='50%' border='1' align='center'>
+            <tr>
+                <td>Eliminación de cliente individual</td>
+                <td><label for='codigo_eliminar'></label>
+                    <h:inputText id="codigo_eliminar" value="#"/>
+                </td>
+            </tr>
+        </table>
+    </ui:define>
+
+</ui:composition>
