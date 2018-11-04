@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="./css/reset.css">
+                <link href="https://fonts.googleapis.com/css?family=Lato:400,900" rel="stylesheet">
+                    <link rel="stylesheet" href="./css/main.css">
+                        <title>Formulario</title>
+                        </h:head>
+                        <h:body>
+                            <div class="container">
+
+                                <h:form class="form__reg">
+                                    <div class="form__top">
+                                        <h2>DATOS <span>GENERALES</span></h2>
+                                    </div>
+
+                                    <h:panelGrid columns="12">
+                                        <h:outputText value="Cédula:" /> 
+                                        <h:inputText class="input"  ></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <h:outputText value="Apellidos:" />
+                                        <h:inputText class="input" style="width: 170px" ></h:inputText>&nbsp;&nbsp;
+                                        <h:outputText value="Nombres:" />
+                                        <h:inputText class="input" style="width: 170px"  ></h:inputText>
+
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="4">
+                                        <h:outputText value="Genero:" />
+                                        &nbsp;&nbsp;
+                                        <h:selectOneRadio id="console" value="#{radioView.console}">
+                                            <f:selectItem itemLabel="Masculino" itemValue="1" />
+                                            <f:selectItem itemLabel="Femenino" itemValue="2" />
+                                        </h:selectOneRadio>
+
+                                    </h:panelGrid>
+                                    <br></br>
+                                    <h:panelGrid columns="10">
+                                        <h:outputLabel for="car" value="País de nacimiento:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <p:selectOneMenu id="car" value="#{selectOneMenuView.car}"> 
+                                            <f:selectItem itemLabel="Seleccionar" itemValue="" />
+                                            <f:selectItems value="#{selectOneMenuView.cars}" />
+                                        </p:selectOneMenu>
+
+
+                                    </h:panelGrid>
+                                    <br></br>
+                                    <h:panelGrid columns="10">
+                                        <h:outputLabel for="car" value="Ciudadanía:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <p:selectOneMenu id="car" value="#{selectOneMenuView.car}"> 
+                                            <f:selectItem itemLabel="Seleccionar" itemValue="" />
+                                            <f:selectItems value="#{selectOneMenuView.cars}" />
+                                        </p:selectOneMenu>
+
+
+                                    </h:panelGrid>
+                                    <br></br>
+                                    <h:panelGrid columns="10">
+                                        <h:outputLabel for="car" value="Estado Civil: " /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <p:selectOneMenu id="car" value="#{selectOneMenuView.car}"> 
+                                            <f:selectItem itemLabel="Seleccionar" itemValue="" />
+                                            <f:selectItems value="#{selectOneMenuView.cars}" />
+                                        </p:selectOneMenu>
+
+
+                                    </h:panelGrid>
+                                    <br></br>
+                                    <h:panelGrid columns="10">
+
+                                        <h:outputLabel for="popup1" value="Fecha de Registro:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <p:calendar id="popup1" value="#{calendarView.date2}" />
+
+                                    </h:panelGrid>
+                                    <br></br>
+                                    <h:panelGrid columns="6">
+
+                                        <h:outputLabel for="popup2" value="Fecha de Nacimiento:" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <p:calendar id="popup2" value="#{calendarView.date2}" />
+
+                                    </h:panelGrid>
+                                    <br></br>
+                                    <h:panelGrid columns="12">
+
+                                        <h:outputLabel for="time" value="Hora de Registro:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <p:calendar id="time" value="#{calendarView.date11}" pattern="HH:mm" timeOnly="true"  />
+                                    </h:panelGrid>
+                                    <br></br>
+                                    <div class="form__top">
+                                        <h2>DIRECCIÓN DE <span> RESIDENCIA</span></h2>
+                                    </div>
+                                    <h:panelGrid columns="10">
+                                        <h:outputLabel for="car" value="País de residencia:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <p:selectOneMenu id="car" value="#{selectOneMenuView.car}"> 
+                                            <f:selectItem itemLabel="Seleccionar" itemValue="" />
+                                            <f:selectItems value="#{selectOneMenuView.cars}" />
+                                        </p:selectOneMenu>
+
+
+                                    </h:panelGrid>
+                                    <div class="form__top">
+                                        <h2>DATOS <span>FAMILIARES</span></h2>
+                                    </div>
+                                    <h:panelGrid columns="2">
+
+                                        <h:outputText value="Cédula:" />
+                                        <h:inputText class="input"  ></h:inputText>
+                                        <h:outputText value="Apellidos:" />
+                                        <h:inputText class="input"  ></h:inputText>
+                                        <h:outputText value="Nombres:" />
+                                        <h:inputText class="input"  ></h:inputText>
+                                        <h:outputText value="Genero:" />
+
+
+                                    </h:panelGrid>
+                                    <div class="form__top">
+                                        <h2>DATOS  <span>ECONÓMICOS</span></h2>
+                                    </div>
+                                    <h:panelGrid columns="2">
+
+                                        <h:outputText value="Cédula:" />
+                                        <h:inputText class="input"  ></h:inputText>
+                                        <h:outputText value="Apellidos:" />
+                                        <h:inputText class="input"  ></h:inputText>
+                                        <h:outputText value="Nombres:" />
+                                        <h:inputText class="input"  ></h:inputText>
+                                        <h:outputText value="Genero:" />
+
+
+                                    </h:panelGrid>
+                                    <div class="btn__form">
+                                        <h:commandButton class="btn__submit"  type="submit" value="REGISTRAR"> </h:commandButton>
+                                        <h:commandButton class="btn__reset" type="reset" value="LIMPIAR"></h:commandButton>	
+                                    </div>
+                                </h:form>
+                            </div>
+                        </h:body>
+                        </html>
+
