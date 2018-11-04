@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.edu.espe.arquitectura.kyc;
+package ec.edu.espe.arquitectura.web;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -16,7 +16,7 @@ import ec.edu.espe.arquitectura.Bean_loginLocal;
  */
 @ManagedBean()
 @SessionScoped
-public class cls_login {
+public class beanLogin {
 
     @EJB
     Bean_loginLocal bean_login;
@@ -25,7 +25,7 @@ public class cls_login {
     String contrasenia;
     String mensaje;
 
-    public cls_login() {
+    public beanLogin() {
 
     }
 
