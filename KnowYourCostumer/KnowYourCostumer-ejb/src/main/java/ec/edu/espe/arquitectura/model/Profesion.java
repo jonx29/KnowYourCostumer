@@ -3,11 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.edu.espe.arquitectura.ecdb;
+package ec.edu.espe.arquitectura.model;
 
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -25,46 +26,46 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author USUARIO
  */
 @Entity
-@Table(name = "genero")
+@Table(name = "profesion")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Genero.findAll", query = "SELECT g FROM Genero g")
-    , @NamedQuery(name = "Genero.findByCodGenero", query = "SELECT g FROM Genero g WHERE g.codGenero = :codGenero")
-    , @NamedQuery(name = "Genero.findByDescripcion", query = "SELECT g FROM Genero g WHERE g.descripcion = :descripcion")})
-public class Genero implements Serializable {
+    @NamedQuery(name = "Profesion.findAll", query = "SELECT p FROM Profesion p")
+    , @NamedQuery(name = "Profesion.findByCodProfesion", query = "SELECT p FROM Profesion p WHERE p.codProfesion = :codProfesion")
+    , @NamedQuery(name = "Profesion.findByDescripcion", query = "SELECT p FROM Profesion p WHERE p.descripcion = :descripcion")})
+public class Profesion implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "cod_genero")
-    private Short codGenero;
+    @Column(name = "cod_profesion")
+    private Short codProfesion;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 25)
     @Column(name = "descripcion")
     private String descripcion;
-    @OneToMany(mappedBy = "codGenero")
-    private List<Cliente> clienteList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codProfesion")
+    private List<ProfesionCliente> profesionClienteList;
 
-    public Genero() {
+    public Profesion() {
     }
 
-    public Genero(Short codGenero) {
-        this.codGenero = codGenero;
+    public Profesion(Short codProfesion) {
+        this.codProfesion = codProfesion;
     }
 
-    public Genero(Short codGenero, String descripcion) {
-        this.codGenero = codGenero;
+    public Profesion(Short codProfesion, String descripcion) {
+        this.codProfesion = codProfesion;
         this.descripcion = descripcion;
     }
 
-    public Short getCodGenero() {
-        return codGenero;
+    public Short getCodProfesion() {
+        return codProfesion;
     }
 
-    public void setCodGenero(Short codGenero) {
-        this.codGenero = codGenero;
+    public void setCodProfesion(Short codProfesion) {
+        this.codProfesion = codProfesion;
     }
 
     public String getDescripcion() {
@@ -76,29 +77,29 @@ public class Genero implements Serializable {
     }
 
     @XmlTransient
-    public List<Cliente> getClienteList() {
-        return clienteList;
+    public List<ProfesionCliente> getProfesionClienteList() {
+        return profesionClienteList;
     }
 
-    public void setClienteList(List<Cliente> clienteList) {
-        this.clienteList = clienteList;
+    public void setProfesionClienteList(List<ProfesionCliente> profesionClienteList) {
+        this.profesionClienteList = profesionClienteList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codGenero != null ? codGenero.hashCode() : 0);
+        hash += (codProfesion != null ? codProfesion.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Genero)) {
+        if (!(object instanceof Profesion)) {
             return false;
         }
-        Genero other = (Genero) object;
-        if ((this.codGenero == null && other.codGenero != null) || (this.codGenero != null && !this.codGenero.equals(other.codGenero))) {
+        Profesion other = (Profesion) object;
+        if ((this.codProfesion == null && other.codProfesion != null) || (this.codProfesion != null && !this.codProfesion.equals(other.codProfesion))) {
             return false;
         }
         return true;
@@ -106,7 +107,7 @@ public class Genero implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.arquitectura.ecdb.Genero[ codGenero=" + codGenero + " ]";
+        return "ec.edu.espe.arquitectura.ecdb.Profesion[ codProfesion=" + codProfesion + " ]";
     }
     
 }

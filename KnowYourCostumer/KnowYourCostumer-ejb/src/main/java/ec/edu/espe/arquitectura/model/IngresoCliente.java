@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.edu.espe.arquitectura.ecdb;
+package ec.edu.espe.arquitectura.model;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -23,20 +23,20 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author USUARIO
  */
 @Entity
-@Table(name = "egreso_cliente")
+@Table(name = "ingreso_cliente")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "EgresoCliente.findAll", query = "SELECT e FROM EgresoCliente e")
-    , @NamedQuery(name = "EgresoCliente.findByCodEgresoCliente", query = "SELECT e FROM EgresoCliente e WHERE e.codEgresoCliente = :codEgresoCliente")
-    , @NamedQuery(name = "EgresoCliente.findByValor", query = "SELECT e FROM EgresoCliente e WHERE e.valor = :valor")})
-public class EgresoCliente implements Serializable {
+    @NamedQuery(name = "IngresoCliente.findAll", query = "SELECT i FROM IngresoCliente i")
+    , @NamedQuery(name = "IngresoCliente.findByCodIngresoCliente", query = "SELECT i FROM IngresoCliente i WHERE i.codIngresoCliente = :codIngresoCliente")
+    , @NamedQuery(name = "IngresoCliente.findByValor", query = "SELECT i FROM IngresoCliente i WHERE i.valor = :valor")})
+public class IngresoCliente implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "cod_egreso_cliente")
-    private Long codEgresoCliente;
+    @Column(name = "cod_ingreso_cliente")
+    private Long codIngresoCliente;
     @Basic(optional = false)
     @NotNull
     @Column(name = "valor")
@@ -44,28 +44,28 @@ public class EgresoCliente implements Serializable {
     @JoinColumn(name = "cod_cliente", referencedColumnName = "cod_cliente")
     @ManyToOne(optional = false)
     private Cliente codCliente;
-    @JoinColumn(name = "cod_tipo_egreso", referencedColumnName = "cod_tipo_egreso")
+    @JoinColumn(name = "cod_tipo_ingreso", referencedColumnName = "cod_tipo_ingreso")
     @ManyToOne(optional = false)
-    private TipoEgreso codTipoEgreso;
+    private TipoIngreso codTipoIngreso;
 
-    public EgresoCliente() {
+    public IngresoCliente() {
     }
 
-    public EgresoCliente(Long codEgresoCliente) {
-        this.codEgresoCliente = codEgresoCliente;
+    public IngresoCliente(Long codIngresoCliente) {
+        this.codIngresoCliente = codIngresoCliente;
     }
 
-    public EgresoCliente(Long codEgresoCliente, int valor) {
-        this.codEgresoCliente = codEgresoCliente;
+    public IngresoCliente(Long codIngresoCliente, int valor) {
+        this.codIngresoCliente = codIngresoCliente;
         this.valor = valor;
     }
 
-    public Long getCodEgresoCliente() {
-        return codEgresoCliente;
+    public Long getCodIngresoCliente() {
+        return codIngresoCliente;
     }
 
-    public void setCodEgresoCliente(Long codEgresoCliente) {
-        this.codEgresoCliente = codEgresoCliente;
+    public void setCodIngresoCliente(Long codIngresoCliente) {
+        this.codIngresoCliente = codIngresoCliente;
     }
 
     public int getValor() {
@@ -84,29 +84,29 @@ public class EgresoCliente implements Serializable {
         this.codCliente = codCliente;
     }
 
-    public TipoEgreso getCodTipoEgreso() {
-        return codTipoEgreso;
+    public TipoIngreso getCodTipoIngreso() {
+        return codTipoIngreso;
     }
 
-    public void setCodTipoEgreso(TipoEgreso codTipoEgreso) {
-        this.codTipoEgreso = codTipoEgreso;
+    public void setCodTipoIngreso(TipoIngreso codTipoIngreso) {
+        this.codTipoIngreso = codTipoIngreso;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codEgresoCliente != null ? codEgresoCliente.hashCode() : 0);
+        hash += (codIngresoCliente != null ? codIngresoCliente.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EgresoCliente)) {
+        if (!(object instanceof IngresoCliente)) {
             return false;
         }
-        EgresoCliente other = (EgresoCliente) object;
-        if ((this.codEgresoCliente == null && other.codEgresoCliente != null) || (this.codEgresoCliente != null && !this.codEgresoCliente.equals(other.codEgresoCliente))) {
+        IngresoCliente other = (IngresoCliente) object;
+        if ((this.codIngresoCliente == null && other.codIngresoCliente != null) || (this.codIngresoCliente != null && !this.codIngresoCliente.equals(other.codIngresoCliente))) {
             return false;
         }
         return true;
@@ -114,7 +114,7 @@ public class EgresoCliente implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.arquitectura.ecdb.EgresoCliente[ codEgresoCliente=" + codEgresoCliente + " ]";
+        return "ec.edu.espe.arquitectura.ecdb.IngresoCliente[ codIngresoCliente=" + codIngresoCliente + " ]";
     }
     
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.edu.espe.arquitectura.ecdb;
+package ec.edu.espe.arquitectura.model;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -23,54 +23,39 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author USUARIO
  */
 @Entity
-@Table(name = "cuenta")
+@Table(name = "nacionalidad")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Cuenta.findAll", query = "SELECT c FROM Cuenta c")
-    , @NamedQuery(name = "Cuenta.findByCodCuenta", query = "SELECT c FROM Cuenta c WHERE c.codCuenta = :codCuenta")
-    , @NamedQuery(name = "Cuenta.findByActiva", query = "SELECT c FROM Cuenta c WHERE c.activa = :activa")})
-public class Cuenta implements Serializable {
+    @NamedQuery(name = "Nacionalidad.findAll", query = "SELECT n FROM Nacionalidad n")
+    , @NamedQuery(name = "Nacionalidad.findByCodNacionalidad", query = "SELECT n FROM Nacionalidad n WHERE n.codNacionalidad = :codNacionalidad")})
+public class Nacionalidad implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "cod_cuenta")
-    private Long codCuenta;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "activa")
-    private boolean activa;
+    @Column(name = "cod_nacionalidad")
+    private Integer codNacionalidad;
     @JoinColumn(name = "cod_cliente", referencedColumnName = "cod_cliente")
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Cliente codCliente;
+    @JoinColumn(name = "cod_pais", referencedColumnName = "cod_pais")
+    @ManyToOne(optional = false)
+    private Pais codPais;
 
-    public Cuenta() {
+    public Nacionalidad() {
     }
 
-    public Cuenta(Long codCuenta) {
-        this.codCuenta = codCuenta;
+    public Nacionalidad(Integer codNacionalidad) {
+        this.codNacionalidad = codNacionalidad;
     }
 
-    public Cuenta(Long codCuenta, boolean activa) {
-        this.codCuenta = codCuenta;
-        this.activa = activa;
+    public Integer getCodNacionalidad() {
+        return codNacionalidad;
     }
 
-    public Long getCodCuenta() {
-        return codCuenta;
-    }
-
-    public void setCodCuenta(Long codCuenta) {
-        this.codCuenta = codCuenta;
-    }
-
-    public boolean getActiva() {
-        return activa;
-    }
-
-    public void setActiva(boolean activa) {
-        this.activa = activa;
+    public void setCodNacionalidad(Integer codNacionalidad) {
+        this.codNacionalidad = codNacionalidad;
     }
 
     public Cliente getCodCliente() {
@@ -81,21 +66,29 @@ public class Cuenta implements Serializable {
         this.codCliente = codCliente;
     }
 
+    public Pais getCodPais() {
+        return codPais;
+    }
+
+    public void setCodPais(Pais codPais) {
+        this.codPais = codPais;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codCuenta != null ? codCuenta.hashCode() : 0);
+        hash += (codNacionalidad != null ? codNacionalidad.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Cuenta)) {
+        if (!(object instanceof Nacionalidad)) {
             return false;
         }
-        Cuenta other = (Cuenta) object;
-        if ((this.codCuenta == null && other.codCuenta != null) || (this.codCuenta != null && !this.codCuenta.equals(other.codCuenta))) {
+        Nacionalidad other = (Nacionalidad) object;
+        if ((this.codNacionalidad == null && other.codNacionalidad != null) || (this.codNacionalidad != null && !this.codNacionalidad.equals(other.codNacionalidad))) {
             return false;
         }
         return true;
@@ -103,7 +96,7 @@ public class Cuenta implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.arquitectura.ecdb.Cuenta[ codCuenta=" + codCuenta + " ]";
+        return "ec.edu.espe.arquitectura.ecdb.Nacionalidad[ codNacionalidad=" + codNacionalidad + " ]";
     }
     
 }

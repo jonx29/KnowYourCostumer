@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.edu.espe.arquitectura.ecdb;
+package ec.edu.espe.arquitectura.model;
 
 import java.io.Serializable;
 import java.util.List;
@@ -25,46 +25,46 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author USUARIO
  */
 @Entity
-@Table(name = "estado_civil")
+@Table(name = "genero")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "EstadoCivil.findAll", query = "SELECT e FROM EstadoCivil e")
-    , @NamedQuery(name = "EstadoCivil.findByCodEstadoCivil", query = "SELECT e FROM EstadoCivil e WHERE e.codEstadoCivil = :codEstadoCivil")
-    , @NamedQuery(name = "EstadoCivil.findByDescripcion", query = "SELECT e FROM EstadoCivil e WHERE e.descripcion = :descripcion")})
-public class EstadoCivil implements Serializable {
+    @NamedQuery(name = "Genero.findAll", query = "SELECT g FROM Genero g")
+    , @NamedQuery(name = "Genero.findByCodGenero", query = "SELECT g FROM Genero g WHERE g.codGenero = :codGenero")
+    , @NamedQuery(name = "Genero.findByDescripcion", query = "SELECT g FROM Genero g WHERE g.descripcion = :descripcion")})
+public class Genero implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "cod_estado_civil")
-    private Short codEstadoCivil;
+    @Column(name = "cod_genero")
+    private Short codGenero;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 25)
     @Column(name = "descripcion")
     private String descripcion;
-    @OneToMany(mappedBy = "codEstadoCivil")
+    @OneToMany(mappedBy = "codGenero")
     private List<Cliente> clienteList;
 
-    public EstadoCivil() {
+    public Genero() {
     }
 
-    public EstadoCivil(Short codEstadoCivil) {
-        this.codEstadoCivil = codEstadoCivil;
+    public Genero(Short codGenero) {
+        this.codGenero = codGenero;
     }
 
-    public EstadoCivil(Short codEstadoCivil, String descripcion) {
-        this.codEstadoCivil = codEstadoCivil;
+    public Genero(Short codGenero, String descripcion) {
+        this.codGenero = codGenero;
         this.descripcion = descripcion;
     }
 
-    public Short getCodEstadoCivil() {
-        return codEstadoCivil;
+    public Short getCodGenero() {
+        return codGenero;
     }
 
-    public void setCodEstadoCivil(Short codEstadoCivil) {
-        this.codEstadoCivil = codEstadoCivil;
+    public void setCodGenero(Short codGenero) {
+        this.codGenero = codGenero;
     }
 
     public String getDescripcion() {
@@ -87,18 +87,18 @@ public class EstadoCivil implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codEstadoCivil != null ? codEstadoCivil.hashCode() : 0);
+        hash += (codGenero != null ? codGenero.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof EstadoCivil)) {
+        if (!(object instanceof Genero)) {
             return false;
         }
-        EstadoCivil other = (EstadoCivil) object;
-        if ((this.codEstadoCivil == null && other.codEstadoCivil != null) || (this.codEstadoCivil != null && !this.codEstadoCivil.equals(other.codEstadoCivil))) {
+        Genero other = (Genero) object;
+        if ((this.codGenero == null && other.codGenero != null) || (this.codGenero != null && !this.codGenero.equals(other.codGenero))) {
             return false;
         }
         return true;
@@ -106,7 +106,7 @@ public class EstadoCivil implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.arquitectura.ecdb.EstadoCivil[ codEstadoCivil=" + codEstadoCivil + " ]";
+        return "ec.edu.espe.arquitectura.ecdb.Genero[ codGenero=" + codGenero + " ]";
     }
     
 }

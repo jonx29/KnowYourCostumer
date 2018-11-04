@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.edu.espe.arquitectura.ecdb;
+package ec.edu.espe.arquitectura.model;
 
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -26,46 +25,46 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author USUARIO
  */
 @Entity
-@Table(name = "tipo_personeria")
+@Table(name = "estado_civil")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "TipoPersoneria.findAll", query = "SELECT t FROM TipoPersoneria t")
-    , @NamedQuery(name = "TipoPersoneria.findByCodTipoPersoneria", query = "SELECT t FROM TipoPersoneria t WHERE t.codTipoPersoneria = :codTipoPersoneria")
-    , @NamedQuery(name = "TipoPersoneria.findByDescripcion", query = "SELECT t FROM TipoPersoneria t WHERE t.descripcion = :descripcion")})
-public class TipoPersoneria implements Serializable {
+    @NamedQuery(name = "EstadoCivil.findAll", query = "SELECT e FROM EstadoCivil e")
+    , @NamedQuery(name = "EstadoCivil.findByCodEstadoCivil", query = "SELECT e FROM EstadoCivil e WHERE e.codEstadoCivil = :codEstadoCivil")
+    , @NamedQuery(name = "EstadoCivil.findByDescripcion", query = "SELECT e FROM EstadoCivil e WHERE e.descripcion = :descripcion")})
+public class EstadoCivil implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "cod_tipo_personeria")
-    private Short codTipoPersoneria;
+    @Column(name = "cod_estado_civil")
+    private Short codEstadoCivil;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 25)
     @Column(name = "descripcion")
     private String descripcion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codTipoPersoneria")
+    @OneToMany(mappedBy = "codEstadoCivil")
     private List<Cliente> clienteList;
 
-    public TipoPersoneria() {
+    public EstadoCivil() {
     }
 
-    public TipoPersoneria(Short codTipoPersoneria) {
-        this.codTipoPersoneria = codTipoPersoneria;
+    public EstadoCivil(Short codEstadoCivil) {
+        this.codEstadoCivil = codEstadoCivil;
     }
 
-    public TipoPersoneria(Short codTipoPersoneria, String descripcion) {
-        this.codTipoPersoneria = codTipoPersoneria;
+    public EstadoCivil(Short codEstadoCivil, String descripcion) {
+        this.codEstadoCivil = codEstadoCivil;
         this.descripcion = descripcion;
     }
 
-    public Short getCodTipoPersoneria() {
-        return codTipoPersoneria;
+    public Short getCodEstadoCivil() {
+        return codEstadoCivil;
     }
 
-    public void setCodTipoPersoneria(Short codTipoPersoneria) {
-        this.codTipoPersoneria = codTipoPersoneria;
+    public void setCodEstadoCivil(Short codEstadoCivil) {
+        this.codEstadoCivil = codEstadoCivil;
     }
 
     public String getDescripcion() {
@@ -88,18 +87,18 @@ public class TipoPersoneria implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (codTipoPersoneria != null ? codTipoPersoneria.hashCode() : 0);
+        hash += (codEstadoCivil != null ? codEstadoCivil.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TipoPersoneria)) {
+        if (!(object instanceof EstadoCivil)) {
             return false;
         }
-        TipoPersoneria other = (TipoPersoneria) object;
-        if ((this.codTipoPersoneria == null && other.codTipoPersoneria != null) || (this.codTipoPersoneria != null && !this.codTipoPersoneria.equals(other.codTipoPersoneria))) {
+        EstadoCivil other = (EstadoCivil) object;
+        if ((this.codEstadoCivil == null && other.codEstadoCivil != null) || (this.codEstadoCivil != null && !this.codEstadoCivil.equals(other.codEstadoCivil))) {
             return false;
         }
         return true;
@@ -107,7 +106,7 @@ public class TipoPersoneria implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.arquitectura.ecdb.TipoPersoneria[ codTipoPersoneria=" + codTipoPersoneria + " ]";
+        return "ec.edu.espe.arquitectura.ecdb.EstadoCivil[ codEstadoCivil=" + codEstadoCivil + " ]";
     }
     
 }
