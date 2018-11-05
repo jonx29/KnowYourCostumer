@@ -378,7 +378,11 @@ public class Cliente implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.arquitectura.ecdb.Cliente[ codCliente=" + codCliente + " ]";
+        return "" + codCliente + "";
+    }
+    
+    public int codigo(){
+        return codCliente;
     }
     
 }
