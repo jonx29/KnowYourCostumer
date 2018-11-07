@@ -5,7 +5,8 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns="http://www.w3.org/1999/xhtml"
                 template="plantilla.xhtml"
-                xmlns:c="http://java.sun.com/jsf/core">
+                xmlns:c="http://java.sun.com/jsf/core"              
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:define name ="titulo">
         Usuarios
@@ -19,12 +20,12 @@
     <ui:define name="contenido">
         <h:form>
             <center>
-                <h:dataTable value="#{listaUsuario.list}" var="Usuario" width="50%" border="1">
-                    <h:column><center><c:facet name="header">Código</c:facet><h:outputText value="#{Usuario.codUsuario}"/></center></h:column>
-                    <h:column><center><c:facet name="header">Nombre</c:facet><h:outputText value="#{Usuario.nombre}"/> </center></h:column>              
-                    <h:column><center><c:facet name="header">Correo</c:facet><h:outputText value="#{Usuario.correo}"/> </center></h:column>                
-                    <h:column><center><c:facet name="header">Contraseñia</c:facet><h:outputText value="#{Usuario.clave}"/> </center></h:column>                                
-                </h:dataTable>    
+                <p:dataTable value="#{listaUsuario.list}" var="Usuario">
+                    <p:column><center><c:facet name="header">Código</c:facet><h:outputText value="#{Usuario.codUsuario}"/></center></p:column>
+                    <p:column><center><c:facet name="header">Nombre</c:facet><h:outputText value="#{Usuario.nombre}"/> </center></p:column>              
+                    <p:column><center><c:facet name="header">Correo</c:facet><h:outputText value="#{Usuario.correo}"/> </center></p:column>                
+                    <p:column><center><c:facet name="header">Contraseñia</c:facet><h:outputText value="#{Usuario.clave}"/> </center></p:column>                                
+                </p:dataTable>    
                 <p></p>
                 <h:commandButton id="buscar" value="Regresar" action="menu"> </h:commandButton>
             </center>

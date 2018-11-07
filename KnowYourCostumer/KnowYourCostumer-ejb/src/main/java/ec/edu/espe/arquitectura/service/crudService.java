@@ -6,6 +6,7 @@
 package ec.edu.espe.arquitectura.service;
 
 import ec.edu.espe.arquitectura.dao.ClienteFacade;
+import java.util.Date;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -22,5 +23,9 @@ public class crudService {
 
     public int eliminar(Integer codCliente) {
        return clienteFacade.eliminarRegistro(codCliente);        
+    }
+    
+    public int ingresar(String apellidos, String nombres, Date nace, Date ingresa){
+        return clienteFacade.ingresarRegistro(apellidos, nombres, nace, ingresa);
     }
 }
