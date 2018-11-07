@@ -68,4 +68,5 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
         }*/
         return retorno;
     }
+    
 }

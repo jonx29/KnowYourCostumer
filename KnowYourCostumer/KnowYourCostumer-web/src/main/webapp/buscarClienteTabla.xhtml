@@ -27,8 +27,8 @@
                 <p:column filterBy="#{Eliminacion.apellidos}" ><center><c:facet name="header">Apellidos</c:facet><p:outputLabel value="#{Eliminacion.apellidos}"/></center></p:column>              
                 <p:column headerText="">
                     <center>
-                        <p:commandButton value="Eliminar" oncomplete="PF('dlgEliminar').show();" update=":formEliminar">                             
-                            <f:setPropertyActionListener target="#{beanClientes.objCliente}" value="#{Eliminacion}"/>  
+                        <p:commandButton value="Buscar" action="#{beanClientesBusqueda.Busqueda(Eliminacion.codCliente)}"  >                             
+                           
                         </p:commandButton>
                     </center>
                 </p:column>
@@ -38,15 +38,7 @@
         <br></br><br></br>
         <center><a href='menu.xhtml'><input type='submit' name='boton' value='Regresar'/></a></center>
 
-        <p:dialog id="dlg2" header="Eliminar Datos" widgetVar="dlgEliminar" modal="true">
-            <h:form id="formEliminar">            
-                <h:outputText value="Desea eliminar este registro?"/>                            
-                <h:outputText id="mensaje1" value="#{beanClientes.codigo}"/>
-                <p:commandButton value="Si" actionListener="#{beanClientes.eliminar()}"
-                                 update=":formDatos" oncomplete="PF('dlgEliminar').hide();"/>
-                <p:commandButton value="No" onclick="PF('dlgEliminar').hide();"/>
-            </h:form>
-        </p:dialog>
+       
 
     </ui:define>
 

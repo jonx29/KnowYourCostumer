@@ -6,7 +6,9 @@
 package ec.edu.espe.arquitectura.service;
 
 import ec.edu.espe.arquitectura.dao.ClienteFacade;
+import ec.edu.espe.arquitectura.model.Cliente;
 import java.util.Date;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -18,14 +20,20 @@ import javax.ejb.Stateless;
 @Stateless
 @LocalBean
 public class crudService {
+
     @EJB
     private ClienteFacade clienteFacade;
 
     public int eliminar(Integer codCliente) {
-       return clienteFacade.eliminarRegistro(codCliente);        
+        return clienteFacade.eliminarRegistro(codCliente);
     }
-    
-    public int ingresar(String apellidos, String nombres, Date nace, Date ingresa){
+
+    public int ingresar(String apellidos, String nombres, Date nace, Date ingresa) {
         return clienteFacade.ingresarRegistro(apellidos, nombres, nace, ingresa);
+    }
+
+    public List<Cliente> buscarCliente() {
+        System.out.println("nuevooooooo");
+        return clienteFacade.findAll();
     }
 }
