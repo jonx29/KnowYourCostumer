@@ -410,12 +410,31 @@ public class beanClientesBusqueda {
         this.fechaFin = fechaFin;
     }
 
+    private Cliente cliente;
+    
     //Metodo para crear la cabecera de las encuestas
     public String Busqueda(Integer cod) {
         String path;
         System.out.println("este codigo toma"+cod);
-
+        setCliente(bean_cliente.buscarCliente(cod));
+        nombres= cliente.getNombres();
+        apellidos= cliente.getApellidos();
         return path = "/verCliente?faces-redirect=true";
 
     }
+
+    /**
+     * @return the cliente
+     */
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    /**
+     * @param cliente the cliente to set
+     */
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
 }

@@ -55,18 +55,38 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
         return valorMaximo;
     }
 
-    public int ingresarRegistro(String apellidos, String nombres, Date nace, Date registro){
+    public int ingresarRegistro(String apellidos, String nombres, Date nace, Date registro) {
         int retorno = 0;
         //try {
-            Query query = em.createNativeQuery("INSERT INTO cliente(cod_cliente, cod__direccion, cod_estado_civil, "
-                    + "cod_genero, cod_tipo_personeria, pais_nacimiento, nombres, apellidos, fecha_nacimiento, fecha_registro, hora_registro) "
-                    + "VALUES (" + maxCodigo() + ", 1, 1, 1, 1, 1, '" + nombres + "', '" + apellidos + "', '" + nace + "', '" + registro + "', '1:00:00')");
-            query.executeUpdate();
-            retorno = 1;
+        Query query = em.createNativeQuery("INSERT INTO cliente(cod_cliente, cod__direccion, cod_estado_civil, "
+                + "cod_genero, cod_tipo_personeria, pais_nacimiento, nombres, apellidos, fecha_nacimiento, fecha_registro, hora_registro) "
+                + "VALUES (" + maxCodigo() + ", 1, 1, 1, 1, 1, '" + nombres + "', '" + apellidos + "', '" + nace + "', '" + registro + "', '1:00:00')");
+        query.executeUpdate();
+        retorno = 1;
         /*} catch (Exception ex) {
-            retorno = 0;
-        }*/
+         retorno = 0;
+         }*/
         return retorno;
     }
-    
+
+    public Cliente busqueda(Integer codCliente) {
+
+        Cliente cliente;
+ 
+        System.out.println("este es el utimo");
+
+        try {
+            System.out.println("estoy en try");
+            Query query = em.createQuery("SELECT c FROM Cliente c WHERE c.codCliente = :codCliente");
+            query.setParameter("codCliente", codCliente);
+            cliente = (Cliente) query.getResultList();
+        } catch (Exception e) {
+            System.out.println("ERROR" + e);
+            cliente = null;
+        }
+
+        return cliente;
+
+    }
+
 }

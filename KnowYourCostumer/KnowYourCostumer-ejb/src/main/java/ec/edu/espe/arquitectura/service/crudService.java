@@ -32,8 +32,9 @@ public class crudService {
         return clienteFacade.ingresarRegistro(apellidos, nombres, nace, ingresa);
     }
 
-    public List<Cliente> buscarCliente() {
-        System.out.println("nuevooooooo");
-        return clienteFacade.findAll();
+    public Cliente buscarCliente(Integer codCliente) {
+        System.out.println("nuevooooooo" +codCliente);
+        return clienteFacade.busqueda(codCliente);
+      
     }
 }
