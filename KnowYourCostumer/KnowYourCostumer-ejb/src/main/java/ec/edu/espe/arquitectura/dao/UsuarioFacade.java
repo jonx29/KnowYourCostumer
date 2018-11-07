@@ -52,7 +52,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
             //ls_mensaje=String.valueOf(lista.size());
         } catch (Exception ex) {
             //ls_mensaje = ex.getMessage();
-            val = "0";
+            val = "1";
         }
 
         return val;
