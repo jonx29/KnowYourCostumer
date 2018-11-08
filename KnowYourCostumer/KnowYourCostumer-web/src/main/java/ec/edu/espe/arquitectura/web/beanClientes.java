@@ -31,6 +31,7 @@ public class beanClientes {
     public String mensaje;
 
     //Datos Personales
+    public String tipo_cedula;
     public String cedula;
     public String apellidos;
     public String nombres;
@@ -41,7 +42,6 @@ public class beanClientes {
     public String pais;
     public String ciudadania;
     public String estadoCivil;
-    public Time hora;
 
     //Direccion de Residencia
     public String paisResidencia;
@@ -80,6 +80,14 @@ public class beanClientes {
     public Date fechaInicio;
     public Date fechaFin;
 
+    public String getTipo_cedula() {
+        return tipo_cedula;
+    }
+
+    public void setTipo_cedula(String tipo_cedula) {
+        this.tipo_cedula = tipo_cedula;
+    }
+  
     public String getCedula() {
         return cedula;
     }
@@ -184,14 +192,6 @@ public class beanClientes {
 
     public void setEstadoCivil(String estadoCivil) {
         this.estadoCivil = estadoCivil;
-    }
-
-    public Time getHora() {
-        return hora;
-    }
-
-    public void setHora(Time hora) {
-        this.hora = hora;
     }
 
     public String getPaisResidencia() {
@@ -410,8 +410,6 @@ public class beanClientes {
         this.fechaFin = fechaFin;
     }
 
-    
-    
     public String eliminar() {
         if (bean_cliente.eliminar(objCliente.codigo()) == 1) {
             return "eliminacion";
@@ -422,12 +420,58 @@ public class beanClientes {
     }
 
     public String insertar() {
-        if (bean_cliente.ingresar(apellidos, nombres, fecha_nace, fecha_ingreso) == 1) {
+        if (bean_cliente.ingresar(apellidos, nombres, fecha_nace, fecha_ingreso, Genero, estadoCivil, profecion) == 1) {
+            limpiarCampos();
             return "insercion";
         } else {
             mensaje = "No se pudo realizar la eliminacion";
             return null;
         }
+    }
+
+    public void limpiarCampos() {
+        cedula = "";
+        apellidos = "";
+        nombres = "";
+        profecion = "";
+        Genero = "";
+        pais = "";
+        ciudadania = "";
+        estadoCivil = "";
+
+        //Direccion de Residencia
+        paisResidencia = "";
+        provinciaResidencia = "";
+        ciudadResidencia = "";
+        callePrincipal = "";
+        numCasa = 0;
+        calleSecundaria = "";
+        referencia = "";
+        celular = 0;
+        domicilio = 0;
+
+        //Referencias
+        tipoReferencia = "";
+        cedulaReferencia = "";
+        apellidosReferencia = "";
+        nombresReferencia = "";
+        GeneroReferencia = "";
+        paisReferencia = "";
+        ciudadaniaReferencia = "";
+        estadoCivilReferencia = "";
+
+        //Parentesco con empleados    
+        apellidosEmpleados = "";
+        nombresEmpleados = "";
+        paisEmpleado = "";
+
+        //Datos Economicos
+        actividadEconomica = "";
+        ingresos = 0;
+        egresos = 0;
+
+        //Actividad Politica
+        cargoPolitico = "";
     }
 
 }

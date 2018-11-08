@@ -14,34 +14,35 @@
         <title>Formulario</title>
         <style type="text/css">
             .botones{
-                    
-                                                width:240px;
-                                                height:35px;
-                                                display:block;
-                                                font-family:Arial, 'Helvetica', sans-serif;
-                                                font-size:16px;
-                                                font-weight:bold;
-                                                color:#fff;
-                                                text-decoration:none;
-                                                text-transform:uppercase;
-                                                text-align:center;
-                                                text-shadow:1px 1px 0px #37a69b;
-                                                padding-top:6px;
-                                                margin: 29px 0 0 29px;
-                                                position:relative;
-                                                cursor:pointer;
-                                                border: none;  
-                                                background-color: #37a69b;
-                                                background-image: linear-gradient(top,#3db0a6,#3111);
-                                                border-top-left-radius: 5px;
-                                                border-top-right-radius: 5px;
-                                                border-bottom-right-radius: 5px;
-                                                border-bottom-left-radius:5px;
-                                                box-shadow: inset 0px 1px 0px #2ab7ec, 0px 5px 0px 0px #497a78, 0px 10px 5px #999;
+
+                width:240px;
+                height:35px;
+                display:block;
+                font-family:Arial, 'Helvetica', sans-serif;
+                font-size:16px;
+                font-weight:bold;
+                color:#fff;
+                text-decoration:none;
+                text-transform:uppercase;
+                text-align:center;
+                text-shadow:1px 1px 0px #37a69b;
+                padding-top:6px;
+                margin: 29px 0 0 29px;
+                position:relative;
+                cursor:pointer;
+                border: none;  
+                background-color: #37a69b;
+                background-image: linear-gradient(top,#3db0a6,#3111);
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+                border-bottom-left-radius:5px;
+                box-shadow: inset 0px 1px 0px #2ab7ec, 0px 5px 0px 0px #497a78, 0px 10px 5px #999;
             }
         </style>
     </h:head>
     <h:body>
+        <center><a href='menu.xhtml'><input class="botones" type='submit' name='boton' value='Regresar'/></a></center>
 
         <div class="container">
 
@@ -51,25 +52,36 @@
                 </div>
 
                 <h:panelGrid columns="12">
-                    <h:outputText value="Cédula:" /> 
-                    <h:inputText class="input"  ></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <h:outputText value="Apellidos:" />
-                    <h:inputText class="input" style="width: 170px" value="#{beanClientesBusqueda.apellidos}" ></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <h:outputText value="Nombres:" />
-                    <h:inputText class="input" style="width: 170px" value="#{beanClientes.nombres}"></h:inputText>
+                    <h:outputText value="Tipo de documento:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:selectOneMenu id="docoumento" value="#{beanClientes.tipo_cedula}"> 
+                        <f:selectItem itemLabel="Cedula de ciudadania" itemValue="Cedula de ciudadania" />                       
+                        <f:selectItem itemLabel="Pasaporte" itemValue="Pasaporte" />                     
+                        <f:selectItem itemLabel="RUC" itemValue="RUC" />                       
+                    </p:selectOneMenu>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h:outputText value="Cédula:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText type="number" class="input" value="#{beanClientes.cedula}" required="true" maxlength="10"  onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;">
+                    </p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </h:panelGrid>
+                <br></br>
+                <h:panelGrid columns="12">
+                    <h:outputText value="Apellidos:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.apellidos}" ></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h:outputText value="Nombres:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.nombres}"></p:inputText>
 
                 </h:panelGrid>
                 <br></br>
                 <h:panelGrid columns="10">
-                    <h:outputText value="Genero:" />
-                    &nbsp;&nbsp;
+                    <h:outputText value="Genero:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <p:selectOneMenu id="genero" value="#{beanClientes.genero}"> 
-                        <f:selectItem itemLabel="Seleccionar" itemValue="" />
-                        <f:selectItems value="#{beanClientes.genero}" />
+                        <f:selectItem itemLabel="Masculino" itemValue="Masculino" />                       
+                        <f:selectItem itemLabel="Femenino" itemValue="Femenino" />                     
+                        <f:selectItem itemLabel="Otros" itemValue="Otros" />                       
+                        <f:selectItem itemLabel="Sin Especificar" itemValue="Sin Especificar" />
                     </p:selectOneMenu>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <h:outputText value="Profesión: " />
-                    <h:inputText class="input" style="width: 170px" value="#{beanClientes.profecion}" ></h:inputText>
+                    <h:outputText value="Profesión: " />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.profecion}"></p:inputText>
                 </h:panelGrid>
                 <br></br>
                 <h:panelGrid columns="20">
@@ -79,17 +91,20 @@
                         <f:selectItems value="#{beanClientes.pais}" />
                     </p:selectOneMenu>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <h:outputLabel for="car2" value="Ciudadanía:" /> 
-                    <h:inputText class="input" style="width: 170px" value="#{beanClientes.ciudadania}"></h:inputText>
+                    <h:outputLabel for="car2" value="Ciudadanía:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.ciudadania}"></p:inputText>
 
 
                 </h:panelGrid>
                 <br></br>
                 <h:panelGrid columns="10">
                     <h:outputLabel for="car3" value="Estado Civil: " /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:selectOneMenu id="car3" value="#{beanClientes.estadoCivil}"> 
-                        <f:selectItem itemLabel="Seleccionar" itemValue="" />
-                        <f:selectItems value="#{beanClientes.estadoCivil}" />
+                    <p:selectOneMenu id="car3" value="#{beanClientes.estadoCivil}">                         
+                        <f:selectItem itemLabel="Soltero/a" itemValue="Soltero/a" />                       
+                        <f:selectItem itemLabel="Casado/a" itemValue="Casado/a" />                     
+                        <f:selectItem itemLabel="Divorciado/a" itemValue="Divorciado/a" />        
+                        <f:selectItem itemLabel="Viudo/a" itemValue="Viudo/a" />
+                        <f:selectItem itemLabel="Comprometido/a" itemValue="Comprometido/a" />
                     </p:selectOneMenu>
 
 
@@ -107,12 +122,6 @@
                     <h:outputLabel for="popup2" value="Fecha de Nacimiento:" /> &nbsp;&nbsp;&nbsp;&nbsp;
                     <p:calendar id="popup2" pattern="yyyy-MM-dd" value="#{beanClientes.fecha_nace}" />
 
-                </h:panelGrid>
-                <br></br>
-                <h:panelGrid columns="12">
-
-                    <h:outputLabel for="time" value="Hora de Registro:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:calendar id="time" value="#{beanClientes.hora}" pattern="HH:mm" timeOnly="true"  />
                 </h:panelGrid>
                 <br></br>
                 <div class="form__top">
@@ -147,54 +156,52 @@
                 </h:panelGrid>
                 <br></br>
                 <h:panelGrid columns="12">
-                    <h:outputText value="Calle principal::" /> 
-                    <h:inputText class="input" value="#{beanClientes.callePrincipal}" ></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <h:outputText value="#CASA:" />
-                    <h:inputText class="input" style="width: 170px" value="#{beanClientes.numCasa}"></h:inputText>
+                    <h:outputText value="Calle principal::" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                    <p:inputText class="input" value="#{beanClientes.callePrincipal}" ></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h:outputText value="#CASA:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.numCasa}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"></p:inputText>
 
 
                 </h:panelGrid>
 
                 <h:panelGrid columns="12">
-                    <h:outputText value="Calle secundaria:" />
-                    <h:inputText class="input" style="width: 170px" value="#{beanClientes.calleSecundaria}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h:outputText value="Calle secundaria:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.calleSecundaria}"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 
                 </h:panelGrid>
                 <h:panelGrid columns="12">
-                    <h:outputText value="Referencia:" />
-                    <h:inputText class="input" style="width: 170px" value="#{beanClientes.referencia}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h:outputText value="Referencia:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.referencia}"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 
                 </h:panelGrid>
                 <h:panelGrid columns="12">
-                    <h:outputText value="Teléfono celular N°:" />
-                    <h:inputText class="input" style="width: 170px" value="#{beanClientes.celular}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h:outputText value="Teléfono celular N°:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.celular}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" maxlength="12"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 
                 </h:panelGrid>
                 <h:panelGrid columns="12">
-                    <h:outputText value="Teléfono de domicilio:" />
-                    <h:inputText class="input" style="width: 170px" value="#{beanClientes.domicilio}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-
+                    <h:outputText value="Teléfono de domicilio:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.domicilio}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" maxlength="9"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </h:panelGrid>
-
+                <br></br>
                 <div class="form__top">
                     <h2><span>REFERENCIAS</span></h2>
                 </div>
 
                 <h:panelGrid columns="12">
-                    <h:outputText value="Tipo de Referencia:" /> 
-                    <h:inputText class="input"  value="#{beanClientes.tipoReferencia}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h:outputText value="Tipo de Referencia:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input"  value="#{beanClientes.tipoReferencia}"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h:outputText value="Cédula:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" value="#{beanClientes.cedulaReferencia}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" maxlength="10"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </h:panelGrid>
                 <h:panelGrid columns="12">
-                    <h:outputText value="Cédula:" /> 
-                    <h:inputText class="input"  value="#{beanClientes.cedulaReferencia}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <h:outputText value="Apellidos:" />
-                    <h:inputText class="input" style="width: 170px" value="#{beanClientes.apellidosReferencia}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <h:outputText value="Nombres:" />
-                    <h:inputText class="input" style="width: 170px" value="#{beanClientes.nombresReferencia}" ></h:inputText>
+                    <h:outputText value="Apellidos:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.apellidosReferencia}"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h:outputText value="Nombres:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.nombresReferencia}" ></p:inputText>
 
                 </h:panelGrid>
                 <br></br>
@@ -203,8 +210,10 @@
                     <h:outputText value="Genero:" />
                     &nbsp;&nbsp;
                     <p:selectOneMenu id="genero1" value="#{beanClientes.generoReferencia}"> 
-                        <f:selectItem itemLabel="Seleccionar" itemValue="" />
-                        <f:selectItems value="#{beanClientes.generoReferencia}" />
+                        <f:selectItem itemLabel="Masculino" itemValue="Masculino" />                       
+                        <f:selectItem itemLabel="Femenino" itemValue="Femenino" />                     
+                        <f:selectItem itemLabel="Otros" itemValue="Otros" />                        
+                        <f:selectItem itemLabel="Sin Especificar" itemValue="Sin Especificar" />
                     </p:selectOneMenu>
 
                 </h:panelGrid>
@@ -227,9 +236,12 @@
                 <br></br>
                 <h:panelGrid columns="10">
                     <h:outputLabel for="car31" value="Estado Civil: " /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:selectOneMenu id="car31" value="#{beanClientes.estadoCivilReferencia}"> 
-                        <f:selectItem itemLabel="Seleccionar" itemValue="" />
-                        <f:selectItems value="#{beanClientes.estadoCivilReferencia}" />
+                    <p:selectOneMenu id="car31" value="#{beanClientes.estadoCivilReferencia}">                
+                        <f:selectItem itemLabel="Soltero/a" itemValue="Soltero/a" />                       
+                        <f:selectItem itemLabel="Casado/a" itemValue="Casado/a" />                     
+                        <f:selectItem itemLabel="Divorciado/a" itemValue="Divorciado/a" />        
+                        <f:selectItem itemLabel="Viudo/a" itemValue="Viudo/a" />
+                        <f:selectItem itemLabel="Comprometido/a" itemValue="Comprometido/a" />
                     </p:selectOneMenu>
 
 
@@ -241,10 +253,10 @@
                 </div>
 
                 <h:panelGrid columns="12">
-                    <h:outputText value="Nombres:" /> 
-                    <h:inputText class="input"  value="#{beanClientes.nombresEmpleados}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <h:outputText value="Apellidos:" />
-                    <h:inputText class="input" style="width: 170px" value="#{beanClientes.apellidosEmpleados}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h:outputText value="Nombres:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input"  value="#{beanClientes.nombresEmpleados}"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h:outputText value="Apellidos:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.apellidosEmpleados}"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                 </h:panelGrid>
                 <br></br>
@@ -264,22 +276,26 @@
                 <div class="form__top">
                     <h2>DATOS  <span>ECONÓMICOS</span></h2>
                 </div>
-                <h:panelGrid columns="2">
-
-                    <h:outputText value="Actividad económica:" />
-                    <h:inputText class="input" value="#{beanClientes.actividadEconomica}"></h:inputText>
-                    <h:outputText value="Ingresos mensuales:" />
-                    <h:inputText class="input" value="#{beanClientes.ingresos}"></h:inputText>
-                    <h:outputText value="Egresos mensuales :" />
-                    <h:inputText class="input" value="#{beanClientes.egresos}"></h:inputText>
+                <h:panelGrid columns="12">
+                    <h:outputText value="Actividad económica:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" value="#{beanClientes.actividadEconomica}"></p:inputText>
                 </h:panelGrid>
+                <br></br>                
+                <h:panelGrid columns="12">
+                    <h:outputText value="Ingresos mensuales:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" value="#{beanClientes.ingresos}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h:outputText value="Egresos mensuales :" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" value="#{beanClientes.egresos}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"></p:inputText>
+                </h:panelGrid>
+                <br></br>
                 <div class="form__top">
                     <h2>ACTIVIDAD <span>POLÍTICA</span></h2>
                 </div>
-                <h:panelGrid columns="2">
+                <h:panelGrid columns="12">
 
-                    <h:outputText value="Cargo político:" />
-                    <h:inputText class="input"  value="#{beanClientes.cargoPolitico}"></h:inputText>
+                    <h:outputText value="Cargo político:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input"  value="#{beanClientes.cargoPolitico}"></p:inputText>
+                    <br></br><br></br>
 
                 </h:panelGrid>
                 <h:panelGrid columns="10">

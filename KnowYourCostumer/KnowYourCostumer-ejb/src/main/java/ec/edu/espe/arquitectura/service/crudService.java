@@ -7,6 +7,7 @@ package ec.edu.espe.arquitectura.service;
 
 import ec.edu.espe.arquitectura.dao.ClienteFacade;
 import ec.edu.espe.arquitectura.model.Cliente;
+import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -28,13 +29,13 @@ public class crudService {
         return clienteFacade.eliminarRegistro(codCliente);
     }
 
-    public int ingresar(String apellidos, String nombres, Date nace, Date ingresa) {
-        return clienteFacade.ingresarRegistro(apellidos, nombres, nace, ingresa);
+    public int ingresar(String apellidos, String nombres, Date nace, Date ingresa, String genero1, String estado1, String profesion) {
+        return clienteFacade.ingresarCliente(apellidos, nombres, nace, ingresa, genero1, estado1, profesion);
     }
 
     public Cliente buscarCliente(Integer codCliente) {
         System.out.println("nuevooooooo" + codCliente);
         return clienteFacade.busqueda(codCliente);
-      
+
     }
 }
