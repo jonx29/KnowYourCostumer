@@ -21,13 +21,13 @@
     <ui:define name="contenido">
         <h:form id="formDatos">
             <p:dataTable id="dtEliminacion" value="#{listaCientes.list}" var="Eliminacion" emptyMessage="No hay datos que mostrar">
-                <h:outputText id="mensaje" value="#{beanClientes.objCliente.setCodCliente(Eliminacion.codCliente)}"/>
-                <p:column headerText="Código del Cliente" filterBy="#{Eliminacion.codCliente}"><p:outputLabel value="#{beanClientes.objCliente}" style="font-size: 1px;"/><p:outputLabel value="#{Eliminacion.codCliente}"/></p:column>
+                <h:outputText id="mensaje" value="#{beanClientesBusqueda.objCliente.setCodCliente(Eliminacion.codCliente)}"/>
+                <p:column headerText="Código del Cliente" filterBy="#{Eliminacion.codCliente}"><p:outputLabel value="#{beanClientesBusqueda.objCliente}" style="font-size: 1px;"/><p:outputLabel value="#{Eliminacion.codCliente}"/></p:column>
                 <p:column filterBy="#{Eliminacion.nombres}" ><center><c:facet name="header">Nombres</c:facet><p:outputLabel value="#{Eliminacion.nombres}"/></center></p:column>
                 <p:column filterBy="#{Eliminacion.apellidos}" ><center><c:facet name="header">Apellidos</c:facet><p:outputLabel value="#{Eliminacion.apellidos}"/></center></p:column>              
                 <p:column headerText="">
                     <center>
-                        <p:commandButton value="Buscar" action="#{beanClientesBusqueda.Busqueda(Eliminacion.codCliente)}"  >                             
+                        <p:commandButton value="Buscar" action="#{beanClientesBusqueda.Busqueda(Eliminacion.codCliente)}"  >                            
                            
                         </p:commandButton>
                     </center>
@@ -36,9 +36,7 @@
         </h:form>
 
         <br></br><br></br>
-        <center><a href='menu.xhtml'><input type='submit' name='boton' value='Regresar'/></a></center>
-
-       
+        <center><a href='menu.xhtml'><input type='submit' name='boton' value='Regresar'/></a></center>     
 
     </ui:define>
 

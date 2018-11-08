@@ -40,8 +40,7 @@
 
         <p:dialog id="dlg2" header="Eliminar Datos" widgetVar="dlgEliminar" modal="true">
             <h:form id="formEliminar">            
-                <h:outputText value="Desea eliminar este registro?"/>                            
-                <h:outputText id="mensaje1" value="#{beanClientes.codigo}"/>
+                <h:outputText value="Desea eliminar este registro?"/>         
                 <p:commandButton value="Si" actionListener="#{beanClientes.eliminar()}"
                                  update=":formDatos" oncomplete="PF('dlgEliminar').hide();"/>
                 <p:commandButton value="No" onclick="PF('dlgEliminar').hide();"/>

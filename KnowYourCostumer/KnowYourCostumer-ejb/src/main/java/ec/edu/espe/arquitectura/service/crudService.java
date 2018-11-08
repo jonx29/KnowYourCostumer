@@ -33,7 +33,7 @@ public class crudService {
     }
 
     public Cliente buscarCliente(Integer codCliente) {
-        System.out.println("nuevooooooo" +codCliente);
+        System.out.println("nuevooooooo" + codCliente);
         return clienteFacade.busqueda(codCliente);
       
     }

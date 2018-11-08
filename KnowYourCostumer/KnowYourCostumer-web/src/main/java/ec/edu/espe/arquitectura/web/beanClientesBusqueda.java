@@ -417,8 +417,9 @@ public class beanClientesBusqueda {
         String path;
         System.out.println("este codigo toma"+cod);
         setCliente(bean_cliente.buscarCliente(cod));
-        nombres= cliente.getNombres();
-        apellidos= cliente.getApellidos();
+      // nombres= cliente.getNombres();
+       //setNombres(cliente.getNombres());
+        
         return path = "/verCliente?faces-redirect=true";
 
     }

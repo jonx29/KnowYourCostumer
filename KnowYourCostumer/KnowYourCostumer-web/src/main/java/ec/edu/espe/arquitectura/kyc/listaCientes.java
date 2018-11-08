@@ -27,19 +27,16 @@ import javax.persistence.Query;
 @SessionScoped
 public class listaCientes {
 
-
     private ArrayList<Cliente> list = new ArrayList();
     private ArrayList<Cliente> list1 = new ArrayList();
 
-
-  
     public void iniciarDatos() {
         list.clear();
     }
 
     public ArrayList<Cliente> getList() {
         iniciarDatos();
-      /*  List<BigDecimal> listaCODIGO = new ArrayList<BigDecimal>();
+        List<BigDecimal> listaCODIGO = new ArrayList<BigDecimal>();
         List<String> listaNOMBRE = new ArrayList<String>();
         List<String> listaAPELLIDO = new ArrayList<String>();
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("ec.edu.espe.arquitectura_KnowYourCostumer-web_war_1.0-SNAPSHOTPU");
@@ -60,11 +57,13 @@ public class listaCientes {
         String listaCod1 = codigo[1];
         String[] codigo1 = listaCod1.split("\\]");
         String listaCodFinal = codigo1[0];
-        String[] codigoFinal = listaCodFinal.split(", ");*/
-        int cod=0;
-        for (int i = 0; i < 3; i++) {
+        String[] codigoFinal = listaCodFinal.split(", ");
+        int cod = 0;
+        for (int i = 0; i < listaNOMBRE.size(); i++) {
             cod++;
-            list.add(new Cliente(cod,"jeff", "tambaco", null, null));
+            //list.add(new Cliente(cod,"jeff", "tambaco", null, null));
+            list.add(new Cliente(Integer.parseInt(codigoFinal[i]), listaNOMBRE.get(i), listaAPELLIDO.get(i), null, null));
+
         }
         return list;
     }
@@ -97,5 +96,4 @@ public class listaCientes {
         return list;
     }
 
-  
 }

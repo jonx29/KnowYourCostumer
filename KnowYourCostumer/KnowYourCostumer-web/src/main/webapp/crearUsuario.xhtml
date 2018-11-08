@@ -12,6 +12,34 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:400,900" rel="stylesheet"/>
         <link rel="stylesheet" type='text/css' href="css/main.css"/>     
         <title>Formulario</title>
+        <style type="text/css">
+            .botones{
+                    
+                                                width:240px;
+                                                height:35px;
+                                                display:block;
+                                                font-family:Arial, 'Helvetica', sans-serif;
+                                                font-size:16px;
+                                                font-weight:bold;
+                                                color:#fff;
+                                                text-decoration:none;
+                                                text-transform:uppercase;
+                                                text-align:center;
+                                                text-shadow:1px 1px 0px #37a69b;
+                                                padding-top:6px;
+                                                margin: 29px 0 0 29px;
+                                                position:relative;
+                                                cursor:pointer;
+                                                border: none;  
+                                                background-color: #37a69b;
+                                                background-image: linear-gradient(top,#3db0a6,#3111);
+                                                border-top-left-radius: 5px;
+                                                border-top-right-radius: 5px;
+                                                border-bottom-right-radius: 5px;
+                                                border-bottom-left-radius:5px;
+                                                box-shadow: inset 0px 1px 0px #2ab7ec, 0px 5px 0px 0px #497a78, 0px 10px 5px #999;
+            }
+        </style>
     </h:head>
     <h:body>
 
@@ -26,7 +54,7 @@
                     <h:outputText value="Cédula:" /> 
                     <h:inputText class="input"  ></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <h:outputText value="Apellidos:" />
-                    <h:inputText class="input" style="width: 170px" value="#{beanClientes.apellidos}" ></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h:inputText class="input" style="width: 170px" value="#{beanClientesBusqueda.apellidos}" ></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <h:outputText value="Nombres:" />
                     <h:inputText class="input" style="width: 170px" value="#{beanClientes.nombres}"></h:inputText>
 
@@ -174,7 +202,7 @@
 
                     <h:outputText value="Genero:" />
                     &nbsp;&nbsp;
-                    <p:selectOneMenu id="genero" value="#{beanClientes.generoReferencia}"> 
+                    <p:selectOneMenu id="genero1" value="#{beanClientes.generoReferencia}"> 
                         <f:selectItem itemLabel="Seleccionar" itemValue="" />
                         <f:selectItems value="#{beanClientes.generoReferencia}" />
                     </p:selectOneMenu>
@@ -271,11 +299,10 @@
                 </div>
 
                 <div class="btn__form">
-                    <h:commandButton class="btn__submit"  type="submit" value="REGISTRAR" action="#{beanClientes.insertar}"> </h:commandButton>
+                    <h:commandButton class="botones" type="submit" value="REGISTRAR" action="#{beanClientes.insertar}"> </h:commandButton>
                 </div>
             </h:form>
-            <center><a href='menu.xhtml'><input type='submit' name='boton' value='Regresar'/></a></center>
-
+            <center><a href='menu.xhtml'><input class="botones" type='submit' name='boton' value='Regresar'/></a></center>
         </div>
 
     </h:body>
