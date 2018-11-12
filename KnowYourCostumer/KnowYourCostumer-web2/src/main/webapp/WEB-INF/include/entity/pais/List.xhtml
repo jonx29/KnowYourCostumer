@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="PaisListForm">
+
+        <p:panel header="#{myBundle.ListPaisTitle}">
+            <p:contextMenu id="PaisDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('PaisListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('PaisListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('PaisListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('PaisListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.PaisMenuItem_clienteList}" icon="ui-icon-search"  action="#{paisController.navigateClienteList}" disabled="#{paisController.isClienteListEmpty}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.PaisMenuItem_provinciaList}" icon="ui-icon-search"  action="#{paisController.navigateProvinciaList}" disabled="#{paisController.isProvinciaListEmpty}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.PaisMenuItem_identificacionList}" icon="ui-icon-search"  action="#{paisController.navigateIdentificacionList}" disabled="#{paisController.isIdentificacionListEmpty}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.PaisMenuItem_clienteList1}" icon="ui-icon-search"  action="#{paisController.navigateClienteList1}" disabled="#{paisController.isClienteList1Empty}" ajax="false"/>  
+            </p:contextMenu>
+            <h:panelGroup id="messagePanel">
+                <p:messages id="listMessages" rendered="#{!paisController.validationFailed}"/>
+            </h:panelGroup>
+
+            <p:dataTable id="datalist"
+                         value="#{paisController.items}"
+                         lazy="false"
+                         rowKey="#{item.codPais}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{paisController.selected}"
+                         filteredValue="#{paisController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{paisController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.codPais}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:PaisDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:PaisDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('PaisListForm:viewButton').click();"/>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPaisTitle_codPais}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.codPais}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListPaisTitle_nombre}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nombre}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{paisController.prepareCreate}" update=":PaisCreateForm" oncomplete="PF('PaisCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":PaisViewForm" oncomplete="PF('PaisViewDialog').show()" disabled="#{empty paisController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":PaisEditForm" oncomplete="PF('PaisEditDialog').show()" disabled="#{empty paisController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{paisController.delete}" update=":PaisListForm:messagePanel,datalist" disabled="#{empty paisController.selected}"/>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

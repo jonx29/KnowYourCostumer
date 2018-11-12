@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ReferenciaListForm">
+
+        <p:panel header="#{myBundle.ListReferenciaTitle}">
+            <p:contextMenu id="ReferenciaDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('ReferenciaListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('ReferenciaListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('ReferenciaListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('ReferenciaListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.ReferenciaMenuItem_cliente}" icon="ui-icon-search"  actionListener="#{referenciaController.prepareCliente}" update=":ClienteViewForm" oncomplete="PF('ClienteViewDialog').show()" disabled="#{empty referenciaController.selected.cliente}"/>  
+                <p:menuitem value="#{myBundle.ReferenciaMenuItem_cliente1}" icon="ui-icon-search"  actionListener="#{referenciaController.prepareCliente1}" update=":ClienteViewForm" oncomplete="PF('ClienteViewDialog').show()" disabled="#{empty referenciaController.selected.cliente1}"/>  
+                <p:menuitem value="#{myBundle.ReferenciaMenuItem_codTipoReferencia}" icon="ui-icon-search"  actionListener="#{referenciaController.prepareCodTipoReferencia}" update=":TipoReferenciaViewForm" oncomplete="PF('TipoReferenciaViewDialog').show()" disabled="#{empty referenciaController.selected.codTipoReferencia}"/>  
+            </p:contextMenu>
+            <h:panelGroup id="messagePanel">
+                <p:messages id="listMessages" rendered="#{!referenciaController.validationFailed}"/>
+            </h:panelGroup>
+
+            <p:dataTable id="datalist"
+                         value="#{referenciaController.items}"
+                         lazy="false"
+                         rowKey="#{item.referenciaPK}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{referenciaController.selected}"
+                         filteredValue="#{referenciaController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{referenciaController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.referenciaPK}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ReferenciaDataTableContextMenu" listener="#{referenciaController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ReferenciaDataTableContextMenu" listener="#{referenciaController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{referenciaController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('ReferenciaListForm:viewButton').click();"/>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListReferenciaTitle_referenciaPK_codCliente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.referenciaPK.codCliente}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListReferenciaTitle_referenciaPK_cliCodCliente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.referenciaPK.cliCodCliente}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListReferenciaTitle_cliente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cliente.nombres}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListReferenciaTitle_cliente1}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cliente1.nombres}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListReferenciaTitle_codTipoReferencia}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.codTipoReferencia.descripcion}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{referenciaController.prepareCreate}" update=":ReferenciaCreateForm" oncomplete="PF('ReferenciaCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":ReferenciaViewForm" oncomplete="PF('ReferenciaViewDialog').show()" disabled="#{empty referenciaController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":ReferenciaEditForm" oncomplete="PF('ReferenciaEditDialog').show()" disabled="#{empty referenciaController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{referenciaController.delete}" update=":ReferenciaListForm:messagePanel,datalist" disabled="#{empty referenciaController.selected}"/>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

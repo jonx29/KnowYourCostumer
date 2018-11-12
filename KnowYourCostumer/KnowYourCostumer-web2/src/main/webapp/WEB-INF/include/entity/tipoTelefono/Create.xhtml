@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoTelefonoCreateDlg" widgetVar="TipoTelefonoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateTipoTelefonoTitle}" closeOnEscape="true">
+
+            <h:form id="TipoTelefonoCreateForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display" rendered="#{tipoTelefonoController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateTipoTelefonoLabel_descripcion}" for="descripcion" />
+                        <h:panelGroup>
+                            <p:inputText id="descripcion" value="#{tipoTelefonoController.selected.descripcion}" title="#{myBundle.CreateTipoTelefonoTitle_descripcion}" required="true" requiredMessage="#{myBundle.CreateTipoTelefonoRequiredMessage_descripcion}" size="50" maxlength="50"/>
+                            <p:tooltip for="descripcion" value="#{tipoTelefonoController.getComponentMessages('descripcion', myBundle.CreateTipoTelefonoHelpText_descripcion)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoTelefonoController.saveNew}" value="#{myBundle.Save}" update="display,:TipoTelefonoListForm:datalist,:TipoTelefonoListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('TipoTelefonoCreateDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TipoTelefonoCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

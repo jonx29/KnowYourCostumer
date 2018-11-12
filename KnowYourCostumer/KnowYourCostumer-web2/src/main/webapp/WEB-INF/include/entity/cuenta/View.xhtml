@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CuentaViewDlg" widgetVar="CuentaViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewCuentaTitle}" closeOnEscape="true">
+
+            <h:form id="CuentaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{cuentaController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewCuentaLabel_numeroCuenta}"/>
+                        <h:outputText value="#{cuentaController.selected.numeroCuenta}" title="#{myBundle.ViewCuentaTitle_numeroCuenta}"/>
+
+                        <h:outputText value="#{myBundle.ViewCuentaLabel_activa}"/>
+                        <p:selectBooleanCheckbox id="activa" value="#{cuentaController.selected.activa}" title="#{myBundle.EditCuentaTitle_activa}" required="true" requiredMessage="#{myBundle.EditCuentaRequiredMessage_activa}"/>
+
+                        <h:outputText value="#{myBundle.ViewCuentaLabel_codCliente}"/>
+                        <h:outputText value="#{cuentaController.selected.codCliente.nombres}"/>
+
+                        <h:outputText value="#{myBundle.ViewCuentaLabel_codTipoCuenta}"/>
+                        <h:outputText value="#{cuentaController.selected.codTipoCuenta.descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('CuentaViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

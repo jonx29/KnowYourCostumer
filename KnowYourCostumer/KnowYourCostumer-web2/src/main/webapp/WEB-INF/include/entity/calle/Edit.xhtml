@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="CalleEditDlg" widgetVar="CalleEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditCalleTitle}" closeOnEscape="true">
+
+            <h:form id="CalleEditForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{calleController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditCalleLabel_codCalle}" for="codCalle" />
+                        <h:panelGroup>
+                            <h:outputText id="codCalle" value="#{calleController.selected.codCalle}" />
+                            <p:tooltip for="codCalle" value="#{calleController.getComponentMessages('codCalle', myBundle.EditCalleHelpText_codCalle)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditCalleLabel_nombre}" for="nombre" />
+                        <h:panelGroup>
+                            <p:inputText id="nombre" value="#{calleController.selected.nombre}" title="#{myBundle.EditCalleTitle_nombre}" required="true" requiredMessage="#{myBundle.EditCalleRequiredMessage_nombre}" size="50" maxlength="50"/>
+                            <p:tooltip for="nombre" value="#{calleController.getComponentMessages('nombre', myBundle.EditCalleHelpText_nombre)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditCalleLabel_codCiudad}" for="codCiudad" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="codCiudad" value="#{calleController.selected.codCiudad}" required="true" requiredMessage="#{myBundle.EditCalleRequiredMessage_codCiudad}" converter="ciudadConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{ciudadController.items}"
+                                               var="codCiudadItem"
+                                               itemValue="#{codCiudadItem}"
+                                               itemLabel="#{codCiudadItem.nombre.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="codCiudad" value="#{calleController.getComponentMessages('codCiudad', myBundle.EditCalleHelpText_codCiudad)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{calleController.save}" value="#{myBundle.Save}" update="display,:CalleListForm:datalist,:CalleListForm:CalleDataTableContextMenu,:CalleListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('CalleEditDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('CalleEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="IdentificacionListForm">
+
+        <p:panel header="#{myBundle.ListIdentificacionTitle}">
+            <p:contextMenu id="IdentificacionDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('IdentificacionListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('IdentificacionListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('IdentificacionListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('IdentificacionListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.IdentificacionMenuItem_cliente}" icon="ui-icon-search"  actionListener="#{identificacionController.prepareCliente}" update=":ClienteViewForm" oncomplete="PF('ClienteViewDialog').show()" disabled="#{empty identificacionController.selected.cliente}"/>  
+                <p:menuitem value="#{myBundle.IdentificacionMenuItem_pais}" icon="ui-icon-search"  actionListener="#{identificacionController.preparePais}" update=":PaisViewForm" oncomplete="PF('PaisViewDialog').show()" disabled="#{empty identificacionController.selected.pais}"/>  
+                <p:menuitem value="#{myBundle.IdentificacionMenuItem_tipoIdentificacion}" icon="ui-icon-search"  actionListener="#{identificacionController.prepareTipoIdentificacion}" update=":TipoIdentificacionViewForm" oncomplete="PF('TipoIdentificacionViewDialog').show()" disabled="#{empty identificacionController.selected.tipoIdentificacion}"/>  
+            </p:contextMenu>
+            <h:panelGroup id="messagePanel">
+                <p:messages id="listMessages" rendered="#{!identificacionController.validationFailed}"/>
+            </h:panelGroup>
+
+            <p:dataTable id="datalist"
+                         value="#{identificacionController.items}"
+                         lazy="false"
+                         rowKey="#{item.identificacionPK}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{identificacionController.selected}"
+                         filteredValue="#{identificacionController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{identificacionController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.identificacionPK}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:IdentificacionDataTableContextMenu" listener="#{identificacionController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:IdentificacionDataTableContextMenu" listener="#{identificacionController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{identificacionController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('IdentificacionListForm:viewButton').click();"/>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListIdentificacionTitle_identificacionPK_codTipoIdentificacion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.identificacionPK.codTipoIdentificacion}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListIdentificacionTitle_identificacionPK_codCliente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.identificacionPK.codCliente}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListIdentificacionTitle_identificacionPK_codPais}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.identificacionPK.codPais}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListIdentificacionTitle_numeroIdentificacion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.numeroIdentificacion}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListIdentificacionTitle_cliente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cliente.nombres}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListIdentificacionTitle_pais}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.pais.nombre}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListIdentificacionTitle_tipoIdentificacion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.tipoIdentificacion.descripcion}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{identificacionController.prepareCreate}" update=":IdentificacionCreateForm" oncomplete="PF('IdentificacionCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":IdentificacionViewForm" oncomplete="PF('IdentificacionViewDialog').show()" disabled="#{empty identificacionController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":IdentificacionEditForm" oncomplete="PF('IdentificacionEditDialog').show()" disabled="#{empty identificacionController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{identificacionController.delete}" update=":IdentificacionListForm:messagePanel,datalist" disabled="#{empty identificacionController.selected}"/>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

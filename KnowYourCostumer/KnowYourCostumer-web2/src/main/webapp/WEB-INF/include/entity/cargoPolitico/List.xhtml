@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="CargoPoliticoListForm">
+
+        <p:panel header="#{myBundle.ListCargoPoliticoTitle}">
+            <p:contextMenu id="CargoPoliticoDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('CargoPoliticoListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('CargoPoliticoListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('CargoPoliticoListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('CargoPoliticoListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.CargoPoliticoMenuItem_ciudad}" icon="ui-icon-search"  actionListener="#{cargoPoliticoController.prepareCiudad}" update=":CiudadViewForm" oncomplete="PF('CiudadViewDialog').show()" disabled="#{empty cargoPoliticoController.selected.ciudad}"/>  
+                <p:menuitem value="#{myBundle.CargoPoliticoMenuItem_cliente}" icon="ui-icon-search"  actionListener="#{cargoPoliticoController.prepareCliente}" update=":ClienteViewForm" oncomplete="PF('ClienteViewDialog').show()" disabled="#{empty cargoPoliticoController.selected.cliente}"/>  
+                <p:menuitem value="#{myBundle.CargoPoliticoMenuItem_tipoCargoPolitico}" icon="ui-icon-search"  actionListener="#{cargoPoliticoController.prepareTipoCargoPolitico}" update=":TipoCargoPoliticoViewForm" oncomplete="PF('TipoCargoPoliticoViewDialog').show()" disabled="#{empty cargoPoliticoController.selected.tipoCargoPolitico}"/>  
+            </p:contextMenu>
+            <h:panelGroup id="messagePanel">
+                <p:messages id="listMessages" rendered="#{!cargoPoliticoController.validationFailed}"/>
+            </h:panelGroup>
+
+            <p:dataTable id="datalist"
+                         value="#{cargoPoliticoController.items}"
+                         lazy="false"
+                         rowKey="#{item.cargoPoliticoPK}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{cargoPoliticoController.selected}"
+                         filteredValue="#{cargoPoliticoController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{cargoPoliticoController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.cargoPoliticoPK}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:CargoPoliticoDataTableContextMenu" listener="#{cargoPoliticoController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:CargoPoliticoDataTableContextMenu" listener="#{cargoPoliticoController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{cargoPoliticoController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('CargoPoliticoListForm:viewButton').click();"/>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCargoPoliticoTitle_cargoPoliticoPK_codTipoCargoPolitico}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cargoPoliticoPK.codTipoCargoPolitico}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCargoPoliticoTitle_cargoPoliticoPK_codCliente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cargoPoliticoPK.codCliente}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCargoPoliticoTitle_cargoPoliticoPK_codCiudad}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cargoPoliticoPK.codCiudad}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCargoPoliticoTitle_cargoPoliticoPK_fechaInicio}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cargoPoliticoPK.fechaInicio}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCargoPoliticoTitle_cargoPoliticoPK_fechaFin}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cargoPoliticoPK.fechaFin}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCargoPoliticoTitle_ciudad}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.ciudad.nombre}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCargoPoliticoTitle_cliente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cliente.nombres}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCargoPoliticoTitle_tipoCargoPolitico}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.tipoCargoPolitico.descripcion}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{cargoPoliticoController.prepareCreate}" update=":CargoPoliticoCreateForm" oncomplete="PF('CargoPoliticoCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":CargoPoliticoViewForm" oncomplete="PF('CargoPoliticoViewDialog').show()" disabled="#{empty cargoPoliticoController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":CargoPoliticoEditForm" oncomplete="PF('CargoPoliticoEditDialog').show()" disabled="#{empty cargoPoliticoController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{cargoPoliticoController.delete}" update=":CargoPoliticoListForm:messagePanel,datalist" disabled="#{empty cargoPoliticoController.selected}"/>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

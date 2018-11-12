@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <h:form id="menuForm">
+            <p:menubar>
+                <p:menuitem value="#{myBundle.Home}" outcome="/index" icon="ui-icon-home"/>
+                <p:submenu label="#{myBundle.Maintenance}">
+                    <p:menuitem value="#{myBundle.CalleHeading}..." outcome="/app/calle/index" />
+                    <p:menuitem value="#{myBundle.CargoPoliticoHeading}..." outcome="/app/cargoPolitico/index" />
+                    <p:menuitem value="#{myBundle.CiudadHeading}..." outcome="/app/ciudad/index" />
+                    <p:menuitem value="#{myBundle.ClienteHeading}..." outcome="/app/cliente/index" />
+                    <p:menuitem value="#{myBundle.CuentaHeading}..." outcome="/app/cuenta/index" />
+                    <p:menuitem value="#{myBundle.DireccionHeading}..." outcome="/app/direccion/index" />
+                    <p:menuitem value="#{myBundle.DireccionClienteHeading}..." outcome="/app/direccionCliente/index" />
+                    <p:menuitem value="#{myBundle.EgresoClienteHeading}..." outcome="/app/egresoCliente/index" />
+                    <p:menuitem value="#{myBundle.EstadoCivilHeading}..." outcome="/app/estadoCivil/index" />
+                    <p:menuitem value="#{myBundle.GeneroHeading}..." outcome="/app/genero/index" />
+                    <p:menuitem value="#{myBundle.IdentificacionHeading}..." outcome="/app/identificacion/index" />
+                    <p:menuitem value="#{myBundle.IngresoClienteHeading}..." outcome="/app/ingresoCliente/index" />
+                    <p:menuitem value="#{myBundle.NumeroTelefonoHeading}..." outcome="/app/numeroTelefono/index" />
+                    <p:menuitem value="#{myBundle.PaisHeading}..." outcome="/app/pais/index" />
+                    <p:menuitem value="#{myBundle.ParentescoHeading}..." outcome="/app/parentesco/index" />
+                    <p:menuitem value="#{myBundle.ProfesionHeading}..." outcome="/app/profesion/index" />
+                    <p:menuitem value="#{myBundle.ProvinciaHeading}..." outcome="/app/provincia/index" />
+                    <p:menuitem value="#{myBundle.ReferenciaHeading}..." outcome="/app/referencia/index" />
+                    <p:menuitem value="#{myBundle.TipoActividadEconomicaHeading}..." outcome="/app/tipoActividadEconomica/index" />
+                    <p:menuitem value="#{myBundle.TipoCargoPoliticoHeading}..." outcome="/app/tipoCargoPolitico/index" />
+                    <p:menuitem value="#{myBundle.TipoCuentaHeading}..." outcome="/app/tipoCuenta/index" />
+                    <p:menuitem value="#{myBundle.TipoEgresoHeading}..." outcome="/app/tipoEgreso/index" />
+                    <p:menuitem value="#{myBundle.TipoIdentificacionHeading}..." outcome="/app/tipoIdentificacion/index" />
+                    <p:menuitem value="#{myBundle.TipoIngresoHeading}..." outcome="/app/tipoIngreso/index" />
+                    <p:menuitem value="#{myBundle.TipoParentescoHeading}..." outcome="/app/tipoParentesco/index" />
+                    <p:menuitem value="#{myBundle.TipoPersoneriaHeading}..." outcome="/app/tipoPersoneria/index" />
+                    <p:menuitem value="#{myBundle.TipoReferenciaHeading}..." outcome="/app/tipoReferencia/index" />
+                    <p:menuitem value="#{myBundle.TipoTelefonoHeading}..." outcome="/app/tipoTelefono/index" />
+                    <p:menuitem value="#{myBundle.UsuarioHeading}..." outcome="/app/usuario/index" />
+                </p:submenu>
+            </p:menubar>
+        </h:form>
+    </ui:composition>
+
+</html>

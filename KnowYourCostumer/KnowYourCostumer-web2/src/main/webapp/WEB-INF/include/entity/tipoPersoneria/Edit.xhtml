@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TipoPersoneriaEditDlg" widgetVar="TipoPersoneriaEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditTipoPersoneriaTitle}" closeOnEscape="true">
+
+            <h:form id="TipoPersoneriaEditForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{tipoPersoneriaController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditTipoPersoneriaLabel_codTipoPersoneria}" for="codTipoPersoneria" />
+                        <h:panelGroup>
+                            <h:outputText id="codTipoPersoneria" value="#{tipoPersoneriaController.selected.codTipoPersoneria}" />
+                            <p:tooltip for="codTipoPersoneria" value="#{tipoPersoneriaController.getComponentMessages('codTipoPersoneria', myBundle.EditTipoPersoneriaHelpText_codTipoPersoneria)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditTipoPersoneriaLabel_descripcion}" for="descripcion" />
+                        <h:panelGroup>
+                            <p:inputText id="descripcion" value="#{tipoPersoneriaController.selected.descripcion}" title="#{myBundle.EditTipoPersoneriaTitle_descripcion}" required="true" requiredMessage="#{myBundle.EditTipoPersoneriaRequiredMessage_descripcion}" size="25" maxlength="25"/>
+                            <p:tooltip for="descripcion" value="#{tipoPersoneriaController.getComponentMessages('descripcion', myBundle.EditTipoPersoneriaHelpText_descripcion)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoPersoneriaController.save}" value="#{myBundle.Save}" update="display,:TipoPersoneriaListForm:datalist,:TipoPersoneriaListForm:TipoPersoneriaDataTableContextMenu,:TipoPersoneriaListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('TipoPersoneriaEditDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TipoPersoneriaEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

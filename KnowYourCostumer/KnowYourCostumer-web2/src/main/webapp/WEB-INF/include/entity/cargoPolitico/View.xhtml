@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CargoPoliticoViewDlg" widgetVar="CargoPoliticoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewCargoPoliticoTitle}" closeOnEscape="true">
+
+            <h:form id="CargoPoliticoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{cargoPoliticoController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewCargoPoliticoLabel_cargoPoliticoPK_codTipoCargoPolitico}"/>
+                        <h:outputText value="#{cargoPoliticoController.selected.cargoPoliticoPK.codTipoCargoPolitico}" title="#{myBundle.ViewCargoPoliticoTitle_cargoPoliticoPK_codTipoCargoPolitico}"/>
+
+                        <h:outputText value="#{myBundle.ViewCargoPoliticoLabel_cargoPoliticoPK_codCliente}"/>
+                        <h:outputText value="#{cargoPoliticoController.selected.cargoPoliticoPK.codCliente}" title="#{myBundle.ViewCargoPoliticoTitle_cargoPoliticoPK_codCliente}"/>
+
+                        <h:outputText value="#{myBundle.ViewCargoPoliticoLabel_cargoPoliticoPK_codCiudad}"/>
+                        <h:outputText value="#{cargoPoliticoController.selected.cargoPoliticoPK.codCiudad}" title="#{myBundle.ViewCargoPoliticoTitle_cargoPoliticoPK_codCiudad}"/>
+
+                        <h:outputText value="#{myBundle.ViewCargoPoliticoLabel_cargoPoliticoPK_fechaInicio}"/>
+                        <h:outputText value="#{cargoPoliticoController.selected.cargoPoliticoPK.fechaInicio}" title="#{myBundle.ViewCargoPoliticoTitle_cargoPoliticoPK_fechaInicio}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewCargoPoliticoLabel_cargoPoliticoPK_fechaFin}"/>
+                        <h:outputText value="#{cargoPoliticoController.selected.cargoPoliticoPK.fechaFin}" title="#{myBundle.ViewCargoPoliticoTitle_cargoPoliticoPK_fechaFin}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+
+                        <h:outputText value="#{myBundle.ViewCargoPoliticoLabel_ciudad}"/>
+                        <h:outputText value="#{cargoPoliticoController.selected.ciudad.nombre}"/>
+
+                        <h:outputText value="#{myBundle.ViewCargoPoliticoLabel_cliente}"/>
+                        <h:outputText value="#{cargoPoliticoController.selected.cliente.nombres}"/>
+
+                        <h:outputText value="#{myBundle.ViewCargoPoliticoLabel_tipoCargoPolitico}"/>
+                        <h:outputText value="#{cargoPoliticoController.selected.tipoCargoPolitico.descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('CargoPoliticoViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

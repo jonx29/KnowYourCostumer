@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="NumeroTelefonoListForm">
+
+        <p:panel header="#{myBundle.ListNumeroTelefonoTitle}">
+            <p:contextMenu id="NumeroTelefonoDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('NumeroTelefonoListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('NumeroTelefonoListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('NumeroTelefonoListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('NumeroTelefonoListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.NumeroTelefonoMenuItem_cliente}" icon="ui-icon-search"  actionListener="#{numeroTelefonoController.prepareCliente}" update=":ClienteViewForm" oncomplete="PF('ClienteViewDialog').show()" disabled="#{empty numeroTelefonoController.selected.cliente}"/>  
+                <p:menuitem value="#{myBundle.NumeroTelefonoMenuItem_codTipoTelefono}" icon="ui-icon-search"  actionListener="#{numeroTelefonoController.prepareCodTipoTelefono}" update=":TipoTelefonoViewForm" oncomplete="PF('TipoTelefonoViewDialog').show()" disabled="#{empty numeroTelefonoController.selected.codTipoTelefono}"/>  
+            </p:contextMenu>
+            <h:panelGroup id="messagePanel">
+                <p:messages id="listMessages" rendered="#{!numeroTelefonoController.validationFailed}"/>
+            </h:panelGroup>
+
+            <p:dataTable id="datalist"
+                         value="#{numeroTelefonoController.items}"
+                         lazy="false"
+                         rowKey="#{item.numeroTelefonoPK}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{numeroTelefonoController.selected}"
+                         filteredValue="#{numeroTelefonoController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{numeroTelefonoController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.numeroTelefonoPK}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:NumeroTelefonoDataTableContextMenu" listener="#{numeroTelefonoController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:NumeroTelefonoDataTableContextMenu" listener="#{numeroTelefonoController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{numeroTelefonoController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('NumeroTelefonoListForm:viewButton').click();"/>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListNumeroTelefonoTitle_numeroTelefonoPK_codCliente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.numeroTelefonoPK.codCliente}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListNumeroTelefonoTitle_numeroTelefonoPK_numero}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.numeroTelefonoPK.numero}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListNumeroTelefonoTitle_cliente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cliente.nombres}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListNumeroTelefonoTitle_codTipoTelefono}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.codTipoTelefono.descripcion}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{numeroTelefonoController.prepareCreate}" update=":NumeroTelefonoCreateForm" oncomplete="PF('NumeroTelefonoCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":NumeroTelefonoViewForm" oncomplete="PF('NumeroTelefonoViewDialog').show()" disabled="#{empty numeroTelefonoController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":NumeroTelefonoEditForm" oncomplete="PF('NumeroTelefonoEditDialog').show()" disabled="#{empty numeroTelefonoController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{numeroTelefonoController.delete}" update=":NumeroTelefonoListForm:messagePanel,datalist" disabled="#{empty numeroTelefonoController.selected}"/>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

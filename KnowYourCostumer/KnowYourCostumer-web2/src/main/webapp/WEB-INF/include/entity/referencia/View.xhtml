@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ReferenciaViewDlg" widgetVar="ReferenciaViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewReferenciaTitle}" closeOnEscape="true">
+
+            <h:form id="ReferenciaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{referenciaController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewReferenciaLabel_referenciaPK_codCliente}"/>
+                        <h:outputText value="#{referenciaController.selected.referenciaPK.codCliente}" title="#{myBundle.ViewReferenciaTitle_referenciaPK_codCliente}"/>
+
+                        <h:outputText value="#{myBundle.ViewReferenciaLabel_referenciaPK_cliCodCliente}"/>
+                        <h:outputText value="#{referenciaController.selected.referenciaPK.cliCodCliente}" title="#{myBundle.ViewReferenciaTitle_referenciaPK_cliCodCliente}"/>
+
+                        <h:outputText value="#{myBundle.ViewReferenciaLabel_cliente}"/>
+                        <h:outputText value="#{referenciaController.selected.cliente.nombres}"/>
+
+                        <h:outputText value="#{myBundle.ViewReferenciaLabel_cliente1}"/>
+                        <h:outputText value="#{referenciaController.selected.cliente1.nombres}"/>
+
+                        <h:outputText value="#{myBundle.ViewReferenciaLabel_codTipoReferencia}"/>
+                        <h:outputText value="#{referenciaController.selected.codTipoReferencia.descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('ReferenciaViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

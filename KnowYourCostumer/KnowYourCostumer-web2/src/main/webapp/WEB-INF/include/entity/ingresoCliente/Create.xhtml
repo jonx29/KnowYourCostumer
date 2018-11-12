@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="IngresoClienteCreateDlg" widgetVar="IngresoClienteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateIngresoClienteTitle}" closeOnEscape="true">
+
+            <h:form id="IngresoClienteCreateForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display" rendered="#{ingresoClienteController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateIngresoClienteLabel_ingresoClientePK_codTipoIngreso}" for="ingresoClientePK_codTipoIngreso" />
+                        <h:panelGroup>
+                            <p:inputText id="ingresoClientePK_codTipoIngreso" value="#{ingresoClienteController.selected.ingresoClientePK.codTipoIngreso}" title="#{myBundle.CreateIngresoClienteTitle_ingresoClientePK_codTipoIngreso}" required="true" requiredMessage="#{myBundle.CreateIngresoClienteRequiredMessage_ingresoClientePK_codTipoIngreso}"/>
+                            <p:tooltip for="ingresoClientePK_codTipoIngreso" value="#{ingresoClienteController.getComponentMessages('ingresoClientePK_codTipoIngreso', myBundle.CreateIngresoClienteHelpText_ingresoClientePK_codTipoIngreso)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateIngresoClienteLabel_ingresoClientePK_codCliente}" for="ingresoClientePK_codCliente" />
+                        <h:panelGroup>
+                            <p:inputText id="ingresoClientePK_codCliente" value="#{ingresoClienteController.selected.ingresoClientePK.codCliente}" title="#{myBundle.CreateIngresoClienteTitle_ingresoClientePK_codCliente}" required="true" requiredMessage="#{myBundle.CreateIngresoClienteRequiredMessage_ingresoClientePK_codCliente}"/>
+                            <p:tooltip for="ingresoClientePK_codCliente" value="#{ingresoClienteController.getComponentMessages('ingresoClientePK_codCliente', myBundle.CreateIngresoClienteHelpText_ingresoClientePK_codCliente)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateIngresoClienteLabel_valor}" for="valor" />
+                        <h:panelGroup>
+                            <p:inputText id="valor" value="#{ingresoClienteController.selected.valor}" title="#{myBundle.CreateIngresoClienteTitle_valor}" required="true" requiredMessage="#{myBundle.CreateIngresoClienteRequiredMessage_valor}"/>
+                            <p:tooltip for="valor" value="#{ingresoClienteController.getComponentMessages('valor', myBundle.CreateIngresoClienteHelpText_valor)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateIngresoClienteLabel_cliente}" for="cliente" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="cliente" value="#{ingresoClienteController.selected.cliente}" required="true" requiredMessage="#{myBundle.CreateIngresoClienteRequiredMessage_cliente}" converter="clienteConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{clienteController.items}"
+                                               var="clienteItem"
+                                               itemValue="#{clienteItem}"
+                                               itemLabel="#{clienteItem.nombres.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="cliente" value="#{ingresoClienteController.getComponentMessages('cliente', myBundle.CreateIngresoClienteHelpText_cliente)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateIngresoClienteLabel_tipoIngreso}" for="tipoIngreso" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="tipoIngreso" value="#{ingresoClienteController.selected.tipoIngreso}" required="true" requiredMessage="#{myBundle.CreateIngresoClienteRequiredMessage_tipoIngreso}" converter="tipoIngresoConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{tipoIngresoController.items}"
+                                               var="tipoIngresoItem"
+                                               itemValue="#{tipoIngresoItem}"
+                                               itemLabel="#{tipoIngresoItem.descripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="tipoIngreso" value="#{ingresoClienteController.getComponentMessages('tipoIngreso', myBundle.CreateIngresoClienteHelpText_tipoIngreso)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ingresoClienteController.saveNew}" value="#{myBundle.Save}" update="display,:IngresoClienteListForm:datalist,:IngresoClienteListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('IngresoClienteCreateDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('IngresoClienteCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

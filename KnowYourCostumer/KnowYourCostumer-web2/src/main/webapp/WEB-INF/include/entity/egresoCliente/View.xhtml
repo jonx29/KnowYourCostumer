@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EgresoClienteViewDlg" widgetVar="EgresoClienteViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewEgresoClienteTitle}" closeOnEscape="true">
+
+            <h:form id="EgresoClienteViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{egresoClienteController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewEgresoClienteLabel_egresoClientePK_codTipoEgreso}"/>
+                        <h:outputText value="#{egresoClienteController.selected.egresoClientePK.codTipoEgreso}" title="#{myBundle.ViewEgresoClienteTitle_egresoClientePK_codTipoEgreso}"/>
+
+                        <h:outputText value="#{myBundle.ViewEgresoClienteLabel_egresoClientePK_codCliente}"/>
+                        <h:outputText value="#{egresoClienteController.selected.egresoClientePK.codCliente}" title="#{myBundle.ViewEgresoClienteTitle_egresoClientePK_codCliente}"/>
+
+                        <h:outputText value="#{myBundle.ViewEgresoClienteLabel_valor}"/>
+                        <h:outputText value="#{egresoClienteController.selected.valor}" title="#{myBundle.ViewEgresoClienteTitle_valor}"/>
+
+                        <h:outputText value="#{myBundle.ViewEgresoClienteLabel_cliente}"/>
+                        <h:outputText value="#{egresoClienteController.selected.cliente.nombres}"/>
+
+                        <h:outputText value="#{myBundle.ViewEgresoClienteLabel_tipoEgreso}"/>
+                        <h:outputText value="#{egresoClienteController.selected.tipoEgreso.descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('EgresoClienteViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

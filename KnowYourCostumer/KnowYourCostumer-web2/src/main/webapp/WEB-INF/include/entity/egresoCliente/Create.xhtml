@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EgresoClienteCreateDlg" widgetVar="EgresoClienteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateEgresoClienteTitle}" closeOnEscape="true">
+
+            <h:form id="EgresoClienteCreateForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display" rendered="#{egresoClienteController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateEgresoClienteLabel_egresoClientePK_codTipoEgreso}" for="egresoClientePK_codTipoEgreso" />
+                        <h:panelGroup>
+                            <p:inputText id="egresoClientePK_codTipoEgreso" value="#{egresoClienteController.selected.egresoClientePK.codTipoEgreso}" title="#{myBundle.CreateEgresoClienteTitle_egresoClientePK_codTipoEgreso}" required="true" requiredMessage="#{myBundle.CreateEgresoClienteRequiredMessage_egresoClientePK_codTipoEgreso}"/>
+                            <p:tooltip for="egresoClientePK_codTipoEgreso" value="#{egresoClienteController.getComponentMessages('egresoClientePK_codTipoEgreso', myBundle.CreateEgresoClienteHelpText_egresoClientePK_codTipoEgreso)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateEgresoClienteLabel_egresoClientePK_codCliente}" for="egresoClientePK_codCliente" />
+                        <h:panelGroup>
+                            <p:inputText id="egresoClientePK_codCliente" value="#{egresoClienteController.selected.egresoClientePK.codCliente}" title="#{myBundle.CreateEgresoClienteTitle_egresoClientePK_codCliente}" required="true" requiredMessage="#{myBundle.CreateEgresoClienteRequiredMessage_egresoClientePK_codCliente}"/>
+                            <p:tooltip for="egresoClientePK_codCliente" value="#{egresoClienteController.getComponentMessages('egresoClientePK_codCliente', myBundle.CreateEgresoClienteHelpText_egresoClientePK_codCliente)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateEgresoClienteLabel_valor}" for="valor" />
+                        <h:panelGroup>
+                            <p:inputText id="valor" value="#{egresoClienteController.selected.valor}" title="#{myBundle.CreateEgresoClienteTitle_valor}" required="true" requiredMessage="#{myBundle.CreateEgresoClienteRequiredMessage_valor}"/>
+                            <p:tooltip for="valor" value="#{egresoClienteController.getComponentMessages('valor', myBundle.CreateEgresoClienteHelpText_valor)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateEgresoClienteLabel_cliente}" for="cliente" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="cliente" value="#{egresoClienteController.selected.cliente}" required="true" requiredMessage="#{myBundle.CreateEgresoClienteRequiredMessage_cliente}" converter="clienteConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{clienteController.items}"
+                                               var="clienteItem"
+                                               itemValue="#{clienteItem}"
+                                               itemLabel="#{clienteItem.nombres.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="cliente" value="#{egresoClienteController.getComponentMessages('cliente', myBundle.CreateEgresoClienteHelpText_cliente)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateEgresoClienteLabel_tipoEgreso}" for="tipoEgreso" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="tipoEgreso" value="#{egresoClienteController.selected.tipoEgreso}" required="true" requiredMessage="#{myBundle.CreateEgresoClienteRequiredMessage_tipoEgreso}" converter="tipoEgresoConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{tipoEgresoController.items}"
+                                               var="tipoEgresoItem"
+                                               itemValue="#{tipoEgresoItem}"
+                                               itemLabel="#{tipoEgresoItem.descripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="tipoEgreso" value="#{egresoClienteController.getComponentMessages('tipoEgreso', myBundle.CreateEgresoClienteHelpText_tipoEgreso)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{egresoClienteController.saveNew}" value="#{myBundle.Save}" update="display,:EgresoClienteListForm:datalist,:EgresoClienteListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('EgresoClienteCreateDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('EgresoClienteCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

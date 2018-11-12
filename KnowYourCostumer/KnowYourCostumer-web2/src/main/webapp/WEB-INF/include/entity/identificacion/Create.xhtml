@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="IdentificacionCreateDlg" widgetVar="IdentificacionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateIdentificacionTitle}" closeOnEscape="true">
+
+            <h:form id="IdentificacionCreateForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display" rendered="#{identificacionController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateIdentificacionLabel_identificacionPK_codTipoIdentificacion}" for="identificacionPK_codTipoIdentificacion" />
+                        <h:panelGroup>
+                            <p:inputText id="identificacionPK_codTipoIdentificacion" value="#{identificacionController.selected.identificacionPK.codTipoIdentificacion}" title="#{myBundle.CreateIdentificacionTitle_identificacionPK_codTipoIdentificacion}" required="true" requiredMessage="#{myBundle.CreateIdentificacionRequiredMessage_identificacionPK_codTipoIdentificacion}"/>
+                            <p:tooltip for="identificacionPK_codTipoIdentificacion" value="#{identificacionController.getComponentMessages('identificacionPK_codTipoIdentificacion', myBundle.CreateIdentificacionHelpText_identificacionPK_codTipoIdentificacion)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateIdentificacionLabel_identificacionPK_codCliente}" for="identificacionPK_codCliente" />
+                        <h:panelGroup>
+                            <p:inputText id="identificacionPK_codCliente" value="#{identificacionController.selected.identificacionPK.codCliente}" title="#{myBundle.CreateIdentificacionTitle_identificacionPK_codCliente}" required="true" requiredMessage="#{myBundle.CreateIdentificacionRequiredMessage_identificacionPK_codCliente}"/>
+                            <p:tooltip for="identificacionPK_codCliente" value="#{identificacionController.getComponentMessages('identificacionPK_codCliente', myBundle.CreateIdentificacionHelpText_identificacionPK_codCliente)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateIdentificacionLabel_identificacionPK_codPais}" for="identificacionPK_codPais" />
+                        <h:panelGroup>
+                            <p:inputText id="identificacionPK_codPais" value="#{identificacionController.selected.identificacionPK.codPais}" title="#{myBundle.CreateIdentificacionTitle_identificacionPK_codPais}" required="true" requiredMessage="#{myBundle.CreateIdentificacionRequiredMessage_identificacionPK_codPais}" size="2" maxlength="2"/>
+                            <p:tooltip for="identificacionPK_codPais" value="#{identificacionController.getComponentMessages('identificacionPK_codPais', myBundle.CreateIdentificacionHelpText_identificacionPK_codPais)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateIdentificacionLabel_numeroIdentificacion}" for="numeroIdentificacion" />
+                        <h:panelGroup>
+                            <p:inputText id="numeroIdentificacion" value="#{identificacionController.selected.numeroIdentificacion}" title="#{myBundle.CreateIdentificacionTitle_numeroIdentificacion}" required="true" requiredMessage="#{myBundle.CreateIdentificacionRequiredMessage_numeroIdentificacion}"/>
+                            <p:tooltip for="numeroIdentificacion" value="#{identificacionController.getComponentMessages('numeroIdentificacion', myBundle.CreateIdentificacionHelpText_numeroIdentificacion)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateIdentificacionLabel_cliente}" for="cliente" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="cliente" value="#{identificacionController.selected.cliente}" required="true" requiredMessage="#{myBundle.CreateIdentificacionRequiredMessage_cliente}" converter="clienteConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{clienteController.items}"
+                                               var="clienteItem"
+                                               itemValue="#{clienteItem}"
+                                               itemLabel="#{clienteItem.nombres.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="cliente" value="#{identificacionController.getComponentMessages('cliente', myBundle.CreateIdentificacionHelpText_cliente)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateIdentificacionLabel_pais}" for="pais" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="pais" value="#{identificacionController.selected.pais}" required="true" requiredMessage="#{myBundle.CreateIdentificacionRequiredMessage_pais}" converter="paisConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{paisController.items}"
+                                               var="paisItem"
+                                               itemValue="#{paisItem}"
+                                               itemLabel="#{paisItem.nombre.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="pais" value="#{identificacionController.getComponentMessages('pais', myBundle.CreateIdentificacionHelpText_pais)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateIdentificacionLabel_tipoIdentificacion}" for="tipoIdentificacion" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="tipoIdentificacion" value="#{identificacionController.selected.tipoIdentificacion}" required="true" requiredMessage="#{myBundle.CreateIdentificacionRequiredMessage_tipoIdentificacion}" converter="tipoIdentificacionConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{tipoIdentificacionController.items}"
+                                               var="tipoIdentificacionItem"
+                                               itemValue="#{tipoIdentificacionItem}"
+                                               itemLabel="#{tipoIdentificacionItem.descripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="tipoIdentificacion" value="#{identificacionController.getComponentMessages('tipoIdentificacion', myBundle.CreateIdentificacionHelpText_tipoIdentificacion)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{identificacionController.saveNew}" value="#{myBundle.Save}" update="display,:IdentificacionListForm:datalist,:IdentificacionListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('IdentificacionCreateDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('IdentificacionCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

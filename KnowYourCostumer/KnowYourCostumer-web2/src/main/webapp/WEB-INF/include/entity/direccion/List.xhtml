@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="DireccionListForm">
+
+        <p:panel header="#{myBundle.ListDireccionTitle}">
+            <p:contextMenu id="DireccionDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('DireccionListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('DireccionListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('DireccionListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('DireccionListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.DireccionMenuItem_direccionClienteList}" icon="ui-icon-search"  action="#{direccionController.navigateDireccionClienteList}" disabled="#{direccionController.isDireccionClienteListEmpty}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.DireccionMenuItem_codCalleTrans}" icon="ui-icon-search"  actionListener="#{direccionController.prepareCodCalleTrans}" update=":CalleViewForm" oncomplete="PF('CalleViewDialog').show()" disabled="#{empty direccionController.selected.codCalleTrans}"/>  
+                <p:menuitem value="#{myBundle.DireccionMenuItem_codCalle}" icon="ui-icon-search"  actionListener="#{direccionController.prepareCodCalle}" update=":CalleViewForm" oncomplete="PF('CalleViewDialog').show()" disabled="#{empty direccionController.selected.codCalle}"/>  
+            </p:contextMenu>
+            <h:panelGroup id="messagePanel">
+                <p:messages id="listMessages" rendered="#{!direccionController.validationFailed}"/>
+            </h:panelGroup>
+
+            <p:dataTable id="datalist"
+                         value="#{direccionController.items}"
+                         lazy="false"
+                         rowKey="#{item.codDireccion}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{direccionController.selected}"
+                         filteredValue="#{direccionController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{direccionController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.codDireccion}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:DireccionDataTableContextMenu" listener="#{direccionController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:DireccionDataTableContextMenu" listener="#{direccionController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{direccionController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('DireccionListForm:viewButton').click();"/>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDireccionTitle_codDireccion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.codDireccion}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDireccionTitle_numero}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.numero}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDireccionTitle_referencia}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.referencia}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDireccionTitle_codCalleTrans}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.codCalleTrans.nombre}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListDireccionTitle_codCalle}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.codCalle.nombre}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{direccionController.prepareCreate}" update=":DireccionCreateForm" oncomplete="PF('DireccionCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":DireccionViewForm" oncomplete="PF('DireccionViewDialog').show()" disabled="#{empty direccionController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":DireccionEditForm" oncomplete="PF('DireccionEditDialog').show()" disabled="#{empty direccionController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{direccionController.delete}" update=":DireccionListForm:messagePanel,datalist" disabled="#{empty direccionController.selected}"/>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

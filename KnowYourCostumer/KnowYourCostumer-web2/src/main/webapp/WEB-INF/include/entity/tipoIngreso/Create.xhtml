@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoIngresoCreateDlg" widgetVar="TipoIngresoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateTipoIngresoTitle}" closeOnEscape="true">
+
+            <h:form id="TipoIngresoCreateForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display" rendered="#{tipoIngresoController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateTipoIngresoLabel_descripcion}" for="descripcion" />
+                        <h:panelGroup>
+                            <p:inputText id="descripcion" value="#{tipoIngresoController.selected.descripcion}" title="#{myBundle.CreateTipoIngresoTitle_descripcion}" required="true" requiredMessage="#{myBundle.CreateTipoIngresoRequiredMessage_descripcion}" size="100" maxlength="100"/>
+                            <p:tooltip for="descripcion" value="#{tipoIngresoController.getComponentMessages('descripcion', myBundle.CreateTipoIngresoHelpText_descripcion)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoIngresoController.saveNew}" value="#{myBundle.Save}" update="display,:TipoIngresoListForm:datalist,:TipoIngresoListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('TipoIngresoCreateDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TipoIngresoCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TipoCuentaEditDlg" widgetVar="TipoCuentaEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditTipoCuentaTitle}" closeOnEscape="true">
+
+            <h:form id="TipoCuentaEditForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{tipoCuentaController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditTipoCuentaLabel_codTipoCuenta}" for="codTipoCuenta" />
+                        <h:panelGroup>
+                            <h:outputText id="codTipoCuenta" value="#{tipoCuentaController.selected.codTipoCuenta}" />
+                            <p:tooltip for="codTipoCuenta" value="#{tipoCuentaController.getComponentMessages('codTipoCuenta', myBundle.EditTipoCuentaHelpText_codTipoCuenta)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditTipoCuentaLabel_descripcion}" for="descripcion" />
+                        <h:panelGroup>
+                            <p:inputText id="descripcion" value="#{tipoCuentaController.selected.descripcion}" title="#{myBundle.EditTipoCuentaTitle_descripcion}" required="true" requiredMessage="#{myBundle.EditTipoCuentaRequiredMessage_descripcion}" size="50" maxlength="50"/>
+                            <p:tooltip for="descripcion" value="#{tipoCuentaController.getComponentMessages('descripcion', myBundle.EditTipoCuentaHelpText_descripcion)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoCuentaController.save}" value="#{myBundle.Save}" update="display,:TipoCuentaListForm:datalist,:TipoCuentaListForm:TipoCuentaDataTableContextMenu,:TipoCuentaListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('TipoCuentaEditDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TipoCuentaEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

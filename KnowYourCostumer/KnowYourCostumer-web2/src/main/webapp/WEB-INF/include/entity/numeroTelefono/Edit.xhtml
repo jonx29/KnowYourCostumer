@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="NumeroTelefonoEditDlg" widgetVar="NumeroTelefonoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditNumeroTelefonoTitle}" closeOnEscape="true">
+
+            <h:form id="NumeroTelefonoEditForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{numeroTelefonoController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditNumeroTelefonoLabel_numeroTelefonoPK_codCliente}" for="numeroTelefonoPK_codCliente" />
+                        <h:panelGroup>
+                            <h:outputText id="numeroTelefonoPK_codCliente" value="#{numeroTelefonoController.selected.numeroTelefonoPK.codCliente}" />
+                            <p:tooltip for="numeroTelefonoPK_codCliente" value="#{numeroTelefonoController.getComponentMessages('numeroTelefonoPK_codCliente', myBundle.EditNumeroTelefonoHelpText_numeroTelefonoPK_codCliente)}"/>
+                        </h:panelGroup>
+
+
+                        <h:outputLabel value="#{myBundle.EditNumeroTelefonoLabel_numeroTelefonoPK_numero}" for="numeroTelefonoPK_numero" />
+                        <h:panelGroup>
+                            <h:outputText id="numeroTelefonoPK_numero" value="#{numeroTelefonoController.selected.numeroTelefonoPK.numero}" />
+                            <p:tooltip for="numeroTelefonoPK_numero" value="#{numeroTelefonoController.getComponentMessages('numeroTelefonoPK_numero', myBundle.EditNumeroTelefonoHelpText_numeroTelefonoPK_numero)}"/>
+                        </h:panelGroup>
+
+
+                        <h:outputLabel value="#{myBundle.EditNumeroTelefonoLabel_cliente}" for="cliente" />
+                        <h:panelGroup>
+                            <h:outputText id="cliente" value="#{numeroTelefonoController.selected.cliente}" />
+                            <p:tooltip for="cliente" value="#{numeroTelefonoController.getComponentMessages('cliente', myBundle.EditNumeroTelefonoHelpText_cliente)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditNumeroTelefonoLabel_codTipoTelefono}" for="codTipoTelefono" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="codTipoTelefono" value="#{numeroTelefonoController.selected.codTipoTelefono}" required="true" requiredMessage="#{myBundle.EditNumeroTelefonoRequiredMessage_codTipoTelefono}" converter="tipoTelefonoConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{tipoTelefonoController.items}"
+                                               var="codTipoTelefonoItem"
+                                               itemValue="#{codTipoTelefonoItem}"
+                                               itemLabel="#{codTipoTelefonoItem.descripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="codTipoTelefono" value="#{numeroTelefonoController.getComponentMessages('codTipoTelefono', myBundle.EditNumeroTelefonoHelpText_codTipoTelefono)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{numeroTelefonoController.save}" value="#{myBundle.Save}" update="display,:NumeroTelefonoListForm:datalist,:NumeroTelefonoListForm:NumeroTelefonoDataTableContextMenu,:NumeroTelefonoListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('NumeroTelefonoEditDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('NumeroTelefonoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

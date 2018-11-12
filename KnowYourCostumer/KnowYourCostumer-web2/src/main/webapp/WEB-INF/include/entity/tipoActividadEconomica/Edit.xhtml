@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TipoActividadEconomicaEditDlg" widgetVar="TipoActividadEconomicaEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditTipoActividadEconomicaTitle}" closeOnEscape="true">
+
+            <h:form id="TipoActividadEconomicaEditForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{tipoActividadEconomicaController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditTipoActividadEconomicaLabel_codTipoActividadEconomica}" for="codTipoActividadEconomica" />
+                        <h:panelGroup>
+                            <h:outputText id="codTipoActividadEconomica" value="#{tipoActividadEconomicaController.selected.codTipoActividadEconomica}" />
+                            <p:tooltip for="codTipoActividadEconomica" value="#{tipoActividadEconomicaController.getComponentMessages('codTipoActividadEconomica', myBundle.EditTipoActividadEconomicaHelpText_codTipoActividadEconomica)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditTipoActividadEconomicaLabel_descripcion}" for="descripcion" />
+                        <h:panelGroup>
+                            <p:inputText id="descripcion" value="#{tipoActividadEconomicaController.selected.descripcion}" title="#{myBundle.EditTipoActividadEconomicaTitle_descripcion}" required="true" requiredMessage="#{myBundle.EditTipoActividadEconomicaRequiredMessage_descripcion}" size="25" maxlength="25"/>
+                            <p:tooltip for="descripcion" value="#{tipoActividadEconomicaController.getComponentMessages('descripcion', myBundle.EditTipoActividadEconomicaHelpText_descripcion)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoActividadEconomicaController.save}" value="#{myBundle.Save}" update="display,:TipoActividadEconomicaListForm:datalist,:TipoActividadEconomicaListForm:TipoActividadEconomicaDataTableContextMenu,:TipoActividadEconomicaListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('TipoActividadEconomicaEditDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TipoActividadEconomicaEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

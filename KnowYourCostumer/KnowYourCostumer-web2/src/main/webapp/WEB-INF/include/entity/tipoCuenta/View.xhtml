@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoCuentaViewDlg" widgetVar="TipoCuentaViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewTipoCuentaTitle}" closeOnEscape="true">
+
+            <h:form id="TipoCuentaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{tipoCuentaController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewTipoCuentaLabel_codTipoCuenta}"/>
+                        <h:outputText value="#{tipoCuentaController.selected.codTipoCuenta}" title="#{myBundle.ViewTipoCuentaTitle_codTipoCuenta}"/>
+
+                        <h:outputText value="#{myBundle.ViewTipoCuentaLabel_descripcion}"/>
+                        <h:outputText value="#{tipoCuentaController.selected.descripcion}" title="#{myBundle.ViewTipoCuentaTitle_descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('TipoCuentaViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
