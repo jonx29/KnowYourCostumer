@@ -10,10 +10,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import ec.edu.espe.arquitectura.service.crudService;
-import java.sql.Time;
+import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
-import javax.persistence.Query;
 
 /**
  *
@@ -21,7 +19,7 @@ import javax.persistence.Query;
  */
 @ManagedBean()
 @SessionScoped
-public class beanClientes {
+public class beanClientes implements Serializable {
     //@EJB
     // Bean_loginLocal bean_login;
 
@@ -65,6 +63,7 @@ public class beanClientes {
     public String estadoCivilReferencia;
 
     //Parentesco con empleados    
+    public String parentesco;
     public String apellidosEmpleados;
     public String nombresEmpleados;
     public Date fechaEmpleado;
@@ -72,14 +71,33 @@ public class beanClientes {
 
     //Datos Economicos
     public String actividadEconomica;
-    public int ingresos;
-    public int egresos;
+    public double ingresos = new Double(0);
+    public double egresos = new Double(0);
 
     //Actividad Politica
     public String cargoPolitico;
     public Date fechaInicio;
     public Date fechaFin;
 
+    
+    
+    public double getIngresos() {
+        return ingresos;
+    }
+
+    public void setIngresos(double ingresos) {
+        this.ingresos = ingresos;
+    }
+
+    public double getEgresos() {
+        return egresos;
+    }
+
+    public void setEgresos(double egresos) {
+        this.egresos = egresos;
+    }
+
+    
     public String getTipo_cedula() {
         return tipo_cedula;
     }
@@ -87,7 +105,7 @@ public class beanClientes {
     public void setTipo_cedula(String tipo_cedula) {
         this.tipo_cedula = tipo_cedula;
     }
-  
+
     public String getCedula() {
         return cedula;
     }
@@ -130,6 +148,9 @@ public class beanClientes {
 
     public beanClientes() {
         objCliente = new Cliente();
+        ingresos = 0d;
+        egresos = 0d;
+        mensaje="";
     }
 
     /**
@@ -370,22 +391,6 @@ public class beanClientes {
         this.actividadEconomica = actividadEconomica;
     }
 
-    public int getIngresos() {
-        return ingresos;
-    }
-
-    public void setIngresos(int ingresos) {
-        this.ingresos = ingresos;
-    }
-
-    public int getEgresos() {
-        return egresos;
-    }
-
-    public void setEgresos(int egresos) {
-        this.egresos = egresos;
-    }
-
     public String getCargoPolitico() {
         return cargoPolitico;
     }
@@ -410,6 +415,14 @@ public class beanClientes {
         this.fechaFin = fechaFin;
     }
 
+    public String getParentesco() {
+        return parentesco;
+    }
+
+    public void setParentesco(String parentesco) {
+        this.parentesco = parentesco;
+    }
+
     public String eliminar() {
         if (bean_cliente.eliminar(objCliente.codigo()) == 1) {
             return "eliminacion";
@@ -420,13 +433,124 @@ public class beanClientes {
     }
 
     public String insertar() {
-        if (bean_cliente.ingresar(apellidos, nombres, fecha_nace, fecha_ingreso, Genero, estadoCivil, profecion) == 1) {
-            limpiarCampos();
-            return "insercion";
+        if ("RUC".equals(tipo_cedula)) {
+            if (validacionRUC(cedula)) {
+
+            } else {
+                mensaje = "No es un RUC correcto";
+                return null;
+            }
         } else {
-            mensaje = "No se pudo realizar la eliminacion";
-            return null;
+            if ("Cedula de ciudadania".equals(tipo_cedula)) {
+                if (validacionCedula(cedula)) {
+                    if ((bean_cliente.ingresar(apellidos, nombres, fecha_nace, fecha_ingreso, Genero, estadoCivil, profecion, cedula, pais, tipo_cedula) == 1)
+                            && (bean_cliente.ingresarRes(paisResidencia, ciudadResidencia, provinciaResidencia, callePrincipal, calleSecundaria,
+                                    numCasa, referencia, celular, domicilio) == 1)
+                            && (bean_cliente.ingresarEconomicos(actividadEconomica, ingresos, egresos) == 1)
+                            && (bean_cliente.ingresarPolitica(cargoPolitico, fechaInicio, fechaFin) == 1)
+                            && (bean_cliente.ingresarParentesco(nombresEmpleados, apellidosEmpleados, fechaEmpleado, paisEmpleado, parentesco) == 1)) {
+                        limpiarCampos();
+                        mensaje = "Inserción de Datos correctamente";
+                        return "insercion";
+                    } else {
+                        mensaje = "No se pudo realizar la inserción de los datos";
+                        return null;
+                    }
+                } else {
+                    mensaje = "No se pudo realizar la inserción, cédula no existente";
+                    return null;
+                }
+            } else {
+                mensaje = "Opcion no valida";
+                return null;
+            }
         }
+        return mensaje;
+    }
+
+    public boolean validacionCedula(String cedula) {
+        boolean resp_dato = false;
+        int num_provincias = 24;
+        if (cedula.length() == 10) {
+            char[] caracteres = new char[cedula.length()];
+            for (int i = 0; i < cedula.length(); i++) {
+                caracteres[i] = (char) cedula.charAt(i);
+                if (!Character.isDigit(caracteres[i])) {
+                    return resp_dato;
+                }
+            }
+            //verifica que los dos primeros dígitos correspondan a un valor entre 1 y NUMERO_DE_PROVINCIAS
+            int prov = Integer.parseInt(cedula.substring(0, 2));
+            if (!((prov > 0) && (prov <= num_provincias))) {
+                //addError("La cédula ingresada no es válida");
+                System.out.println("Error: cedula ingresada mal");
+                return resp_dato;
+            }
+            //verifica que el último dígito de la cédula sea válido
+            int[] d = new int[10];
+            //Asignamos el string a un array
+            for (int i = 0; i < d.length; i++) {
+                d[i] = Integer.parseInt(cedula.charAt(i) + "");
+            }
+            int imp = 0;
+            int par = 0;
+            //sumamos los duplos de posición impar
+            for (int i = 0; i < d.length; i += 2) {
+                d[i] = ((d[i] * 2) > 9) ? ((d[i] * 2) - 9) : (d[i] * 2);
+                imp += d[i];
+            }
+            //sumamos los digitos de posición par
+            for (int i = 1; i < (d.length - 1); i += 2) {
+                par += d[i];
+            }
+            //Sumamos los dos resultados
+            int suma = imp + par;
+            //Restamos de la decena superior
+            int d10 = Integer.parseInt(String.valueOf(suma + 10).substring(0, 1)
+                    + "0") - suma;
+            //Si es diez el décimo dígito es cero     
+            d10 = (d10 == 10) ? 0 : d10;
+            //si el décimo dígito calculado es igual al digitado la cédula es correcta
+            if (d10 == d[9]) {
+                resp_dato = true;
+                return resp_dato;
+            } else {
+                //addError("La cédula ingresada no es válida");
+                return resp_dato;
+            }
+        } else {
+            return resp_dato;
+        }
+    }
+    private static final int NUM_PROVINCIAS = 24;
+    private static int[] coeficientes = {4, 3, 2, 7, 6, 5, 4, 3, 2};
+    private static int constante = 11;
+
+    public Boolean validacionRUC(String ruc) {
+        boolean resp_dato = false;
+        final int prov = Integer.parseInt(ruc.substring(0, 2));
+        if (!((prov > 0) && (prov <= NUM_PROVINCIAS))) {
+            resp_dato = false;
+        }
+        int[] d = new int[10];
+        int suma = 0;
+        for (int i = 0; i < d.length; i++) {
+            d[i] = Integer.parseInt(ruc.charAt(i) + "");
+        }
+        for (int i = 0; i < d.length - 1; i++) {
+            d[i] = d[i] * coeficientes[i];
+            suma += d[i];
+        }
+        int aux, resp;
+        aux = suma % constante;
+        resp = constante - aux;
+        resp = (aux == 0) ? 0 : resp;
+        if (resp == d[9]) {
+            resp_dato = true;
+        } else {
+            resp_dato = false;
+        }
+        return resp_dato;
     }
 
     public void limpiarCampos() {

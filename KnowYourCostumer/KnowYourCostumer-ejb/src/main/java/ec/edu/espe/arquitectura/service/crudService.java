@@ -29,10 +29,26 @@ public class crudService {
         return clienteFacade.eliminarRegistro(codCliente);
     }
 
-    public int ingresar(String apellidos, String nombres, Date nace, Date ingresa, String genero1, String estado1, String profesion) {
-        return clienteFacade.ingresarCliente(apellidos, nombres, nace, ingresa, genero1, estado1, profesion);
+    public int ingresar(String apellidos, String nombres, Date nace, Date ingresa, String genero1, String estado1, String profesion, String cedula, String pais, String tipoIdef) {
+        return clienteFacade.ingresarCliente(apellidos, nombres, nace, ingresa, genero1, estado1, profesion, cedula, pais,tipoIdef);
     }
 
+    public int ingresarRes(String pais, String ciudad, String provincia, String calleP, String calleS, int casa, String referencia, int celular, int domicilio){
+        return clienteFacade.ingresarResidencia(pais, ciudad, provincia, calleP, calleS, casa, referencia, celular, domicilio);
+    }
+    
+    public int ingresarEconomicos(String actividad, double ingresos, double egresos){
+        return clienteFacade.ingresarDatosEconomicos(actividad, ingresos, egresos);
+    }
+    
+    public int ingresarPolitica(String cargo, Date inicio, Date Fin) {
+        return clienteFacade.ingresarActividadPolitica(cargo, inicio, Fin);
+    }
+    
+    public int ingresarParentesco(String nombre, String apellido, Date nace, String pais, String parentesco1){
+        return clienteFacade.ingresarParentescoEmpleados(nombre, apellido, nace, pais, parentesco1);
+    }
+    
     public Cliente buscarCliente(Integer codCliente) {
         System.out.println("nuevooooooo" + codCliente);
         return clienteFacade.busqueda(codCliente);

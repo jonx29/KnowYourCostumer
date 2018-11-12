@@ -9,6 +9,7 @@ import ec.edu.espe.arquitectura.model.Cliente;
 import ec.edu.espe.arquitectura.service.crudService;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -39,15 +40,16 @@ public class listaCientes {
         List<BigDecimal> listaCODIGO = new ArrayList<BigDecimal>();
         List<String> listaNOMBRE = new ArrayList<String>();
         List<String> listaAPELLIDO = new ArrayList<String>();
+        List<Date> listaFECHA = new ArrayList<Date>();
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("ec.edu.espe.arquitectura_KnowYourCostumer-web_war_1.0-SNAPSHOTPU");
         EntityManager em1 = factory.createEntityManager();
         try {
-            Query q_codigo = em1.createNativeQuery("SELECT cod_cliente FROM cliente ORDER BY cod_cliente ASC");
-            listaCODIGO = q_codigo.getResultList();
-            Query q_nombre = em1.createNativeQuery("SELECT nombres FROM cliente ORDER BY cod_cliente ASC");
-            listaNOMBRE = q_nombre.getResultList();
-            Query q_correo = em1.createNativeQuery("SELECT apellidos FROM cliente ORDER BY cod_cliente ASC");
-            listaAPELLIDO = q_correo.getResultList();
+                Query q_codigo = em1.createNativeQuery("SELECT cod_cliente FROM cliente WHERE NOT fecha_registro = '1900-01-01' ORDER BY cod_cliente ASC");
+                listaCODIGO = q_codigo.getResultList();
+                Query q_nombre = em1.createNativeQuery("SELECT nombres FROM cliente WHERE NOT fecha_registro = '1900-01-01' ORDER BY cod_cliente ASC");
+                listaNOMBRE = q_nombre.getResultList();
+                Query q_correo = em1.createNativeQuery("SELECT apellidos FROM cliente WHERE NOT fecha_registro = '1900-01-01' ORDER BY cod_cliente ASC");
+                listaAPELLIDO = q_correo.getResultList();
         } catch (Exception ex) {
         }
         em1.close();

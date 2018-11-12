@@ -42,7 +42,8 @@
         </style>
     </h:head>
     <h:body>
-        <center><a href='menu.xhtml'><input class="botones" type='submit' name='boton' value='Regresar'/></a></center>
+        <center><a href='menu.xhtml'><input class="botones" type='submit' name='boton' value='Regresar'/></a></center><br></br><br></br>
+        <center><h:outputText id="mensaje1" value="#{beanClientes.mensaje}"/></center>
 
         <div class="container">
 
@@ -59,15 +60,15 @@
                         <f:selectItem itemLabel="RUC" itemValue="RUC" />                       
                     </p:selectOneMenu>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <h:outputText value="Cédula:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:inputText type="number" class="input" value="#{beanClientes.cedula}" required="true" maxlength="10"  onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;">
+                    <p:inputText class="input" value="#{beanClientes.cedula}" required="true" maxlength="10"  onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;">
                     </p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </h:panelGrid>
                 <br></br>
                 <h:panelGrid columns="12">
                     <h:outputText value="Apellidos:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.apellidos}" ></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.apellidos}" required="true" onkeypress="if (event.which &lt; 65 || event.which &gt; 90)if (event.which &lt; 97 || event.which &gt; 122) return false;"> </p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <h:outputText value="Nombres:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.nombres}"></p:inputText>
+                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.nombres}" required="true" onkeypress="if (event.which &lt; 65 || event.which &gt; 90)if (event.which &lt; 97 || event.which &gt; 122) return false;"></p:inputText>
 
                 </h:panelGrid>
                 <br></br>
@@ -81,19 +82,18 @@
                     </p:selectOneMenu>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <h:outputText value="Profesión: " />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.profecion}"></p:inputText>
+                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.profecion}" required="true"></p:inputText>
                 </h:panelGrid>
                 <br></br>
                 <h:panelGrid columns="20">
                     <h:outputLabel for="car1" value="País de nacimiento:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <p:selectOneMenu id="car1" value="#{beanClientes.pais}"> 
                         <f:selectItem itemLabel="Seleccionar" itemValue="" />
-                        <f:selectItems value="#{beanClientes.pais}" />
+                        <f:selectItem itemLabel="Ecuador" itemValue="Ecuador" />                       
                     </p:selectOneMenu>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <h:outputLabel for="car2" value="Ciudadanía:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.ciudadania}"></p:inputText>
-
+                    <h:outputLabel value="Ciudadanía:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.ciudadania}" required="true"></p:inputText>
 
                 </h:panelGrid>
                 <br></br>
@@ -111,16 +111,14 @@
                 </h:panelGrid>
                 <br></br>
                 <h:panelGrid columns="10">
-
                     <h:outputLabel for="popup1" value="Fecha de Registro:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:calendar id="popup1" pattern="yyyy-MM-dd" value="#{beanClientes.fecha_ingreso}"/>
-
+                    <p:calendar id="popup1" pattern="yyyy-MM-dd" value="#{beanClientes.fecha_ingreso}" required="true"/>
                 </h:panelGrid>
                 <br></br>
                 <h:panelGrid columns="6">
 
                     <h:outputLabel for="popup2" value="Fecha de Nacimiento:" /> &nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:calendar id="popup2" pattern="yyyy-MM-dd" value="#{beanClientes.fecha_nace}" />
+                    <p:calendar id="popup2" pattern="yyyy-MM-dd" value="#{beanClientes.fecha_nace}" required="true"/>
 
                 </h:panelGrid>
                 <br></br>
@@ -131,7 +129,7 @@
                     <h:outputLabel for="car4" value="País de residencia:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <p:selectOneMenu id="car4" value="#{beanClientes.paisResidencia}"> 
                         <f:selectItem itemLabel="Seleccionar" itemValue="" />
-                        <f:selectItems value="#{beanClientes.paisResidencia}" />
+                        <f:selectItem itemLabel="Ecuador" itemValue="Ecuador" />                       
                     </p:selectOneMenu>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
@@ -139,7 +137,7 @@
                     <h:outputLabel for="car5" value="Provincia de residencia:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <p:selectOneMenu id="car5" value="#{beanClientes.provinciaResidencia}"> 
                         <f:selectItem itemLabel="Seleccionar" itemValue="" />
-                        <f:selectItems value="#{beanClientes.provinciaResidencia}" />
+                        <f:selectItem itemLabel="Pichincha" itemValue="Pichincha" />                       
                     </p:selectOneMenu>
 
 
@@ -149,7 +147,7 @@
                     <h:outputLabel for="car6" value="Ciudad de residencia:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <p:selectOneMenu id="car6" value="#{beanClientes.ciudadResidencia}"> 
                         <f:selectItem itemLabel="Seleccionar" itemValue="" />
-                        <f:selectItems value="#{beanClientes.ciudadResidencia}" />
+                        <f:selectItem itemLabel="Quito" itemValue="Quito" />
                     </p:selectOneMenu>
 
 
@@ -157,34 +155,34 @@
                 <br></br>
                 <h:panelGrid columns="12">
                     <h:outputText value="Calle principal::" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-                    <p:inputText class="input" value="#{beanClientes.callePrincipal}" ></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" value="#{beanClientes.callePrincipal}" required="true"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <h:outputText value="#CASA:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.numCasa}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"></p:inputText>
+                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.numCasa}" required="true" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;"></p:inputText>
 
 
                 </h:panelGrid>
 
                 <h:panelGrid columns="12">
                     <h:outputText value="Calle secundaria:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.calleSecundaria}"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.calleSecundaria}" required="true"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 
                 </h:panelGrid>
                 <h:panelGrid columns="12">
                     <h:outputText value="Referencia:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.referencia}"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.referencia}" required="true"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 
                 </h:panelGrid>
                 <h:panelGrid columns="12">
                     <h:outputText value="Teléfono celular N°:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.celular}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" maxlength="12"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.celular}" required="true" onkeypress="if (event.which &lt;48 || event.which &gt; 57) return false;" maxlength="12"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 
                 </h:panelGrid>
                 <h:panelGrid columns="12">
                     <h:outputText value="Teléfono de domicilio:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.domicilio}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" maxlength="9"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.domicilio}" required="true" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;" maxlength="9"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </h:panelGrid>
                 <br></br>
                 <div class="form__top">
@@ -193,20 +191,19 @@
 
                 <h:panelGrid columns="12">
                     <h:outputText value="Tipo de Referencia:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:inputText class="input"  value="#{beanClientes.tipoReferencia}"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input"  value="#{beanClientes.tipoReferencia}" required="true"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <h:outputText value="Cédula:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:inputText class="input" value="#{beanClientes.cedulaReferencia}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;" maxlength="10"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" value="#{beanClientes.cedulaReferencia}" required="true" onkeypress="if (event.which &lt;48 || event.which &gt; 57) return false;" maxlength="10"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </h:panelGrid>
                 <h:panelGrid columns="12">
                     <h:outputText value="Apellidos:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.apellidosReferencia}"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.apellidosReferencia}" required="true"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <h:outputText value="Nombres:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.nombresReferencia}" ></p:inputText>
+                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.nombresReferencia}" required="true"></p:inputText>
 
                 </h:panelGrid>
                 <br></br>
                 <h:panelGrid columns="4">
-
                     <h:outputText value="Genero:" />
                     &nbsp;&nbsp;
                     <p:selectOneMenu id="genero1" value="#{beanClientes.generoReferencia}"> 
@@ -215,7 +212,6 @@
                         <f:selectItem itemLabel="Otros" itemValue="Otros" />                        
                         <f:selectItem itemLabel="Sin Especificar" itemValue="Sin Especificar" />
                     </p:selectOneMenu>
-
                 </h:panelGrid>
                 <br></br>
                 <h:panelGrid columns="20">
@@ -230,8 +226,6 @@
                         <f:selectItem itemLabel="Seleccionar" itemValue="" />
                         <f:selectItems value="#{beanClientes.ciudadaniaReferencia}" />
                     </p:selectOneMenu>
-
-
                 </h:panelGrid>
                 <br></br>
                 <h:panelGrid columns="10">
@@ -243,8 +237,6 @@
                         <f:selectItem itemLabel="Viudo/a" itemValue="Viudo/a" />
                         <f:selectItem itemLabel="Comprometido/a" itemValue="Comprometido/a" />
                     </p:selectOneMenu>
-
-
                 </h:panelGrid>
                 <br></br>
 
@@ -252,23 +244,27 @@
                     <h2><span>PARENTESCO CON LOS EMPLEADOS </span></h2>
                 </div>
 
+                <h:panelGrid columns="12">                    
+                    <h:outputText value="Parentesco:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input"  value="#{beanClientes.parentesco}" required="true"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </h:panelGrid>
+                <br></br>
                 <h:panelGrid columns="12">
                     <h:outputText value="Nombres:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:inputText class="input"  value="#{beanClientes.nombresEmpleados}"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input"  value="#{beanClientes.nombresEmpleados}" required="true"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <h:outputText value="Apellidos:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.apellidosEmpleados}"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.apellidosEmpleados}" required="true"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                 </h:panelGrid>
                 <br></br>
                 <h:panelGrid columns="10">
 
                     <h:outputLabel for="parNacimiento" value="Fecha de nacimiento:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:calendar id="parNacimiento" pattern="yyyy-MM-dd" value="#{beanClientes.fechaEmpleado}" />
+                    <p:calendar id="parNacimiento" pattern="yyyy-MM-dd" value="#{beanClientes.fechaEmpleado}" required="true" />
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <h:outputLabel for="parPais" value="Pais de nacimiento:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:selectOneMenu id="parPais" value="#{beanClientes.paisEmpleado}"> 
-                        <f:selectItem itemLabel="Seleccionar" itemValue="" />
-                        <f:selectItems value="#{beanClientes.paisEmpleado}" />
+                    <p:selectOneMenu id="parPais" value="#{beanClientes.paisEmpleado}">
+                        <f:selectItem itemLabel="Ecuador" itemValue="Ecuador" />     
                     </p:selectOneMenu>
 
                 </h:panelGrid>
@@ -278,14 +274,14 @@
                 </div>
                 <h:panelGrid columns="12">
                     <h:outputText value="Actividad económica:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:inputText class="input" value="#{beanClientes.actividadEconomica}"></p:inputText>
+                    <p:inputText class="input" value="#{beanClientes.actividadEconomica}" required="true" onkeypress="if (event.which &lt; 65 || event.which &gt; 90)if (event.which &lt; 97 || event.which &gt; 122) return false;"></p:inputText>
                 </h:panelGrid>
                 <br></br>                
                 <h:panelGrid columns="12">
                     <h:outputText value="Ingresos mensuales:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:inputText class="input" value="#{beanClientes.ingresos}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" value="#{beanClientes.ingresos}" required="true" onkeypress="if (event.which &lt; 48 || event.which &gt; 57)if(event.which != 46) return false;"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <h:outputText value="Egresos mensuales :" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:inputText class="input" value="#{beanClientes.egresos}" onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"></p:inputText>
+                    <p:inputText class="input" value="#{beanClientes.egresos}" required="true" onkeypress="if (event.which &lt; 48 || event.which &gt; 57)if(event.which != 46) return false;"></p:inputText>
                 </h:panelGrid>
                 <br></br>
                 <div class="form__top">
@@ -294,17 +290,17 @@
                 <h:panelGrid columns="12">
 
                     <h:outputText value="Cargo político:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:inputText class="input"  value="#{beanClientes.cargoPolitico}"></p:inputText>
+                    <p:inputText class="input"  value="#{beanClientes.cargoPolitico}" required="true" onkeypress="if (event.which &lt; 65 || event.which &gt; 90)if (event.which &lt; 97 || event.which &gt; 122) return false;"></p:inputText>
                     <br></br><br></br>
 
                 </h:panelGrid>
                 <h:panelGrid columns="10">
 
                     <h:outputLabel for="popup111" value="Fecha de inico:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:calendar id="popup111" pattern="yyyy-MM-dd" value="#{beanClientes.fechaInicio}" />
+                    <p:calendar id="popup111" pattern="yyyy-MM-dd" value="#{beanClientes.fechaInicio}" required="true" />
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <h:outputLabel for="popup111" value="Fecha fin:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:calendar id="popup11" pattern="yyyy-MM-dd" value="#{beanClientes.fechaFin}" />
+                    <h:outputLabel for="popup11" value="Fecha fin:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:calendar id="popup11" pattern="yyyy-MM-dd" value="#{beanClientes.fechaFin}" required="true"/>
 
                 </h:panelGrid>
                 <br></br>   <br></br>
@@ -319,6 +315,8 @@
                 </div>
             </h:form>
             <center><a href='menu.xhtml'><input class="botones" type='submit' name='boton' value='Regresar'/></a></center>
+
+            <center><h:outputText id="mensaje" value="#{beanClientes.mensaje}"/></center>
         </div>
 
     </h:body>
