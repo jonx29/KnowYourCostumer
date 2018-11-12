@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ClienteViewDlg" widgetVar="ClienteViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewClienteTitle}" closeOnEscape="true">
+
+            <h:form id="ClienteViewForm">
+
+                <h:panelGroup id="display">
+                    <p:tabView id="ClienteTabView">
+
+                        <p:tab id="ClienteTab1" title="#{myBundle.TabHeaderPrefix} 1">
+                            <p:panelGrid columns="2" columnClasses="column" rendered="#{clienteController.selected != null}">
+                                <h:outputText value="#{myBundle.ViewClienteLabel_codCliente}"/>
+                                <h:outputText value="#{clienteController.selected.codCliente}" title="#{myBundle.ViewClienteTitle_codCliente}"/>
+
+                                <h:outputText value="#{myBundle.ViewClienteLabel_nombres}"/>
+                                <h:outputText value="#{clienteController.selected.nombres}" title="#{myBundle.ViewClienteTitle_nombres}"/>
+
+                                <h:outputText value="#{myBundle.ViewClienteLabel_apellidos}"/>
+                                <h:outputText value="#{clienteController.selected.apellidos}" title="#{myBundle.ViewClienteTitle_apellidos}"/>
+
+                                <h:outputText value="#{myBundle.ViewClienteLabel_fechaNacimiento}"/>
+                                <h:outputText value="#{clienteController.selected.fechaNacimiento}" title="#{myBundle.ViewClienteTitle_fechaNacimiento}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
+
+                                <h:outputText value="#{myBundle.ViewClienteLabel_fechaHoraRegistro}"/>
+                                <h:outputText value="#{clienteController.selected.fechaHoraRegistro}" title="#{myBundle.ViewClienteTitle_fechaHoraRegistro}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </h:outputText>
+
+                                <h:outputText value="#{myBundle.ViewClienteLabel_paisList}"/>
+                                <p:selectManyMenu converter="paisConverter">
+                                    <f:attribute name="collectionType" value="java.util.ArrayList"/>
+                                    <f:selectItems value="#{clienteController.selected.paisList}"
+                                                   var="paisListItem"
+                                                   itemValue="#{paisListItem}"
+                                                   itemLabel="#{paisListItem.nombre.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewClienteLabel_clienteList}"/>
+                                <p:selectManyMenu converter="clienteConverter">
+                                    <f:attribute name="collectionType" value="java.util.ArrayList"/>
+                                    <f:selectItems value="#{clienteController.selected.clienteList}"
+                                                   var="clienteListItem"
+                                                   itemValue="#{clienteListItem}"
+                                                   itemLabel="#{clienteListItem.nombres.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewClienteLabel_tipoActividadEconomicaList}"/>
+                                <p:selectManyMenu converter="tipoActividadEconomicaConverter">
+                                    <f:attribute name="collectionType" value="java.util.ArrayList"/>
+                                    <f:selectItems value="#{clienteController.selected.tipoActividadEconomicaList}"
+                                                   var="tipoActividadEconomicaListItem"
+                                                   itemValue="#{tipoActividadEconomicaListItem}"
+                                                   itemLabel="#{tipoActividadEconomicaListItem.descripcion.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewClienteLabel_profesionList}"/>
+                                <p:selectManyMenu converter="profesionConverter">
+                                    <f:attribute name="collectionType" value="java.util.ArrayList"/>
+                                    <f:selectItems value="#{clienteController.selected.profesionList}"
+                                                   var="profesionListItem"
+                                                   itemValue="#{profesionListItem}"
+                                                   itemLabel="#{profesionListItem.descripcion.toString()}"
+                                                   />
+
+                                </p:selectManyMenu>
+
+                                <h:outputText value="#{myBundle.ViewClienteLabel_codEstadoCivil}"/>
+                                <h:outputText value="#{clienteController.selected.codEstadoCivil.descripcion}"/>
+
+                                <h:outputText value="#{myBundle.ViewClienteLabel_codGenero}"/>
+                                <h:outputText value="#{clienteController.selected.codGenero.descripcion}"/>
+
+                                <h:outputText value="#{myBundle.ViewClienteLabel_paisNacimiento}"/>
+                                <h:outputText value="#{clienteController.selected.paisNacimiento.nombre}"/>
+
+                                <h:outputText value="#{myBundle.ViewClienteLabel_codTipoPersoneria}"/>
+                                <h:outputText value="#{clienteController.selected.codTipoPersoneria.descripcion}"/>
+                            </p:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('ClienteViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ClienteListForm">
+
+        <p:panel header="#{myBundle.ListClienteTitle}">
+            <p:contextMenu id="ClienteDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('ClienteListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('ClienteListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('ClienteListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('ClienteListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.ClienteMenuItem_paisList}" icon="ui-icon-search"  action="#{clienteController.navigatePaisList}" disabled="#{clienteController.isPaisListEmpty}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ClienteMenuItem_clienteList}" icon="ui-icon-search"  action="#{clienteController.navigateClienteList}" disabled="#{clienteController.isClienteListEmpty}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ClienteMenuItem_clienteList1}" icon="ui-icon-search"  action="#{clienteController.navigateClienteList1}" disabled="#{clienteController.isClienteList1Empty}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ClienteMenuItem_tipoActividadEconomicaList}" icon="ui-icon-search"  action="#{clienteController.navigateTipoActividadEconomicaList}" disabled="#{clienteController.isTipoActividadEconomicaListEmpty}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ClienteMenuItem_profesionList}" icon="ui-icon-search"  action="#{clienteController.navigateProfesionList}" disabled="#{clienteController.isProfesionListEmpty}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ClienteMenuItem_direccionClienteList}" icon="ui-icon-search"  action="#{clienteController.navigateDireccionClienteList}" disabled="#{clienteController.isDireccionClienteListEmpty}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ClienteMenuItem_cuentaList}" icon="ui-icon-search"  action="#{clienteController.navigateCuentaList}" disabled="#{clienteController.isCuentaListEmpty}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ClienteMenuItem_cargoPoliticoList}" icon="ui-icon-search"  action="#{clienteController.navigateCargoPoliticoList}" disabled="#{clienteController.isCargoPoliticoListEmpty}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ClienteMenuItem_identificacionList}" icon="ui-icon-search"  action="#{clienteController.navigateIdentificacionList}" disabled="#{clienteController.isIdentificacionListEmpty}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ClienteMenuItem_codEstadoCivil}" icon="ui-icon-search"  actionListener="#{clienteController.prepareCodEstadoCivil}" update=":EstadoCivilViewForm" oncomplete="PF('EstadoCivilViewDialog').show()" disabled="#{empty clienteController.selected.codEstadoCivil}"/>  
+                <p:menuitem value="#{myBundle.ClienteMenuItem_codGenero}" icon="ui-icon-search"  actionListener="#{clienteController.prepareCodGenero}" update=":GeneroViewForm" oncomplete="PF('GeneroViewDialog').show()" disabled="#{empty clienteController.selected.codGenero}"/>  
+                <p:menuitem value="#{myBundle.ClienteMenuItem_paisNacimiento}" icon="ui-icon-search"  actionListener="#{clienteController.preparePaisNacimiento}" update=":PaisViewForm" oncomplete="PF('PaisViewDialog').show()" disabled="#{empty clienteController.selected.paisNacimiento}"/>  
+                <p:menuitem value="#{myBundle.ClienteMenuItem_codTipoPersoneria}" icon="ui-icon-search"  actionListener="#{clienteController.prepareCodTipoPersoneria}" update=":TipoPersoneriaViewForm" oncomplete="PF('TipoPersoneriaViewDialog').show()" disabled="#{empty clienteController.selected.codTipoPersoneria}"/>  
+                <p:menuitem value="#{myBundle.ClienteMenuItem_ingresoClienteList}" icon="ui-icon-search"  action="#{clienteController.navigateIngresoClienteList}" disabled="#{clienteController.isIngresoClienteListEmpty}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ClienteMenuItem_numeroTelefonoList}" icon="ui-icon-search"  action="#{clienteController.navigateNumeroTelefonoList}" disabled="#{clienteController.isNumeroTelefonoListEmpty}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ClienteMenuItem_parentescoList}" icon="ui-icon-search"  action="#{clienteController.navigateParentescoList}" disabled="#{clienteController.isParentescoListEmpty}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ClienteMenuItem_parentescoList1}" icon="ui-icon-search"  action="#{clienteController.navigateParentescoList1}" disabled="#{clienteController.isParentescoList1Empty}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ClienteMenuItem_referenciaList}" icon="ui-icon-search"  action="#{clienteController.navigateReferenciaList}" disabled="#{clienteController.isReferenciaListEmpty}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ClienteMenuItem_referenciaList1}" icon="ui-icon-search"  action="#{clienteController.navigateReferenciaList1}" disabled="#{clienteController.isReferenciaList1Empty}" ajax="false"/>  
+                <p:menuitem value="#{myBundle.ClienteMenuItem_egresoClienteList}" icon="ui-icon-search"  action="#{clienteController.navigateEgresoClienteList}" disabled="#{clienteController.isEgresoClienteListEmpty}" ajax="false"/>  
+            </p:contextMenu>
+            <h:panelGroup id="messagePanel">
+                <p:messages id="listMessages" rendered="#{!clienteController.validationFailed}"/>
+            </h:panelGroup>
+
+            <p:dataTable id="datalist"
+                         value="#{clienteController.items}"
+                         lazy="false"
+                         rowKey="#{item.codCliente}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{clienteController.selected}"
+                         filteredValue="#{clienteController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{clienteController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.codCliente}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ClienteDataTableContextMenu" listener="#{clienteController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ClienteDataTableContextMenu" listener="#{clienteController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{clienteController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('ClienteListForm:viewButton').click();"/>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListClienteTitle_codCliente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.codCliente}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListClienteTitle_nombres}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.nombres}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListClienteTitle_apellidos}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.apellidos}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListClienteTitle_fechaNacimiento}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaNacimiento}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListClienteTitle_fechaHoraRegistro}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.fechaHoraRegistro}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListClienteTitle_codEstadoCivil}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.codEstadoCivil.descripcion}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListClienteTitle_codGenero}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.codGenero.descripcion}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListClienteTitle_paisNacimiento}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.paisNacimiento.nombre}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListClienteTitle_codTipoPersoneria}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.codTipoPersoneria.descripcion}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{clienteController.prepareCreate}" update=":ClienteCreateForm" oncomplete="PF('ClienteCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":ClienteViewForm" oncomplete="PF('ClienteViewDialog').show()" disabled="#{empty clienteController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":ClienteEditForm" oncomplete="PF('ClienteEditDialog').show()" disabled="#{empty clienteController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{clienteController.delete}" update=":ClienteListForm:messagePanel,datalist" disabled="#{empty clienteController.selected}"/>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

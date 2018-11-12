@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoActividadEconomicaCreateDlg" widgetVar="TipoActividadEconomicaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateTipoActividadEconomicaTitle}" closeOnEscape="true">
+
+            <h:form id="TipoActividadEconomicaCreateForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display" rendered="#{tipoActividadEconomicaController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateTipoActividadEconomicaLabel_descripcion}" for="descripcion" />
+                        <h:panelGroup>
+                            <p:inputText id="descripcion" value="#{tipoActividadEconomicaController.selected.descripcion}" title="#{myBundle.CreateTipoActividadEconomicaTitle_descripcion}" required="true" requiredMessage="#{myBundle.CreateTipoActividadEconomicaRequiredMessage_descripcion}" size="25" maxlength="25"/>
+                            <p:tooltip for="descripcion" value="#{tipoActividadEconomicaController.getComponentMessages('descripcion', myBundle.CreateTipoActividadEconomicaHelpText_descripcion)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoActividadEconomicaController.saveNew}" value="#{myBundle.Save}" update="display,:TipoActividadEconomicaListForm:datalist,:TipoActividadEconomicaListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('TipoActividadEconomicaCreateDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TipoActividadEconomicaCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

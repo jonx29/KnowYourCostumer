@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="TipoIdentificacionListForm">
+
+        <p:panel header="#{myBundle.ListTipoIdentificacionTitle}">
+            <p:contextMenu id="TipoIdentificacionDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('TipoIdentificacionListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('TipoIdentificacionListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('TipoIdentificacionListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('TipoIdentificacionListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.TipoIdentificacionMenuItem_identificacionList}" icon="ui-icon-search"  action="#{tipoIdentificacionController.navigateIdentificacionList}" disabled="#{tipoIdentificacionController.isIdentificacionListEmpty}" ajax="false"/>  
+            </p:contextMenu>
+            <h:panelGroup id="messagePanel">
+                <p:messages id="listMessages" rendered="#{!tipoIdentificacionController.validationFailed}"/>
+            </h:panelGroup>
+
+            <p:dataTable id="datalist"
+                         value="#{tipoIdentificacionController.items}"
+                         lazy="false"
+                         rowKey="#{item.codTipoIdentificacion}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{tipoIdentificacionController.selected}"
+                         filteredValue="#{tipoIdentificacionController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{tipoIdentificacionController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.codTipoIdentificacion}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:TipoIdentificacionDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:TipoIdentificacionDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('TipoIdentificacionListForm:viewButton').click();"/>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTipoIdentificacionTitle_codTipoIdentificacion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.codTipoIdentificacion}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTipoIdentificacionTitle_descripcion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.descripcion}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{tipoIdentificacionController.prepareCreate}" update=":TipoIdentificacionCreateForm" oncomplete="PF('TipoIdentificacionCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":TipoIdentificacionViewForm" oncomplete="PF('TipoIdentificacionViewDialog').show()" disabled="#{empty tipoIdentificacionController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":TipoIdentificacionEditForm" oncomplete="PF('TipoIdentificacionEditDialog').show()" disabled="#{empty tipoIdentificacionController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{tipoIdentificacionController.delete}" update=":TipoIdentificacionListForm:messagePanel,datalist" disabled="#{empty tipoIdentificacionController.selected}"/>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

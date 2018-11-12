@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoReferenciaCreateDlg" widgetVar="TipoReferenciaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateTipoReferenciaTitle}" closeOnEscape="true">
+
+            <h:form id="TipoReferenciaCreateForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display" rendered="#{tipoReferenciaController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateTipoReferenciaLabel_descripcion}" for="descripcion" />
+                        <h:panelGroup>
+                            <p:inputText id="descripcion" value="#{tipoReferenciaController.selected.descripcion}" title="#{myBundle.CreateTipoReferenciaTitle_descripcion}" required="true" requiredMessage="#{myBundle.CreateTipoReferenciaRequiredMessage_descripcion}" size="50" maxlength="50"/>
+                            <p:tooltip for="descripcion" value="#{tipoReferenciaController.getComponentMessages('descripcion', myBundle.CreateTipoReferenciaHelpText_descripcion)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoReferenciaController.saveNew}" value="#{myBundle.Save}" update="display,:TipoReferenciaListForm:datalist,:TipoReferenciaListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('TipoReferenciaCreateDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TipoReferenciaCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

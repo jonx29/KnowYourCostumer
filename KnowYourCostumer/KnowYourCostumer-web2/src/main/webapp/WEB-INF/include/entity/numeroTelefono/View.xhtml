@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="NumeroTelefonoViewDlg" widgetVar="NumeroTelefonoViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewNumeroTelefonoTitle}" closeOnEscape="true">
+
+            <h:form id="NumeroTelefonoViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{numeroTelefonoController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewNumeroTelefonoLabel_numeroTelefonoPK_codCliente}"/>
+                        <h:outputText value="#{numeroTelefonoController.selected.numeroTelefonoPK.codCliente}" title="#{myBundle.ViewNumeroTelefonoTitle_numeroTelefonoPK_codCliente}"/>
+
+                        <h:outputText value="#{myBundle.ViewNumeroTelefonoLabel_numeroTelefonoPK_numero}"/>
+                        <h:outputText value="#{numeroTelefonoController.selected.numeroTelefonoPK.numero}" title="#{myBundle.ViewNumeroTelefonoTitle_numeroTelefonoPK_numero}"/>
+
+                        <h:outputText value="#{myBundle.ViewNumeroTelefonoLabel_cliente}"/>
+                        <h:outputText value="#{numeroTelefonoController.selected.cliente.nombres}"/>
+
+                        <h:outputText value="#{myBundle.ViewNumeroTelefonoLabel_codTipoTelefono}"/>
+                        <h:outputText value="#{numeroTelefonoController.selected.codTipoTelefono.descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('NumeroTelefonoViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

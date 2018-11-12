@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/include/template.xhtml">
+
+    <ui:define name="title">
+        <h:outputText value="#{myBundle.CuentaTitle}"/>
+    </ui:define>
+
+    <ui:define name="body">
+
+        <ui:include src="/WEB-INF/include/entity/cuenta/List.xhtml"/>
+        <ui:include src="/WEB-INF/include/entity/cuenta/View.xhtml"/>
+        <ui:include src="/WEB-INF/include/entity/cuenta/Edit.xhtml"/>
+        <ui:include src="/WEB-INF/include/entity/cuenta/Create.xhtml"/>
+        <ui:include src="/WEB-INF/include/entity/tipoCuenta/View.xhtml"/>
+        <ui:include src="/WEB-INF/include/entity/cliente/View.xhtml"/>
+
+    </ui:define>
+
+</ui:composition>

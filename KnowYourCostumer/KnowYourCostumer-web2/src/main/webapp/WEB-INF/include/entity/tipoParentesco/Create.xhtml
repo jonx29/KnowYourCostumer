@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoParentescoCreateDlg" widgetVar="TipoParentescoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateTipoParentescoTitle}" closeOnEscape="true">
+
+            <h:form id="TipoParentescoCreateForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display" rendered="#{tipoParentescoController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateTipoParentescoLabel_descripcion}" for="descripcion" />
+                        <h:panelGroup>
+                            <p:inputText id="descripcion" value="#{tipoParentescoController.selected.descripcion}" title="#{myBundle.CreateTipoParentescoTitle_descripcion}" required="true" requiredMessage="#{myBundle.CreateTipoParentescoRequiredMessage_descripcion}" size="25" maxlength="25"/>
+                            <p:tooltip for="descripcion" value="#{tipoParentescoController.getComponentMessages('descripcion', myBundle.CreateTipoParentescoHelpText_descripcion)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoParentescoController.saveNew}" value="#{myBundle.Save}" update="display,:TipoParentescoListForm:datalist,:TipoParentescoListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('TipoParentescoCreateDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TipoParentescoCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

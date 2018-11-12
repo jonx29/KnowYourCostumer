@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ReferenciaCreateDlg" widgetVar="ReferenciaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateReferenciaTitle}" closeOnEscape="true">
+
+            <h:form id="ReferenciaCreateForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display" rendered="#{referenciaController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateReferenciaLabel_referenciaPK_codCliente}" for="referenciaPK_codCliente" />
+                        <h:panelGroup>
+                            <p:inputText id="referenciaPK_codCliente" value="#{referenciaController.selected.referenciaPK.codCliente}" title="#{myBundle.CreateReferenciaTitle_referenciaPK_codCliente}" required="true" requiredMessage="#{myBundle.CreateReferenciaRequiredMessage_referenciaPK_codCliente}"/>
+                            <p:tooltip for="referenciaPK_codCliente" value="#{referenciaController.getComponentMessages('referenciaPK_codCliente', myBundle.CreateReferenciaHelpText_referenciaPK_codCliente)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateReferenciaLabel_referenciaPK_cliCodCliente}" for="referenciaPK_cliCodCliente" />
+                        <h:panelGroup>
+                            <p:inputText id="referenciaPK_cliCodCliente" value="#{referenciaController.selected.referenciaPK.cliCodCliente}" title="#{myBundle.CreateReferenciaTitle_referenciaPK_cliCodCliente}" required="true" requiredMessage="#{myBundle.CreateReferenciaRequiredMessage_referenciaPK_cliCodCliente}"/>
+                            <p:tooltip for="referenciaPK_cliCodCliente" value="#{referenciaController.getComponentMessages('referenciaPK_cliCodCliente', myBundle.CreateReferenciaHelpText_referenciaPK_cliCodCliente)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateReferenciaLabel_cliente}" for="cliente" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="cliente" value="#{referenciaController.selected.cliente}" required="true" requiredMessage="#{myBundle.CreateReferenciaRequiredMessage_cliente}" converter="clienteConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{clienteController.items}"
+                                               var="clienteItem"
+                                               itemValue="#{clienteItem}"
+                                               itemLabel="#{clienteItem.nombres.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="cliente" value="#{referenciaController.getComponentMessages('cliente', myBundle.CreateReferenciaHelpText_cliente)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateReferenciaLabel_cliente1}" for="cliente1" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="cliente1" value="#{referenciaController.selected.cliente1}" required="true" requiredMessage="#{myBundle.CreateReferenciaRequiredMessage_cliente1}" converter="clienteConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{clienteController.items}"
+                                               var="cliente1Item"
+                                               itemValue="#{cliente1Item}"
+                                               itemLabel="#{cliente1Item.nombres.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="cliente1" value="#{referenciaController.getComponentMessages('cliente1', myBundle.CreateReferenciaHelpText_cliente1)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateReferenciaLabel_codTipoReferencia}" for="codTipoReferencia" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="codTipoReferencia" value="#{referenciaController.selected.codTipoReferencia}"  converter="tipoReferenciaConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{tipoReferenciaController.items}"
+                                               var="codTipoReferenciaItem"
+                                               itemValue="#{codTipoReferenciaItem}"
+                                               itemLabel="#{codTipoReferenciaItem.descripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="codTipoReferencia" value="#{referenciaController.getComponentMessages('codTipoReferencia', myBundle.CreateReferenciaHelpText_codTipoReferencia)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{referenciaController.saveNew}" value="#{myBundle.Save}" update="display,:ReferenciaListForm:datalist,:ReferenciaListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('ReferenciaCreateDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ReferenciaCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

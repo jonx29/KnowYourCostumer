@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CuentaCreateDlg" widgetVar="CuentaCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateCuentaTitle}" closeOnEscape="true">
+
+            <h:form id="CuentaCreateForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display" rendered="#{cuentaController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateCuentaLabel_numeroCuenta}" for="numeroCuenta" />
+                        <h:panelGroup>
+                            <p:inputText id="numeroCuenta" value="#{cuentaController.selected.numeroCuenta}" title="#{myBundle.CreateCuentaTitle_numeroCuenta}" required="true" requiredMessage="#{myBundle.CreateCuentaRequiredMessage_numeroCuenta}" size="20" maxlength="20"/>
+                            <p:tooltip for="numeroCuenta" value="#{cuentaController.getComponentMessages('numeroCuenta', myBundle.CreateCuentaHelpText_numeroCuenta)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateCuentaLabel_activa}" for="activa" />
+                        <h:panelGroup>
+                            <p:selectBooleanCheckbox id="activa" value="#{cuentaController.selected.activa}" required="true" requiredMessage="#{myBundle.CreateCuentaRequiredMessage_activa}"/>
+                            <p:tooltip for="activa" value="#{cuentaController.getComponentMessages('activa', myBundle.CreateCuentaHelpText_activa)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateCuentaLabel_codCliente}" for="codCliente" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="codCliente" value="#{cuentaController.selected.codCliente}" required="true" requiredMessage="#{myBundle.CreateCuentaRequiredMessage_codCliente}" converter="clienteConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{clienteController.items}"
+                                               var="codClienteItem"
+                                               itemValue="#{codClienteItem}"
+                                               itemLabel="#{codClienteItem.nombres.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="codCliente" value="#{cuentaController.getComponentMessages('codCliente', myBundle.CreateCuentaHelpText_codCliente)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateCuentaLabel_codTipoCuenta}" for="codTipoCuenta" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="codTipoCuenta" value="#{cuentaController.selected.codTipoCuenta}" required="true" requiredMessage="#{myBundle.CreateCuentaRequiredMessage_codTipoCuenta}" converter="tipoCuentaConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{tipoCuentaController.items}"
+                                               var="codTipoCuentaItem"
+                                               itemValue="#{codTipoCuentaItem}"
+                                               itemLabel="#{codTipoCuentaItem.descripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="codTipoCuenta" value="#{cuentaController.getComponentMessages('codTipoCuenta', myBundle.CreateCuentaHelpText_codTipoCuenta)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cuentaController.saveNew}" value="#{myBundle.Save}" update="display,:CuentaListForm:datalist,:CuentaListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('CuentaCreateDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('CuentaCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

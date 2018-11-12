@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="UsuarioEditDlg" widgetVar="UsuarioEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditUsuarioTitle}" closeOnEscape="true">
+
+            <h:form id="UsuarioEditForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{usuarioController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditUsuarioLabel_codUsuario}" for="codUsuario" />
+                        <h:panelGroup>
+                            <h:outputText id="codUsuario" value="#{usuarioController.selected.codUsuario}" />
+                            <p:tooltip for="codUsuario" value="#{usuarioController.getComponentMessages('codUsuario', myBundle.EditUsuarioHelpText_codUsuario)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_nombre}" for="nombre" />
+                        <h:panelGroup>
+                            <p:inputText id="nombre" value="#{usuarioController.selected.nombre}" title="#{myBundle.EditUsuarioTitle_nombre}" required="true" requiredMessage="#{myBundle.EditUsuarioRequiredMessage_nombre}" size="20" maxlength="20"/>
+                            <p:tooltip for="nombre" value="#{usuarioController.getComponentMessages('nombre', myBundle.EditUsuarioHelpText_nombre)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_clave}" for="clave" />
+                        <h:panelGroup>
+                            <p:inputText id="clave" value="#{usuarioController.selected.clave}" title="#{myBundle.EditUsuarioTitle_clave}" required="true" requiredMessage="#{myBundle.EditUsuarioRequiredMessage_clave}" size="100" maxlength="100"/>
+                            <p:tooltip for="clave" value="#{usuarioController.getComponentMessages('clave', myBundle.EditUsuarioHelpText_clave)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditUsuarioLabel_correo}" for="correo" />
+                        <h:panelGroup>
+                            <p:inputText id="correo" value="#{usuarioController.selected.correo}" title="#{myBundle.EditUsuarioTitle_correo}" required="true" requiredMessage="#{myBundle.EditUsuarioRequiredMessage_correo}" size="128" maxlength="128"/>
+                            <p:tooltip for="correo" value="#{usuarioController.getComponentMessages('correo', myBundle.EditUsuarioHelpText_correo)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usuarioController.save}" value="#{myBundle.Save}" update="display,:UsuarioListForm:datalist,:UsuarioListForm:UsuarioDataTableContextMenu,:UsuarioListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('UsuarioEditDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('UsuarioEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

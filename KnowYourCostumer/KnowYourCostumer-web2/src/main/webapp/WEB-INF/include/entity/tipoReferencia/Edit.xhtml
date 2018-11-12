@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TipoReferenciaEditDlg" widgetVar="TipoReferenciaEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditTipoReferenciaTitle}" closeOnEscape="true">
+
+            <h:form id="TipoReferenciaEditForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{tipoReferenciaController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditTipoReferenciaLabel_codTipoReferencia}" for="codTipoReferencia" />
+                        <h:panelGroup>
+                            <h:outputText id="codTipoReferencia" value="#{tipoReferenciaController.selected.codTipoReferencia}" />
+                            <p:tooltip for="codTipoReferencia" value="#{tipoReferenciaController.getComponentMessages('codTipoReferencia', myBundle.EditTipoReferenciaHelpText_codTipoReferencia)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditTipoReferenciaLabel_descripcion}" for="descripcion" />
+                        <h:panelGroup>
+                            <p:inputText id="descripcion" value="#{tipoReferenciaController.selected.descripcion}" title="#{myBundle.EditTipoReferenciaTitle_descripcion}" required="true" requiredMessage="#{myBundle.EditTipoReferenciaRequiredMessage_descripcion}" size="50" maxlength="50"/>
+                            <p:tooltip for="descripcion" value="#{tipoReferenciaController.getComponentMessages('descripcion', myBundle.EditTipoReferenciaHelpText_descripcion)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoReferenciaController.save}" value="#{myBundle.Save}" update="display,:TipoReferenciaListForm:datalist,:TipoReferenciaListForm:TipoReferenciaDataTableContextMenu,:TipoReferenciaListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('TipoReferenciaEditDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TipoReferenciaEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

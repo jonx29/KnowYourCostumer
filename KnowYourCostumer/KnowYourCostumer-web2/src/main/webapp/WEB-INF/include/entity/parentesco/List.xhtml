@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="ParentescoListForm">
+
+        <p:panel header="#{myBundle.ListParentescoTitle}">
+            <p:contextMenu id="ParentescoDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('ParentescoListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('ParentescoListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('ParentescoListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('ParentescoListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.ParentescoMenuItem_cliente}" icon="ui-icon-search"  actionListener="#{parentescoController.prepareCliente}" update=":ClienteViewForm" oncomplete="PF('ClienteViewDialog').show()" disabled="#{empty parentescoController.selected.cliente}"/>  
+                <p:menuitem value="#{myBundle.ParentescoMenuItem_cliente1}" icon="ui-icon-search"  actionListener="#{parentescoController.prepareCliente1}" update=":ClienteViewForm" oncomplete="PF('ClienteViewDialog').show()" disabled="#{empty parentescoController.selected.cliente1}"/>  
+                <p:menuitem value="#{myBundle.ParentescoMenuItem_codTipoParentesco}" icon="ui-icon-search"  actionListener="#{parentescoController.prepareCodTipoParentesco}" update=":TipoParentescoViewForm" oncomplete="PF('TipoParentescoViewDialog').show()" disabled="#{empty parentescoController.selected.codTipoParentesco}"/>  
+            </p:contextMenu>
+            <h:panelGroup id="messagePanel">
+                <p:messages id="listMessages" rendered="#{!parentescoController.validationFailed}"/>
+            </h:panelGroup>
+
+            <p:dataTable id="datalist"
+                         value="#{parentescoController.items}"
+                         lazy="false"
+                         rowKey="#{item.parentescoPK}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{parentescoController.selected}"
+                         filteredValue="#{parentescoController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{parentescoController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.parentescoPK}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ParentescoDataTableContextMenu" listener="#{parentescoController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:ParentescoDataTableContextMenu" listener="#{parentescoController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{parentescoController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('ParentescoListForm:viewButton').click();"/>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListParentescoTitle_parentescoPK_codCliente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.parentescoPK.codCliente}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListParentescoTitle_parentescoPK_cliCodCliente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.parentescoPK.cliCodCliente}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListParentescoTitle_cliente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cliente.nombres}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListParentescoTitle_cliente1}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.cliente1.nombres}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListParentescoTitle_codTipoParentesco}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.codTipoParentesco.descripcion}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{parentescoController.prepareCreate}" update=":ParentescoCreateForm" oncomplete="PF('ParentescoCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":ParentescoViewForm" oncomplete="PF('ParentescoViewDialog').show()" disabled="#{empty parentescoController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":ParentescoEditForm" oncomplete="PF('ParentescoEditDialog').show()" disabled="#{empty parentescoController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{parentescoController.delete}" update=":ParentescoListForm:messagePanel,datalist" disabled="#{empty parentescoController.selected}"/>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

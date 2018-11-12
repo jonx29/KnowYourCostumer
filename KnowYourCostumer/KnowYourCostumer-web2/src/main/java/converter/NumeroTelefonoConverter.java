@@ -1,0 +1,66 @@
+package converter;
+
+import dao.NumeroTelefono;
+import facade.NumeroTelefonoFacade;
+import controller.util.JsfUtil;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.faces.convert.FacesConverter;
+import javax.enterprise.inject.spi.CDI;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+
+@FacesConverter(value = "numeroTelefonoConverter")
+public class NumeroTelefonoConverter implements Converter {
+
+    private NumeroTelefonoFacade ejbFacade;
+
+    private static final String SEPARATOR = "#";
+    private static final String SEPARATOR_ESCAPED = "\\#";
+
+    @Override
+    public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
+        if (value == null || value.length() == 0 || JsfUtil.isDummySelectItem(component, value)) {
+            return null;
+        }
+        return this.getEjbFacade().find(getKey(value));
+    }
+
+    dao.NumeroTelefonoPK getKey(String value) {
+        dao.NumeroTelefonoPK key;
+        String values[] = value.split(SEPARATOR_ESCAPED);
+        key = new dao.NumeroTelefonoPK();
+        key.setCodCliente(Integer.parseInt(values[0]));
+        key.setNumero(values[1]);
+        return key;
+    }
+
+    String getStringKey(dao.NumeroTelefonoPK value) {
+        StringBuffer sb = new StringBuffer();
+        sb.append(value.getCodCliente());
+        sb.append(SEPARATOR);
+        sb.append(value.getNumero());
+        return sb.toString();
+    }
+
+    @Override
+    public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
+        if (object == null
+                || (object instanceof String && ((String) object).length() == 0)) {
+            return null;
+        }
+        if (object instanceof NumeroTelefono) {
+            NumeroTelefono o = (NumeroTelefono) object;
+            return getStringKey(o.getNumeroTelefonoPK());
+        } else {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), NumeroTelefono.class.getName()});
+            return null;
+        }
+    }
+
+    private NumeroTelefonoFacade getEjbFacade() {
+        this.ejbFacade = CDI.current().select(NumeroTelefonoFacade.class).get();
+        return this.ejbFacade;
+    }
+}

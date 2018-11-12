@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="DireccionClienteEditDlg" widgetVar="DireccionClienteEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditDireccionClienteTitle}" closeOnEscape="true">
+
+            <h:form id="DireccionClienteEditForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{direccionClienteController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditDireccionClienteLabel_direccionClientePK_codDireccion}" for="direccionClientePK_codDireccion" />
+                        <h:panelGroup>
+                            <h:outputText id="direccionClientePK_codDireccion" value="#{direccionClienteController.selected.direccionClientePK.codDireccion}" />
+                            <p:tooltip for="direccionClientePK_codDireccion" value="#{direccionClienteController.getComponentMessages('direccionClientePK_codDireccion', myBundle.EditDireccionClienteHelpText_direccionClientePK_codDireccion)}"/>
+                        </h:panelGroup>
+
+
+                        <h:outputLabel value="#{myBundle.EditDireccionClienteLabel_direccionClientePK_codCliente}" for="direccionClientePK_codCliente" />
+                        <h:panelGroup>
+                            <h:outputText id="direccionClientePK_codCliente" value="#{direccionClienteController.selected.direccionClientePK.codCliente}" />
+                            <p:tooltip for="direccionClientePK_codCliente" value="#{direccionClienteController.getComponentMessages('direccionClientePK_codCliente', myBundle.EditDireccionClienteHelpText_direccionClientePK_codCliente)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditDireccionClienteLabel_referencia}" for="referencia" />
+                        <h:panelGroup>
+                            <p:inputText id="referencia" value="#{direccionClienteController.selected.referencia}" title="#{myBundle.EditDireccionClienteTitle_referencia}" size="100" maxlength="100"/>
+                            <p:tooltip for="referencia" value="#{direccionClienteController.getComponentMessages('referencia', myBundle.EditDireccionClienteHelpText_referencia)}"/>
+                        </h:panelGroup>
+
+
+                        <h:outputLabel value="#{myBundle.EditDireccionClienteLabel_cliente}" for="cliente" />
+                        <h:panelGroup>
+                            <h:outputText id="cliente" value="#{direccionClienteController.selected.cliente}" />
+                            <p:tooltip for="cliente" value="#{direccionClienteController.getComponentMessages('cliente', myBundle.EditDireccionClienteHelpText_cliente)}"/>
+                        </h:panelGroup>
+
+
+                        <h:outputLabel value="#{myBundle.EditDireccionClienteLabel_direccion}" for="direccion" />
+                        <h:panelGroup>
+                            <h:outputText id="direccion" value="#{direccionClienteController.selected.direccion}" />
+                            <p:tooltip for="direccion" value="#{direccionClienteController.getComponentMessages('direccion', myBundle.EditDireccionClienteHelpText_direccion)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{direccionClienteController.save}" value="#{myBundle.Save}" update="display,:DireccionClienteListForm:datalist,:DireccionClienteListForm:DireccionClienteDataTableContextMenu,:DireccionClienteListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('DireccionClienteEditDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('DireccionClienteEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

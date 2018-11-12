@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TipoReferenciaViewDlg" widgetVar="TipoReferenciaViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewTipoReferenciaTitle}" closeOnEscape="true">
+
+            <h:form id="TipoReferenciaViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{tipoReferenciaController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewTipoReferenciaLabel_codTipoReferencia}"/>
+                        <h:outputText value="#{tipoReferenciaController.selected.codTipoReferencia}" title="#{myBundle.ViewTipoReferenciaTitle_codTipoReferencia}"/>
+
+                        <h:outputText value="#{myBundle.ViewTipoReferenciaLabel_descripcion}"/>
+                        <h:outputText value="#{tipoReferenciaController.selected.descripcion}" title="#{myBundle.ViewTipoReferenciaTitle_descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('TipoReferenciaViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

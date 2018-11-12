@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="TipoCargoPoliticoListForm">
+
+        <p:panel header="#{myBundle.ListTipoCargoPoliticoTitle}">
+            <p:contextMenu id="TipoCargoPoliticoDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('TipoCargoPoliticoListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('TipoCargoPoliticoListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('TipoCargoPoliticoListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('TipoCargoPoliticoListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.TipoCargoPoliticoMenuItem_cargoPoliticoList}" icon="ui-icon-search"  action="#{tipoCargoPoliticoController.navigateCargoPoliticoList}" disabled="#{tipoCargoPoliticoController.isCargoPoliticoListEmpty}" ajax="false"/>  
+            </p:contextMenu>
+            <h:panelGroup id="messagePanel">
+                <p:messages id="listMessages" rendered="#{!tipoCargoPoliticoController.validationFailed}"/>
+            </h:panelGroup>
+
+            <p:dataTable id="datalist"
+                         value="#{tipoCargoPoliticoController.items}"
+                         lazy="false"
+                         rowKey="#{item.codTipoCargoPolitico}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{tipoCargoPoliticoController.selected}"
+                         filteredValue="#{tipoCargoPoliticoController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{tipoCargoPoliticoController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.codTipoCargoPolitico}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:TipoCargoPoliticoDataTableContextMenu"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:TipoCargoPoliticoDataTableContextMenu"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('TipoCargoPoliticoListForm:viewButton').click();"/>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTipoCargoPoliticoTitle_codTipoCargoPolitico}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.codTipoCargoPolitico}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListTipoCargoPoliticoTitle_descripcion}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.descripcion}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{tipoCargoPoliticoController.prepareCreate}" update=":TipoCargoPoliticoCreateForm" oncomplete="PF('TipoCargoPoliticoCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":TipoCargoPoliticoViewForm" oncomplete="PF('TipoCargoPoliticoViewDialog').show()" disabled="#{empty tipoCargoPoliticoController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":TipoCargoPoliticoEditForm" oncomplete="PF('TipoCargoPoliticoEditDialog').show()" disabled="#{empty tipoCargoPoliticoController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{tipoCargoPoliticoController.delete}" update=":TipoCargoPoliticoListForm:messagePanel,datalist" disabled="#{empty tipoCargoPoliticoController.selected}"/>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuarioCreateDlg" widgetVar="UsuarioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateUsuarioTitle}" closeOnEscape="true">
+
+            <h:form id="UsuarioCreateForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display" rendered="#{usuarioController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateUsuarioLabel_nombre}" for="nombre" />
+                        <h:panelGroup>
+                            <p:inputText id="nombre" value="#{usuarioController.selected.nombre}" title="#{myBundle.CreateUsuarioTitle_nombre}" required="true" requiredMessage="#{myBundle.CreateUsuarioRequiredMessage_nombre}" size="20" maxlength="20"/>
+                            <p:tooltip for="nombre" value="#{usuarioController.getComponentMessages('nombre', myBundle.CreateUsuarioHelpText_nombre)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateUsuarioLabel_clave}" for="clave" />
+                        <h:panelGroup>
+                            <p:inputText id="clave" value="#{usuarioController.selected.clave}" title="#{myBundle.CreateUsuarioTitle_clave}" required="true" requiredMessage="#{myBundle.CreateUsuarioRequiredMessage_clave}" size="100" maxlength="100"/>
+                            <p:tooltip for="clave" value="#{usuarioController.getComponentMessages('clave', myBundle.CreateUsuarioHelpText_clave)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateUsuarioLabel_correo}" for="correo" />
+                        <h:panelGroup>
+                            <p:inputText id="correo" value="#{usuarioController.selected.correo}" title="#{myBundle.CreateUsuarioTitle_correo}" required="true" requiredMessage="#{myBundle.CreateUsuarioRequiredMessage_correo}" size="128" maxlength="128"/>
+                            <p:tooltip for="correo" value="#{usuarioController.getComponentMessages('correo', myBundle.CreateUsuarioHelpText_correo)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usuarioController.saveNew}" value="#{myBundle.Save}" update="display,:UsuarioListForm:datalist,:UsuarioListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('UsuarioCreateDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('UsuarioCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

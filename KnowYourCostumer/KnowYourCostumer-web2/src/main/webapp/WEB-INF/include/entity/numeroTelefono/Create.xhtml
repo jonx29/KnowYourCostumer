@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="NumeroTelefonoCreateDlg" widgetVar="NumeroTelefonoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateNumeroTelefonoTitle}" closeOnEscape="true">
+
+            <h:form id="NumeroTelefonoCreateForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display" rendered="#{numeroTelefonoController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateNumeroTelefonoLabel_numeroTelefonoPK_codCliente}" for="numeroTelefonoPK_codCliente" />
+                        <h:panelGroup>
+                            <p:inputText id="numeroTelefonoPK_codCliente" value="#{numeroTelefonoController.selected.numeroTelefonoPK.codCliente}" title="#{myBundle.CreateNumeroTelefonoTitle_numeroTelefonoPK_codCliente}" required="true" requiredMessage="#{myBundle.CreateNumeroTelefonoRequiredMessage_numeroTelefonoPK_codCliente}"/>
+                            <p:tooltip for="numeroTelefonoPK_codCliente" value="#{numeroTelefonoController.getComponentMessages('numeroTelefonoPK_codCliente', myBundle.CreateNumeroTelefonoHelpText_numeroTelefonoPK_codCliente)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateNumeroTelefonoLabel_numeroTelefonoPK_numero}" for="numeroTelefonoPK_numero" />
+                        <h:panelGroup>
+                            <p:inputText id="numeroTelefonoPK_numero" value="#{numeroTelefonoController.selected.numeroTelefonoPK.numero}" title="#{myBundle.CreateNumeroTelefonoTitle_numeroTelefonoPK_numero}" required="true" requiredMessage="#{myBundle.CreateNumeroTelefonoRequiredMessage_numeroTelefonoPK_numero}" size="15" maxlength="15"/>
+                            <p:tooltip for="numeroTelefonoPK_numero" value="#{numeroTelefonoController.getComponentMessages('numeroTelefonoPK_numero', myBundle.CreateNumeroTelefonoHelpText_numeroTelefonoPK_numero)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateNumeroTelefonoLabel_cliente}" for="cliente" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="cliente" value="#{numeroTelefonoController.selected.cliente}" required="true" requiredMessage="#{myBundle.CreateNumeroTelefonoRequiredMessage_cliente}" converter="clienteConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{clienteController.items}"
+                                               var="clienteItem"
+                                               itemValue="#{clienteItem}"
+                                               itemLabel="#{clienteItem.nombres.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="cliente" value="#{numeroTelefonoController.getComponentMessages('cliente', myBundle.CreateNumeroTelefonoHelpText_cliente)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateNumeroTelefonoLabel_codTipoTelefono}" for="codTipoTelefono" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="codTipoTelefono" value="#{numeroTelefonoController.selected.codTipoTelefono}" required="true" requiredMessage="#{myBundle.CreateNumeroTelefonoRequiredMessage_codTipoTelefono}" converter="tipoTelefonoConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{tipoTelefonoController.items}"
+                                               var="codTipoTelefonoItem"
+                                               itemValue="#{codTipoTelefonoItem}"
+                                               itemLabel="#{codTipoTelefonoItem.descripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="codTipoTelefono" value="#{numeroTelefonoController.getComponentMessages('codTipoTelefono', myBundle.CreateNumeroTelefonoHelpText_codTipoTelefono)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{numeroTelefonoController.saveNew}" value="#{myBundle.Save}" update="display,:NumeroTelefonoListForm:datalist,:NumeroTelefonoListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('NumeroTelefonoCreateDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('NumeroTelefonoCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

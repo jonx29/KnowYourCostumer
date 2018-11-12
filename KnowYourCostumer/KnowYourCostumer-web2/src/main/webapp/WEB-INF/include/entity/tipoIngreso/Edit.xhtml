@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TipoIngresoEditDlg" widgetVar="TipoIngresoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditTipoIngresoTitle}" closeOnEscape="true">
+
+            <h:form id="TipoIngresoEditForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{tipoIngresoController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditTipoIngresoLabel_codTipoIngreso}" for="codTipoIngreso" />
+                        <h:panelGroup>
+                            <h:outputText id="codTipoIngreso" value="#{tipoIngresoController.selected.codTipoIngreso}" />
+                            <p:tooltip for="codTipoIngreso" value="#{tipoIngresoController.getComponentMessages('codTipoIngreso', myBundle.EditTipoIngresoHelpText_codTipoIngreso)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditTipoIngresoLabel_descripcion}" for="descripcion" />
+                        <h:panelGroup>
+                            <p:inputText id="descripcion" value="#{tipoIngresoController.selected.descripcion}" title="#{myBundle.EditTipoIngresoTitle_descripcion}" required="true" requiredMessage="#{myBundle.EditTipoIngresoRequiredMessage_descripcion}" size="100" maxlength="100"/>
+                            <p:tooltip for="descripcion" value="#{tipoIngresoController.getComponentMessages('descripcion', myBundle.EditTipoIngresoHelpText_descripcion)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoIngresoController.save}" value="#{myBundle.Save}" update="display,:TipoIngresoListForm:datalist,:TipoIngresoListForm:TipoIngresoDataTableContextMenu,:TipoIngresoListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('TipoIngresoEditDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TipoIngresoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

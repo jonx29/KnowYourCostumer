@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DireccionClienteViewDlg" widgetVar="DireccionClienteViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewDireccionClienteTitle}" closeOnEscape="true">
+
+            <h:form id="DireccionClienteViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{direccionClienteController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewDireccionClienteLabel_direccionClientePK_codDireccion}"/>
+                        <h:outputText value="#{direccionClienteController.selected.direccionClientePK.codDireccion}" title="#{myBundle.ViewDireccionClienteTitle_direccionClientePK_codDireccion}"/>
+
+                        <h:outputText value="#{myBundle.ViewDireccionClienteLabel_direccionClientePK_codCliente}"/>
+                        <h:outputText value="#{direccionClienteController.selected.direccionClientePK.codCliente}" title="#{myBundle.ViewDireccionClienteTitle_direccionClientePK_codCliente}"/>
+
+                        <h:outputText value="#{myBundle.ViewDireccionClienteLabel_referencia}"/>
+                        <h:outputText value="#{direccionClienteController.selected.referencia}" title="#{myBundle.ViewDireccionClienteTitle_referencia}"/>
+
+                        <h:outputText value="#{myBundle.ViewDireccionClienteLabel_cliente}"/>
+                        <h:outputText value="#{direccionClienteController.selected.cliente.nombres}"/>
+
+                        <h:outputText value="#{myBundle.ViewDireccionClienteLabel_direccion}"/>
+                        <h:outputText value="#{direccionClienteController.selected.direccion.codDireccion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('DireccionClienteViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

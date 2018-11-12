@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="DireccionEditDlg" widgetVar="DireccionEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditDireccionTitle}" closeOnEscape="true">
+
+            <h:form id="DireccionEditForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{direccionController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditDireccionLabel_codDireccion}" for="codDireccion" />
+                        <h:panelGroup>
+                            <h:outputText id="codDireccion" value="#{direccionController.selected.codDireccion}" />
+                            <p:tooltip for="codDireccion" value="#{direccionController.getComponentMessages('codDireccion', myBundle.EditDireccionHelpText_codDireccion)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditDireccionLabel_numero}" for="numero" />
+                        <h:panelGroup>
+                            <p:inputText id="numero" value="#{direccionController.selected.numero}" title="#{myBundle.EditDireccionTitle_numero}"/>
+                            <p:tooltip for="numero" value="#{direccionController.getComponentMessages('numero', myBundle.EditDireccionHelpText_numero)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditDireccionLabel_referencia}" for="referencia" />
+                        <h:panelGroup>
+                            <p:inputText id="referencia" value="#{direccionController.selected.referencia}" title="#{myBundle.EditDireccionTitle_referencia}" size="100" maxlength="100"/>
+                            <p:tooltip for="referencia" value="#{direccionController.getComponentMessages('referencia', myBundle.EditDireccionHelpText_referencia)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditDireccionLabel_codCalleTrans}" for="codCalleTrans" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="codCalleTrans" value="#{direccionController.selected.codCalleTrans}"  converter="calleConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{calleController.items}"
+                                               var="codCalleTransItem"
+                                               itemValue="#{codCalleTransItem}"
+                                               itemLabel="#{codCalleTransItem.nombre.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="codCalleTrans" value="#{direccionController.getComponentMessages('codCalleTrans', myBundle.EditDireccionHelpText_codCalleTrans)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditDireccionLabel_codCalle}" for="codCalle" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="codCalle" value="#{direccionController.selected.codCalle}" required="true" requiredMessage="#{myBundle.EditDireccionRequiredMessage_codCalle}" converter="calleConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{calleController.items}"
+                                               var="codCalleItem"
+                                               itemValue="#{codCalleItem}"
+                                               itemLabel="#{codCalleItem.nombre.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="codCalle" value="#{direccionController.getComponentMessages('codCalle', myBundle.EditDireccionHelpText_codCalle)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{direccionController.save}" value="#{myBundle.Save}" update="display,:DireccionListForm:datalist,:DireccionListForm:DireccionDataTableContextMenu,:DireccionListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('DireccionEditDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('DireccionEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

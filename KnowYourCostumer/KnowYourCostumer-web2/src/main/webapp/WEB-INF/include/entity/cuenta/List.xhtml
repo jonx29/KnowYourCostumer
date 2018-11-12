@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <h:form id="CuentaListForm">
+
+        <p:panel header="#{myBundle.ListCuentaTitle}">
+            <p:contextMenu id="CuentaDataTableContextMenu" for="datalist">  
+                <p:menuitem value="#{myBundle.Create}" onclick="document.getElementById('CuentaListForm:createButton').click();" icon="ui-icon-plus"/>
+                <p:menuitem value="#{myBundle.View}" onclick="document.getElementById('CuentaListForm:viewButton').click();" icon="ui-icon-search"/>
+                <p:menuitem value="#{myBundle.Edit}" onclick="document.getElementById('CuentaListForm:editButton').click();" icon="ui-icon-pencil"/>
+                <p:menuitem value="#{myBundle.Delete}" onclick="document.getElementById('CuentaListForm:deleteButton').click();" icon="ui-icon-trash"/>
+                <p:separator/>
+                <p:menuitem value="#{myBundle.CuentaMenuItem_codCliente}" icon="ui-icon-search"  actionListener="#{cuentaController.prepareCodCliente}" update=":ClienteViewForm" oncomplete="PF('ClienteViewDialog').show()" disabled="#{empty cuentaController.selected.codCliente}"/>  
+                <p:menuitem value="#{myBundle.CuentaMenuItem_codTipoCuenta}" icon="ui-icon-search"  actionListener="#{cuentaController.prepareCodTipoCuenta}" update=":TipoCuentaViewForm" oncomplete="PF('TipoCuentaViewDialog').show()" disabled="#{empty cuentaController.selected.codTipoCuenta}"/>  
+            </p:contextMenu>
+            <h:panelGroup id="messagePanel">
+                <p:messages id="listMessages" rendered="#{!cuentaController.validationFailed}"/>
+            </h:panelGroup>
+
+            <p:dataTable id="datalist"
+                         value="#{cuentaController.items}"
+                         lazy="false"
+                         rowKey="#{item.numeroCuenta}"
+                         var="item"
+                         paginator="true"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50"
+                         selectionMode="single"
+                         selection="#{cuentaController.selected}"
+                         filteredValue="#{cuentaController.filteredItems}">
+                <!--
+                         To enable Lazy Loading, please copy/replace the following lines above,
+                         and be sure to replace the word HASH with the # symbol:
+                
+                         value="HASH{cuentaController.lazyItems}"
+                         lazy="true"
+                         rowKey="HASH{item.numeroCuenta}"  <<< Remove this line
+                -->
+
+
+                <p:ajax event="rowSelect"   update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:CuentaDataTableContextMenu" listener="#{cuentaController.resetParents}"/>
+                <p:ajax event="rowUnselect" update="@form:createButton,@form:viewButton,@form:editButton,@form:deleteButton,@form:CuentaDataTableContextMenu" listener="#{cuentaController.resetParents}"/>
+                <p:ajax event="contextMenu" update="@form:createButton @form:viewButton @form:editButton @form:deleteButton" listener="#{cuentaController.resetParents}"/>
+                <p:ajax event="rowDblselect" onsuccess="document.getElementById('CuentaListForm:viewButton').click();"/>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCuentaTitle_numeroCuenta}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.numeroCuenta}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCuentaTitle_activa}"/>
+                    </f:facet>
+                    <h:selectBooleanCheckbox id="activa" value="#{item.activa}" title="#{myBundle.EditCuentaTitle_activa}" required="true" requiredMessage="#{myBundle.EditCuentaRequiredMessage_activa}" disabled="true"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCuentaTitle_codCliente}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.codCliente.nombres}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{myBundle.ListCuentaTitle_codTipoCuenta}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.codTipoCuenta.descripcion}"/>
+                </p:column>
+
+
+            </p:dataTable>
+
+            <p:commandButton id="createButton"                             icon="ui-icon-plus"   value="#{myBundle.Create}" actionListener="#{cuentaController.prepareCreate}" update=":CuentaCreateForm" oncomplete="PF('CuentaCreateDialog').show()"/>
+            <p:commandButton id="viewButton"   style="visibility: hidden;" icon="ui-icon-search" value="#{myBundle.View}" update=":CuentaViewForm" oncomplete="PF('CuentaViewDialog').show()" disabled="#{empty cuentaController.selected}"/>
+            <p:commandButton id="editButton"   style="visibility: hidden;" icon="ui-icon-pencil" value="#{myBundle.Edit}" update=":CuentaEditForm" oncomplete="PF('CuentaEditDialog').show()" disabled="#{empty cuentaController.selected}"/>
+            <p:commandButton id="deleteButton" style="visibility: hidden;" icon="ui-icon-trash"  value="#{myBundle.Delete}" actionListener="#{cuentaController.delete}" update=":CuentaListForm:messagePanel,datalist" disabled="#{empty cuentaController.selected}"/>
+
+        </p:panel>
+    </h:form>
+
+</ui:composition>

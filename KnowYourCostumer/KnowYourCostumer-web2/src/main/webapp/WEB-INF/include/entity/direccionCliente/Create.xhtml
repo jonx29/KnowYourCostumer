@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DireccionClienteCreateDlg" widgetVar="DireccionClienteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateDireccionClienteTitle}" closeOnEscape="true">
+
+            <h:form id="DireccionClienteCreateForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display" rendered="#{direccionClienteController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreateDireccionClienteLabel_direccionClientePK_codDireccion}" for="direccionClientePK_codDireccion" />
+                        <h:panelGroup>
+                            <p:inputText id="direccionClientePK_codDireccion" value="#{direccionClienteController.selected.direccionClientePK.codDireccion}" title="#{myBundle.CreateDireccionClienteTitle_direccionClientePK_codDireccion}" required="true" requiredMessage="#{myBundle.CreateDireccionClienteRequiredMessage_direccionClientePK_codDireccion}"/>
+                            <p:tooltip for="direccionClientePK_codDireccion" value="#{direccionClienteController.getComponentMessages('direccionClientePK_codDireccion', myBundle.CreateDireccionClienteHelpText_direccionClientePK_codDireccion)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateDireccionClienteLabel_direccionClientePK_codCliente}" for="direccionClientePK_codCliente" />
+                        <h:panelGroup>
+                            <p:inputText id="direccionClientePK_codCliente" value="#{direccionClienteController.selected.direccionClientePK.codCliente}" title="#{myBundle.CreateDireccionClienteTitle_direccionClientePK_codCliente}" required="true" requiredMessage="#{myBundle.CreateDireccionClienteRequiredMessage_direccionClientePK_codCliente}"/>
+                            <p:tooltip for="direccionClientePK_codCliente" value="#{direccionClienteController.getComponentMessages('direccionClientePK_codCliente', myBundle.CreateDireccionClienteHelpText_direccionClientePK_codCliente)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateDireccionClienteLabel_referencia}" for="referencia" />
+                        <h:panelGroup>
+                            <p:inputText id="referencia" value="#{direccionClienteController.selected.referencia}" title="#{myBundle.CreateDireccionClienteTitle_referencia}" size="100" maxlength="100"/>
+                            <p:tooltip for="referencia" value="#{direccionClienteController.getComponentMessages('referencia', myBundle.CreateDireccionClienteHelpText_referencia)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateDireccionClienteLabel_cliente}" for="cliente" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="cliente" value="#{direccionClienteController.selected.cliente}" required="true" requiredMessage="#{myBundle.CreateDireccionClienteRequiredMessage_cliente}" converter="clienteConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{clienteController.items}"
+                                               var="clienteItem"
+                                               itemValue="#{clienteItem}"
+                                               itemLabel="#{clienteItem.nombres.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="cliente" value="#{direccionClienteController.getComponentMessages('cliente', myBundle.CreateDireccionClienteHelpText_cliente)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreateDireccionClienteLabel_direccion}" for="direccion" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="direccion" value="#{direccionClienteController.selected.direccion}" required="true" requiredMessage="#{myBundle.CreateDireccionClienteRequiredMessage_direccion}" converter="direccionConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{direccionController.items}"
+                                               var="direccionItem"
+                                               itemValue="#{direccionItem}"
+                                               itemLabel="#{direccionItem.codDireccion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="direccion" value="#{direccionClienteController.getComponentMessages('direccion', myBundle.CreateDireccionClienteHelpText_direccion)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{direccionClienteController.saveNew}" value="#{myBundle.Save}" update="display,:DireccionClienteListForm:datalist,:DireccionClienteListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('DireccionClienteCreateDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('DireccionClienteCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

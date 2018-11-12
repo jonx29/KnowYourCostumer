@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ClienteCreateDlg" widgetVar="ClienteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreateClienteTitle}" closeOnEscape="true">
+
+            <h:form id="ClienteCreateForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display" rendered="#{clienteController.selected != null}">
+                    <p:tabView id="ClienteTabView">
+
+                        <p:tab id="ClienteTab1" title="#{myBundle.TabHeaderPrefix} 1">
+                            <p:panelGrid columns="2" columnClasses="column">
+                                <p:outputLabel value="#{myBundle.CreateClienteLabel_nombres}" for="nombres" />
+                                <h:panelGroup>
+                                    <p:inputText id="nombres" value="#{clienteController.selected.nombres}" title="#{myBundle.CreateClienteTitle_nombres}" required="true" requiredMessage="#{myBundle.CreateClienteRequiredMessage_nombres}" size="100" maxlength="100"/>
+                                    <p:tooltip for="nombres" value="#{clienteController.getComponentMessages('nombres', myBundle.CreateClienteHelpText_nombres)}"/>
+                                </h:panelGroup>
+
+                                <p:outputLabel value="#{myBundle.CreateClienteLabel_apellidos}" for="apellidos" />
+                                <h:panelGroup>
+                                    <p:inputText id="apellidos" value="#{clienteController.selected.apellidos}" title="#{myBundle.CreateClienteTitle_apellidos}" required="true" requiredMessage="#{myBundle.CreateClienteRequiredMessage_apellidos}" size="100" maxlength="100"/>
+                                    <p:tooltip for="apellidos" value="#{clienteController.getComponentMessages('apellidos', myBundle.CreateClienteHelpText_apellidos)}"/>
+                                </h:panelGroup>
+
+                                <p:outputLabel value="#{myBundle.CreateClienteLabel_fechaNacimiento}" for="fechaNacimiento" />
+                                <h:panelGroup>
+                                    <p:calendar id="fechaNacimiento" pattern="MM/dd/yyyy" value="#{clienteController.selected.fechaNacimiento}" title="#{myBundle.CreateClienteTitle_fechaNacimiento}"  showOn="button"/>
+                                    <p:tooltip for="fechaNacimiento" value="#{clienteController.getComponentMessages('fechaNacimiento', myBundle.CreateClienteHelpText_fechaNacimiento)}"/>
+                                </h:panelGroup>
+
+                                <p:outputLabel value="#{myBundle.CreateClienteLabel_fechaHoraRegistro}" for="fechaHoraRegistro" />
+                                <h:panelGroup>
+                                    <p:calendar id="fechaHoraRegistro" pattern="MM/dd/yyyy HH:mm:ss" value="#{clienteController.selected.fechaHoraRegistro}" title="#{myBundle.CreateClienteTitle_fechaHoraRegistro}" required="true" requiredMessage="#{myBundle.CreateClienteRequiredMessage_fechaHoraRegistro}" showOn="button"/>
+                                    <p:tooltip for="fechaHoraRegistro" value="#{clienteController.getComponentMessages('fechaHoraRegistro', myBundle.CreateClienteHelpText_fechaHoraRegistro)}"/>
+                                </h:panelGroup>
+
+                                <p:outputLabel value="#{myBundle.CreateClienteLabel_paisList}" for="paisList" />
+                                <h:panelGroup>
+                                    <p:selectManyMenu id="paisList" value="#{clienteController.selected.paisList}"  converter="paisConverter">
+                                        <f:attribute name="collectionType" value="java.util.ArrayList"/>
+                                        <f:selectItems value="#{paisController.items}"
+                                                       var="paisListItem"
+                                                       itemValue="#{paisListItem}"
+                                                       itemLabel="#{paisListItem.nombre.toString()}"
+                                                       />
+
+                                    </p:selectManyMenu>
+                                    <p:tooltip for="paisList" value="#{clienteController.getComponentMessages('paisList', myBundle.CreateClienteHelpText_paisList)}"/>
+                                </h:panelGroup>
+
+                                <p:outputLabel value="#{myBundle.CreateClienteLabel_clienteList}" for="clienteList" />
+                                <h:panelGroup>
+                                    <p:selectManyMenu id="clienteList" value="#{clienteController.selected.clienteList}"  converter="clienteConverter">
+                                        <f:attribute name="collectionType" value="java.util.ArrayList"/>
+                                        <f:selectItems value="#{clienteController.items}"
+                                                       var="clienteListItem"
+                                                       itemValue="#{clienteListItem}"
+                                                       itemLabel="#{clienteListItem.nombres.toString()}"
+                                                       />
+
+                                    </p:selectManyMenu>
+                                    <p:tooltip for="clienteList" value="#{clienteController.getComponentMessages('clienteList', myBundle.CreateClienteHelpText_clienteList)}"/>
+                                </h:panelGroup>
+
+                                <p:outputLabel value="#{myBundle.CreateClienteLabel_tipoActividadEconomicaList}" for="tipoActividadEconomicaList" />
+                                <h:panelGroup>
+                                    <p:selectManyMenu id="tipoActividadEconomicaList" value="#{clienteController.selected.tipoActividadEconomicaList}"  converter="tipoActividadEconomicaConverter">
+                                        <f:attribute name="collectionType" value="java.util.ArrayList"/>
+                                        <f:selectItems value="#{tipoActividadEconomicaController.items}"
+                                                       var="tipoActividadEconomicaListItem"
+                                                       itemValue="#{tipoActividadEconomicaListItem}"
+                                                       itemLabel="#{tipoActividadEconomicaListItem.descripcion.toString()}"
+                                                       />
+
+                                    </p:selectManyMenu>
+                                    <p:tooltip for="tipoActividadEconomicaList" value="#{clienteController.getComponentMessages('tipoActividadEconomicaList', myBundle.CreateClienteHelpText_tipoActividadEconomicaList)}"/>
+                                </h:panelGroup>
+
+                                <p:outputLabel value="#{myBundle.CreateClienteLabel_profesionList}" for="profesionList" />
+                                <h:panelGroup>
+                                    <p:selectManyMenu id="profesionList" value="#{clienteController.selected.profesionList}"  converter="profesionConverter">
+                                        <f:attribute name="collectionType" value="java.util.ArrayList"/>
+                                        <f:selectItems value="#{profesionController.items}"
+                                                       var="profesionListItem"
+                                                       itemValue="#{profesionListItem}"
+                                                       itemLabel="#{profesionListItem.descripcion.toString()}"
+                                                       />
+
+                                    </p:selectManyMenu>
+                                    <p:tooltip for="profesionList" value="#{clienteController.getComponentMessages('profesionList', myBundle.CreateClienteHelpText_profesionList)}"/>
+                                </h:panelGroup>
+
+                                <p:outputLabel value="#{myBundle.CreateClienteLabel_codEstadoCivil}" for="codEstadoCivil" />
+                                <h:panelGroup>
+                                    <p:selectOneMenu id="codEstadoCivil" value="#{clienteController.selected.codEstadoCivil}"  converter="estadoCivilConverter">
+                                        <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                        <f:selectItems value="#{estadoCivilController.items}"
+                                                       var="codEstadoCivilItem"
+                                                       itemValue="#{codEstadoCivilItem}"
+                                                       itemLabel="#{codEstadoCivilItem.descripcion.toString()}"
+                                                       />
+
+                                    </p:selectOneMenu>
+                                    <p:tooltip for="codEstadoCivil" value="#{clienteController.getComponentMessages('codEstadoCivil', myBundle.CreateClienteHelpText_codEstadoCivil)}"/>
+                                </h:panelGroup>
+
+                                <p:outputLabel value="#{myBundle.CreateClienteLabel_codGenero}" for="codGenero" />
+                                <h:panelGroup>
+                                    <p:selectOneMenu id="codGenero" value="#{clienteController.selected.codGenero}"  converter="generoConverter">
+                                        <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                        <f:selectItems value="#{generoController.items}"
+                                                       var="codGeneroItem"
+                                                       itemValue="#{codGeneroItem}"
+                                                       itemLabel="#{codGeneroItem.descripcion.toString()}"
+                                                       />
+
+                                    </p:selectOneMenu>
+                                    <p:tooltip for="codGenero" value="#{clienteController.getComponentMessages('codGenero', myBundle.CreateClienteHelpText_codGenero)}"/>
+                                </h:panelGroup>
+
+                                <p:outputLabel value="#{myBundle.CreateClienteLabel_paisNacimiento}" for="paisNacimiento" />
+                                <h:panelGroup>
+                                    <p:selectOneMenu id="paisNacimiento" value="#{clienteController.selected.paisNacimiento}"  converter="paisConverter">
+                                        <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                        <f:selectItems value="#{paisController.items}"
+                                                       var="paisNacimientoItem"
+                                                       itemValue="#{paisNacimientoItem}"
+                                                       itemLabel="#{paisNacimientoItem.nombre.toString()}"
+                                                       />
+
+                                    </p:selectOneMenu>
+                                    <p:tooltip for="paisNacimiento" value="#{clienteController.getComponentMessages('paisNacimiento', myBundle.CreateClienteHelpText_paisNacimiento)}"/>
+                                </h:panelGroup>
+
+                                <p:outputLabel value="#{myBundle.CreateClienteLabel_codTipoPersoneria}" for="codTipoPersoneria" />
+                                <h:panelGroup>
+                                    <p:selectOneMenu id="codTipoPersoneria" value="#{clienteController.selected.codTipoPersoneria}" required="true" requiredMessage="#{myBundle.CreateClienteRequiredMessage_codTipoPersoneria}" converter="tipoPersoneriaConverter">
+                                        <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                        <f:selectItems value="#{tipoPersoneriaController.items}"
+                                                       var="codTipoPersoneriaItem"
+                                                       itemValue="#{codTipoPersoneriaItem}"
+                                                       itemLabel="#{codTipoPersoneriaItem.descripcion.toString()}"
+                                                       />
+
+                                    </p:selectOneMenu>
+                                    <p:tooltip for="codTipoPersoneria" value="#{clienteController.getComponentMessages('codTipoPersoneria', myBundle.CreateClienteHelpText_codTipoPersoneria)}"/>
+                                </h:panelGroup>
+                            </p:panelGrid>
+                        </p:tab>
+                    </p:tabView>
+                    <p:commandButton actionListener="#{clienteController.saveNew}" value="#{myBundle.Save}" update="display,:ClienteListForm:datalist,:ClienteListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('ClienteCreateDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ClienteCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

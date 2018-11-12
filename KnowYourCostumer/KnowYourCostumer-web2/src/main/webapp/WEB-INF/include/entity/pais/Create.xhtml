@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PaisCreateDlg" widgetVar="PaisCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{myBundle.CreatePaisTitle}" closeOnEscape="true">
+
+            <h:form id="PaisCreateForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display" rendered="#{paisController.selected != null}">
+                    <p:panelGrid columns="2" columnClasses="column">
+
+                        <p:outputLabel value="#{myBundle.CreatePaisLabel_codPais}" for="codPais" />
+                        <h:panelGroup>
+                            <p:inputText id="codPais" value="#{paisController.selected.codPais}" title="#{myBundle.CreatePaisTitle_codPais}" required="true" requiredMessage="#{myBundle.CreatePaisRequiredMessage_codPais}" size="2" maxlength="2"/>
+                            <p:tooltip for="codPais" value="#{paisController.getComponentMessages('codPais', myBundle.CreatePaisHelpText_codPais)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.CreatePaisLabel_nombre}" for="nombre" />
+                        <h:panelGroup>
+                            <p:inputText id="nombre" value="#{paisController.selected.nombre}" title="#{myBundle.CreatePaisTitle_nombre}" required="true" requiredMessage="#{myBundle.CreatePaisRequiredMessage_nombre}" size="100" maxlength="100"/>
+                            <p:tooltip for="nombre" value="#{paisController.getComponentMessages('nombre', myBundle.CreatePaisHelpText_nombre)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{paisController.saveNew}" value="#{myBundle.Save}" update="display,:PaisListForm:datalist,:PaisListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('PaisCreateDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('PaisCreateDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

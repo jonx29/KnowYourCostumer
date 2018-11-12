@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="CargoPoliticoEditDlg" widgetVar="CargoPoliticoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditCargoPoliticoTitle}" closeOnEscape="true">
+
+            <h:form id="CargoPoliticoEditForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{cargoPoliticoController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditCargoPoliticoLabel_cargoPoliticoPK_codTipoCargoPolitico}" for="cargoPoliticoPK_codTipoCargoPolitico" />
+                        <h:panelGroup>
+                            <h:outputText id="cargoPoliticoPK_codTipoCargoPolitico" value="#{cargoPoliticoController.selected.cargoPoliticoPK.codTipoCargoPolitico}" />
+                            <p:tooltip for="cargoPoliticoPK_codTipoCargoPolitico" value="#{cargoPoliticoController.getComponentMessages('cargoPoliticoPK_codTipoCargoPolitico', myBundle.EditCargoPoliticoHelpText_cargoPoliticoPK_codTipoCargoPolitico)}"/>
+                        </h:panelGroup>
+
+
+                        <h:outputLabel value="#{myBundle.EditCargoPoliticoLabel_cargoPoliticoPK_codCliente}" for="cargoPoliticoPK_codCliente" />
+                        <h:panelGroup>
+                            <h:outputText id="cargoPoliticoPK_codCliente" value="#{cargoPoliticoController.selected.cargoPoliticoPK.codCliente}" />
+                            <p:tooltip for="cargoPoliticoPK_codCliente" value="#{cargoPoliticoController.getComponentMessages('cargoPoliticoPK_codCliente', myBundle.EditCargoPoliticoHelpText_cargoPoliticoPK_codCliente)}"/>
+                        </h:panelGroup>
+
+
+                        <h:outputLabel value="#{myBundle.EditCargoPoliticoLabel_cargoPoliticoPK_codCiudad}" for="cargoPoliticoPK_codCiudad" />
+                        <h:panelGroup>
+                            <h:outputText id="cargoPoliticoPK_codCiudad" value="#{cargoPoliticoController.selected.cargoPoliticoPK.codCiudad}" />
+                            <p:tooltip for="cargoPoliticoPK_codCiudad" value="#{cargoPoliticoController.getComponentMessages('cargoPoliticoPK_codCiudad', myBundle.EditCargoPoliticoHelpText_cargoPoliticoPK_codCiudad)}"/>
+                        </h:panelGroup>
+
+
+                        <h:outputLabel value="#{myBundle.EditCargoPoliticoLabel_cargoPoliticoPK_fechaInicio}" for="cargoPoliticoPK_fechaInicio" />
+                        <h:panelGroup>
+                            <h:outputText id="cargoPoliticoPK_fechaInicio" value="#{cargoPoliticoController.selected.cargoPoliticoPK.fechaInicio}" />
+                            <p:tooltip for="cargoPoliticoPK_fechaInicio" value="#{cargoPoliticoController.getComponentMessages('cargoPoliticoPK_fechaInicio', myBundle.EditCargoPoliticoHelpText_cargoPoliticoPK_fechaInicio)}"/>
+                        </h:panelGroup>
+
+
+                        <h:outputLabel value="#{myBundle.EditCargoPoliticoLabel_cargoPoliticoPK_fechaFin}" for="cargoPoliticoPK_fechaFin" />
+                        <h:panelGroup>
+                            <h:outputText id="cargoPoliticoPK_fechaFin" value="#{cargoPoliticoController.selected.cargoPoliticoPK.fechaFin}" />
+                            <p:tooltip for="cargoPoliticoPK_fechaFin" value="#{cargoPoliticoController.getComponentMessages('cargoPoliticoPK_fechaFin', myBundle.EditCargoPoliticoHelpText_cargoPoliticoPK_fechaFin)}"/>
+                        </h:panelGroup>
+
+
+                        <h:outputLabel value="#{myBundle.EditCargoPoliticoLabel_ciudad}" for="ciudad" />
+                        <h:panelGroup>
+                            <h:outputText id="ciudad" value="#{cargoPoliticoController.selected.ciudad}" />
+                            <p:tooltip for="ciudad" value="#{cargoPoliticoController.getComponentMessages('ciudad', myBundle.EditCargoPoliticoHelpText_ciudad)}"/>
+                        </h:panelGroup>
+
+
+                        <h:outputLabel value="#{myBundle.EditCargoPoliticoLabel_cliente}" for="cliente" />
+                        <h:panelGroup>
+                            <h:outputText id="cliente" value="#{cargoPoliticoController.selected.cliente}" />
+                            <p:tooltip for="cliente" value="#{cargoPoliticoController.getComponentMessages('cliente', myBundle.EditCargoPoliticoHelpText_cliente)}"/>
+                        </h:panelGroup>
+
+
+                        <h:outputLabel value="#{myBundle.EditCargoPoliticoLabel_tipoCargoPolitico}" for="tipoCargoPolitico" />
+                        <h:panelGroup>
+                            <h:outputText id="tipoCargoPolitico" value="#{cargoPoliticoController.selected.tipoCargoPolitico}" />
+                            <p:tooltip for="tipoCargoPolitico" value="#{cargoPoliticoController.getComponentMessages('tipoCargoPolitico', myBundle.EditCargoPoliticoHelpText_tipoCargoPolitico)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{cargoPoliticoController.save}" value="#{myBundle.Save}" update="display,:CargoPoliticoListForm:datalist,:CargoPoliticoListForm:CargoPoliticoDataTableContextMenu,:CargoPoliticoListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('CargoPoliticoEditDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('CargoPoliticoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="TipoEgresoEditDlg" widgetVar="TipoEgresoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditTipoEgresoTitle}" closeOnEscape="true">
+
+            <h:form id="TipoEgresoEditForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{tipoEgresoController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditTipoEgresoLabel_codTipoEgreso}" for="codTipoEgreso" />
+                        <h:panelGroup>
+                            <h:outputText id="codTipoEgreso" value="#{tipoEgresoController.selected.codTipoEgreso}" />
+                            <p:tooltip for="codTipoEgreso" value="#{tipoEgresoController.getComponentMessages('codTipoEgreso', myBundle.EditTipoEgresoHelpText_codTipoEgreso)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditTipoEgresoLabel_descripcion}" for="descripcion" />
+                        <h:panelGroup>
+                            <p:inputText id="descripcion" value="#{tipoEgresoController.selected.descripcion}" title="#{myBundle.EditTipoEgresoTitle_descripcion}" required="true" requiredMessage="#{myBundle.EditTipoEgresoRequiredMessage_descripcion}" size="100" maxlength="100"/>
+                            <p:tooltip for="descripcion" value="#{tipoEgresoController.getComponentMessages('descripcion', myBundle.EditTipoEgresoHelpText_descripcion)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tipoEgresoController.save}" value="#{myBundle.Save}" update="display,:TipoEgresoListForm:datalist,:TipoEgresoListForm:TipoEgresoDataTableContextMenu,:TipoEgresoListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('TipoEgresoEditDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('TipoEgresoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

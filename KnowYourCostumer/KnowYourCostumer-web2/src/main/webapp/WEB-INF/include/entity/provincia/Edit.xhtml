@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ProvinciaEditDlg" widgetVar="ProvinciaEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditProvinciaTitle}" closeOnEscape="true">
+
+            <h:form id="ProvinciaEditForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{provinciaController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditProvinciaLabel_codProvincia}" for="codProvincia" />
+                        <h:panelGroup>
+                            <h:outputText id="codProvincia" value="#{provinciaController.selected.codProvincia}" />
+                            <p:tooltip for="codProvincia" value="#{provinciaController.getComponentMessages('codProvincia', myBundle.EditProvinciaHelpText_codProvincia)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditProvinciaLabel_nombre}" for="nombre" />
+                        <h:panelGroup>
+                            <p:inputText id="nombre" value="#{provinciaController.selected.nombre}" title="#{myBundle.EditProvinciaTitle_nombre}" required="true" requiredMessage="#{myBundle.EditProvinciaRequiredMessage_nombre}" size="25" maxlength="25"/>
+                            <p:tooltip for="nombre" value="#{provinciaController.getComponentMessages('nombre', myBundle.EditProvinciaHelpText_nombre)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditProvinciaLabel_codPais}" for="codPais" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="codPais" value="#{provinciaController.selected.codPais}" required="true" requiredMessage="#{myBundle.EditProvinciaRequiredMessage_codPais}" converter="paisConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{paisController.items}"
+                                               var="codPaisItem"
+                                               itemValue="#{codPaisItem}"
+                                               itemLabel="#{codPaisItem.nombre.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="codPais" value="#{provinciaController.getComponentMessages('codPais', myBundle.EditProvinciaHelpText_codPais)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{provinciaController.save}" value="#{myBundle.Save}" update="display,:ProvinciaListForm:datalist,:ProvinciaListForm:ProvinciaDataTableContextMenu,:ProvinciaListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('ProvinciaEditDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ProvinciaEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="IngresoClienteEditDlg" widgetVar="IngresoClienteEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditIngresoClienteTitle}" closeOnEscape="true">
+
+            <h:form id="IngresoClienteEditForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{ingresoClienteController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditIngresoClienteLabel_ingresoClientePK_codTipoIngreso}" for="ingresoClientePK_codTipoIngreso" />
+                        <h:panelGroup>
+                            <h:outputText id="ingresoClientePK_codTipoIngreso" value="#{ingresoClienteController.selected.ingresoClientePK.codTipoIngreso}" />
+                            <p:tooltip for="ingresoClientePK_codTipoIngreso" value="#{ingresoClienteController.getComponentMessages('ingresoClientePK_codTipoIngreso', myBundle.EditIngresoClienteHelpText_ingresoClientePK_codTipoIngreso)}"/>
+                        </h:panelGroup>
+
+
+                        <h:outputLabel value="#{myBundle.EditIngresoClienteLabel_ingresoClientePK_codCliente}" for="ingresoClientePK_codCliente" />
+                        <h:panelGroup>
+                            <h:outputText id="ingresoClientePK_codCliente" value="#{ingresoClienteController.selected.ingresoClientePK.codCliente}" />
+                            <p:tooltip for="ingresoClientePK_codCliente" value="#{ingresoClienteController.getComponentMessages('ingresoClientePK_codCliente', myBundle.EditIngresoClienteHelpText_ingresoClientePK_codCliente)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditIngresoClienteLabel_valor}" for="valor" />
+                        <h:panelGroup>
+                            <p:inputText id="valor" value="#{ingresoClienteController.selected.valor}" title="#{myBundle.EditIngresoClienteTitle_valor}" required="true" requiredMessage="#{myBundle.EditIngresoClienteRequiredMessage_valor}"/>
+                            <p:tooltip for="valor" value="#{ingresoClienteController.getComponentMessages('valor', myBundle.EditIngresoClienteHelpText_valor)}"/>
+                        </h:panelGroup>
+
+
+                        <h:outputLabel value="#{myBundle.EditIngresoClienteLabel_cliente}" for="cliente" />
+                        <h:panelGroup>
+                            <h:outputText id="cliente" value="#{ingresoClienteController.selected.cliente}" />
+                            <p:tooltip for="cliente" value="#{ingresoClienteController.getComponentMessages('cliente', myBundle.EditIngresoClienteHelpText_cliente)}"/>
+                        </h:panelGroup>
+
+
+                        <h:outputLabel value="#{myBundle.EditIngresoClienteLabel_tipoIngreso}" for="tipoIngreso" />
+                        <h:panelGroup>
+                            <h:outputText id="tipoIngreso" value="#{ingresoClienteController.selected.tipoIngreso}" />
+                            <p:tooltip for="tipoIngreso" value="#{ingresoClienteController.getComponentMessages('tipoIngreso', myBundle.EditIngresoClienteHelpText_tipoIngreso)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ingresoClienteController.save}" value="#{myBundle.Save}" update="display,:IngresoClienteListForm:datalist,:IngresoClienteListForm:IngresoClienteDataTableContextMenu,:IngresoClienteListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('IngresoClienteEditDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('IngresoClienteEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

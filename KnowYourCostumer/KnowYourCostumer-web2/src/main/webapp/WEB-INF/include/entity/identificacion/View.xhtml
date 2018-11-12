@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="IdentificacionViewDlg" widgetVar="IdentificacionViewDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.ViewIdentificacionTitle}" closeOnEscape="true">
+
+            <h:form id="IdentificacionViewForm">
+
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="column" rendered="#{identificacionController.selected != null}">
+
+                        <h:outputText value="#{myBundle.ViewIdentificacionLabel_identificacionPK_codTipoIdentificacion}"/>
+                        <h:outputText value="#{identificacionController.selected.identificacionPK.codTipoIdentificacion}" title="#{myBundle.ViewIdentificacionTitle_identificacionPK_codTipoIdentificacion}"/>
+
+                        <h:outputText value="#{myBundle.ViewIdentificacionLabel_identificacionPK_codCliente}"/>
+                        <h:outputText value="#{identificacionController.selected.identificacionPK.codCliente}" title="#{myBundle.ViewIdentificacionTitle_identificacionPK_codCliente}"/>
+
+                        <h:outputText value="#{myBundle.ViewIdentificacionLabel_identificacionPK_codPais}"/>
+                        <h:outputText value="#{identificacionController.selected.identificacionPK.codPais}" title="#{myBundle.ViewIdentificacionTitle_identificacionPK_codPais}"/>
+
+                        <h:outputText value="#{myBundle.ViewIdentificacionLabel_numeroIdentificacion}"/>
+                        <h:outputText value="#{identificacionController.selected.numeroIdentificacion}" title="#{myBundle.ViewIdentificacionTitle_numeroIdentificacion}"/>
+
+                        <h:outputText value="#{myBundle.ViewIdentificacionLabel_cliente}"/>
+                        <h:outputText value="#{identificacionController.selected.cliente.nombres}"/>
+
+                        <h:outputText value="#{myBundle.ViewIdentificacionLabel_pais}"/>
+                        <h:outputText value="#{identificacionController.selected.pais.nombre}"/>
+
+                        <h:outputText value="#{myBundle.ViewIdentificacionLabel_tipoIdentificacion}"/>
+                        <h:outputText value="#{identificacionController.selected.tipoIdentificacion.descripcion}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{myBundle.Close}" onclick="PF('IdentificacionViewDialog').hide()"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>

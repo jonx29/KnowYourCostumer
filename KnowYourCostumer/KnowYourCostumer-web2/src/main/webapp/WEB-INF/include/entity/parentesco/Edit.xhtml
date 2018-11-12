@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <p:dialog id="ParentescoEditDlg" widgetVar="ParentescoEditDialog" modal="true" resizable="false"  appendTo="@(body)" header="#{myBundle.EditParentescoTitle}" closeOnEscape="true">
+
+            <h:form id="ParentescoEditForm">
+
+                <h:panelGroup id="messagePanel">
+                    <p:messages id="messages" globalOnly="true"/>
+                </h:panelGroup>
+
+                <h:panelGroup id="display">
+                    <p:panelGrid  columns="2" columnClasses="column" rendered="#{parentescoController.selected != null}">
+
+
+                        <h:outputLabel value="#{myBundle.EditParentescoLabel_parentescoPK_codCliente}" for="parentescoPK_codCliente" />
+                        <h:panelGroup>
+                            <h:outputText id="parentescoPK_codCliente" value="#{parentescoController.selected.parentescoPK.codCliente}" />
+                            <p:tooltip for="parentescoPK_codCliente" value="#{parentescoController.getComponentMessages('parentescoPK_codCliente', myBundle.EditParentescoHelpText_parentescoPK_codCliente)}"/>
+                        </h:panelGroup>
+
+
+                        <h:outputLabel value="#{myBundle.EditParentescoLabel_parentescoPK_cliCodCliente}" for="parentescoPK_cliCodCliente" />
+                        <h:panelGroup>
+                            <h:outputText id="parentescoPK_cliCodCliente" value="#{parentescoController.selected.parentescoPK.cliCodCliente}" />
+                            <p:tooltip for="parentescoPK_cliCodCliente" value="#{parentescoController.getComponentMessages('parentescoPK_cliCodCliente', myBundle.EditParentescoHelpText_parentescoPK_cliCodCliente)}"/>
+                        </h:panelGroup>
+
+
+                        <h:outputLabel value="#{myBundle.EditParentescoLabel_cliente}" for="cliente" />
+                        <h:panelGroup>
+                            <h:outputText id="cliente" value="#{parentescoController.selected.cliente}" />
+                            <p:tooltip for="cliente" value="#{parentescoController.getComponentMessages('cliente', myBundle.EditParentescoHelpText_cliente)}"/>
+                        </h:panelGroup>
+
+
+                        <h:outputLabel value="#{myBundle.EditParentescoLabel_cliente1}" for="cliente1" />
+                        <h:panelGroup>
+                            <h:outputText id="cliente1" value="#{parentescoController.selected.cliente1}" />
+                            <p:tooltip for="cliente1" value="#{parentescoController.getComponentMessages('cliente1', myBundle.EditParentescoHelpText_cliente1)}"/>
+                        </h:panelGroup>
+
+                        <p:outputLabel value="#{myBundle.EditParentescoLabel_codTipoParentesco}" for="codTipoParentesco" />
+                        <h:panelGroup>
+                            <p:selectOneMenu id="codTipoParentesco" value="#{parentescoController.selected.codTipoParentesco}"  converter="tipoParentescoConverter">
+                                <f:selectItem itemLabel="#{myBundle.SelectOneMessage}"/>
+                                <f:selectItems value="#{tipoParentescoController.items}"
+                                               var="codTipoParentescoItem"
+                                               itemValue="#{codTipoParentescoItem}"
+                                               itemLabel="#{codTipoParentescoItem.descripcion.toString()}"
+                                               />
+
+                            </p:selectOneMenu>
+                            <p:tooltip for="codTipoParentesco" value="#{parentescoController.getComponentMessages('codTipoParentesco', myBundle.EditParentescoHelpText_codTipoParentesco)}"/>
+                        </h:panelGroup>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{parentescoController.save}" value="#{myBundle.Save}" update="display,:ParentescoListForm:datalist,:ParentescoListForm:ParentescoDataTableContextMenu,:ParentescoListForm:messagePanel,messages" oncomplete="handleSubmit(xhr,status,args,PF('ParentescoEditDialog'));"/>
+                    <p:commandButton value="#{myBundle.Cancel}" oncomplete="PF('ParentescoEditDialog').hide()" update="display" process="@this" immediate="true" resetValues="true"/>
+                </h:panelGroup>
+
+            </h:form>
+
+        </p:dialog>
+
+    </ui:composition>
+
+</html>
