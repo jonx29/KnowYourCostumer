@@ -24,11 +24,11 @@
 
                 <h:panelGrid columns="12">
                     <h:outputText value="Cédula:" /> 
-                    <h:inputText class="input"  ></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h:inputText class="input" style="width: 170px" value="#{beanClientesBusqueda.cliente.codGenero.descripcion}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <h:outputText value="Apellidos:" />
-                    <h:inputText class="input" style="width: 170px" value="#{beanClientesBusqeda.apellidos}" ></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h:inputText class="input" style="width: 170px" value="#{beanClientesBusqueda.cliente.apellidos}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <h:outputText value="Nombres:" />
-                    <h:inputText class="input" style="width: 170px" value="#{beanClientesBusqueda.nombres}"></h:inputText>
+                    <h:inputText class="input" style="width: 170px" value="#{beanClientesBusqueda.cliente.nombres}"></h:inputText>
 
                 </h:panelGrid>
                 <br></br>
@@ -45,11 +45,8 @@
                 </h:panelGrid>
                 <br></br>
                 <h:panelGrid columns="20">
-                    <h:outputLabel for="car1" value="País de nacimiento:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:selectOneMenu id="car1" value="#{beanClientes.pais}"> 
-                        <f:selectItem itemLabel="Seleccionar" itemValue="" />
-                        <f:selectItems value="#{beanClientes.pais}" />
-                    </p:selectOneMenu>
+                    <h:outputLabel value="País de nacimiento:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <h:inputText class="input" style="width: 170px" value="#{beanClientesBusqueda.cliente.paisNacimiento.nombre}"></h:inputText>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <h:outputLabel value="Ciudadanía:" /> 
                     <h:inputText class="input" style="width: 170px" value="#{beanClientes.ciudadania}"></h:inputText>
@@ -70,21 +67,21 @@
                 <h:panelGrid columns="10">
 
                     <h:outputLabel for="popup1" value="Fecha de Registro:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:calendar id="popup1" pattern="yyyy-MM-dd" value="#{beanClientes.fecha_ingreso}"/>
+                    <p:calendar id="popup1" pattern="yyyy-MM-dd" value="#{beanClientesBusqueda.cliente.fechaRegistro}"/>
 
                 </h:panelGrid>
                 <br></br>
                 <h:panelGrid columns="6">
 
                     <h:outputLabel for="popup2" value="Fecha de Nacimiento:" /> &nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:calendar id="popup2" pattern="yyyy-MM-dd" value="#{beanClientes.fecha_nace}" />
+                    <p:calendar id="popup2" pattern="yyyy-MM-dd" value="#{beanClientesBusqueda.cliente.fechaNacimiento}" />
 
                 </h:panelGrid>
                 <br></br>
                 <h:panelGrid columns="12">
 
                     <h:outputLabel for="time" value="Hora de Registro:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:calendar id="time" value="#{beanClientes.hora}" pattern="HH:mm" timeOnly="true"  />
+                    <p:calendar id="time" value="#{beanClientesBusqueda.cliente.horaRegistro}" pattern="HH:mm" timeOnly="true"  />
                 </h:panelGrid>
                 <br></br>
                 <div class="form__top">
@@ -271,7 +268,7 @@
                 </div>
 
                 <div class="btn__form">
-                    <h:commandButton class="btn__submit"  type="submit" value="REGRESAR" action="buscarClienteTabla"> </h:commandButton>
+                    <h:commandButton class="btn__submit"  type="submit" value="REGRESAR" action="buscarClienteTabla.xhtml" > </h:commandButton>
                 </div>
             </h:form>
          

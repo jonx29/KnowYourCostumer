@@ -37,34 +37,34 @@ public class listaCientes {
 
     public ArrayList<Cliente> getList() {
         iniciarDatos();
-        List<BigDecimal> listaCODIGO = new ArrayList<BigDecimal>();
-        List<String> listaNOMBRE = new ArrayList<String>();
-        List<String> listaAPELLIDO = new ArrayList<String>();
-        List<Date> listaFECHA = new ArrayList<Date>();
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("ec.edu.espe.arquitectura_KnowYourCostumer-web_war_1.0-SNAPSHOTPU");
-        EntityManager em1 = factory.createEntityManager();
-        try {
-                Query q_codigo = em1.createNativeQuery("SELECT cod_cliente FROM cliente WHERE NOT fecha_registro = '1900-01-01' ORDER BY cod_cliente ASC");
-                listaCODIGO = q_codigo.getResultList();
-                Query q_nombre = em1.createNativeQuery("SELECT nombres FROM cliente WHERE NOT fecha_registro = '1900-01-01' ORDER BY cod_cliente ASC");
-                listaNOMBRE = q_nombre.getResultList();
-                Query q_correo = em1.createNativeQuery("SELECT apellidos FROM cliente WHERE NOT fecha_registro = '1900-01-01' ORDER BY cod_cliente ASC");
-                listaAPELLIDO = q_correo.getResultList();
-        } catch (Exception ex) {
-        }
-        em1.close();
-        factory.close();
-        String listaCod = listaCODIGO.toString();
-        String[] codigo = listaCod.split("\\[");
-        String listaCod1 = codigo[1];
-        String[] codigo1 = listaCod1.split("\\]");
-        String listaCodFinal = codigo1[0];
-        String[] codigoFinal = listaCodFinal.split(", ");
+//        List<BigDecimal> listaCODIGO = new ArrayList<BigDecimal>();
+//        List<String> listaNOMBRE = new ArrayList<String>();
+//        List<String> listaAPELLIDO = new ArrayList<String>();
+//        List<Date> listaFECHA = new ArrayList<Date>();
+//        EntityManagerFactory factory = Persistence.createEntityManagerFactory("ec.edu.espe.arquitectura_KnowYourCostumer-web_war_1.0-SNAPSHOTPU");
+//        EntityManager em1 = factory.createEntityManager();
+//        try {
+//                Query q_codigo = em1.createNativeQuery("SELECT cod_cliente FROM cliente WHERE NOT fecha_registro = '1900-01-01' ORDER BY cod_cliente ASC");
+//                listaCODIGO = q_codigo.getResultList();
+//                Query q_nombre = em1.createNativeQuery("SELECT nombres FROM cliente WHERE NOT fecha_registro = '1900-01-01' ORDER BY cod_cliente ASC");
+//                listaNOMBRE = q_nombre.getResultList();
+//                Query q_correo = em1.createNativeQuery("SELECT apellidos FROM cliente WHERE NOT fecha_registro = '1900-01-01' ORDER BY cod_cliente ASC");
+//                listaAPELLIDO = q_correo.getResultList();
+//        } catch (Exception ex) {
+//        }
+//        em1.close();
+//        factory.close();
+//        String listaCod = listaCODIGO.toString();
+//        String[] codigo = listaCod.split("\\[");
+//        String listaCod1 = codigo[1];
+//        String[] codigo1 = listaCod1.split("\\]");
+//        String listaCodFinal = codigo1[0];
+//        String[] codigoFinal = listaCodFinal.split(", ");
         int cod = 0;
-        for (int i = 0; i < listaNOMBRE.size(); i++) {
+        for (int i = 0; i <3; i++) {
             cod++;
-            //list.add(new Cliente(cod,"jeff", "tambaco", null, null));
-            list.add(new Cliente(Integer.parseInt(codigoFinal[i]), listaNOMBRE.get(i), listaAPELLIDO.get(i), null, null));
+           list.add(new Cliente(cod,"jeff", "tambaco", null, null));
+        //    list.add(new Cliente(Integer.parseInt(codigoFinal[i]), listaNOMBRE.get(i), listaAPELLIDO.get(i), null, null));
 
         }
         return list;

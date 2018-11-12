@@ -325,45 +325,65 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
         query3.executeUpdate();
 
         retorno = 1;
-        /*} catch (Exception ex) {
+        /*} catch (Exception ex) {sout  
          retorno = 0;
          }*/
 
         return retorno;
     }
 
+//    public Cliente busqueda(Integer codCliente) {
+//
+//        Cliente cliente = null;
+//        System.out.println("este es oara buscar al cliente");
+//
+//        try {
+//            Query q = em.createNativeQuery("SELECT * FROM cliente WHERE cod_cliente='" + codCliente + "'");
+//            List li = q.getResultList();
+//
+//            if (li.size() >= 1) {
+//                System.out.println("este es el if");
+//                for (Object lista : li) {
+//                    System.out.println("este es el for");
+//                    Object[] clientes = (Object[]) (lista);
+//                    System.out.println("ffffff");
+//                    BigDecimal codigo = (BigDecimal) clientes[0];
+//                    System.out.println("codigo"+codigo);
+//                    int direccion = (int) clientes[1];
+//                    int estadoCivil = (int) clientes[2];
+//                    int genero = (int) clientes[3];
+//                    int personeria = (int) clientes[4];
+//                    int pais = (int) clientes[5];
+//                    String nombres = clientes[6].toString();
+//                    String apellidos = clientes[7].toString();
+//                    System.out.println("Apellido"+apellidos);
+//                    Date fechaNac = (Date) clientes[8];
+//                    Date fechaRegis = (Date) clientes[9];
+//                    Time tiempo = (Time) clientes[10];
+//                   // cliente = new Cliente(codCliente, nombres, apellidos, fechaRegis, fechaRegis);
+//
+//                }
+//            }
+//        } catch (Exception ex) {
+//
+//        }
+//
+//        return cliente;
+//    }
     public Cliente busqueda(Integer codCliente) {
-
-        Cliente cliente = null;
-
+         Cliente use;
         try {
-            Query q = em.createNativeQuery("SELECT * FROM cliente WHERE cod_cliente='" + codCliente + "'");
-            List li = q.getResultList();
-
-            if (li.size() >= 1) {
-
-                for (Object lista : li) {
-                    Object[] clientes = (Object[]) (lista);
-                    int codigo = (int) clientes[0];
-                    int direccion = (int) clientes[1];
-                    int estadoCivil = (int) clientes[2];
-                    int genero = (int) clientes[3];
-                    int personeria = (int) clientes[4];
-                    int pais = (int) clientes[5];
-                    String nombres = clientes[6].toString();
-                    String apellidos = clientes[7].toString();
-                    Date fechaNac = (Date) clientes[8];
-                    Date fechaRegis = (Date) clientes[9];
-                    Time tiempo = (Time) clientes[10];
-                    cliente = new Cliente(codCliente, nombres, apellidos, fechaRegis, fechaRegis);
-
-                }
-            }
-        } catch (Exception ex) {
-
+            System.out.println("entra a la busqueda");
+            Query query = em.createQuery("SELECT c FROM Cliente c WHERE c.codCliente = :codCliente");
+            query.setParameter("codCliente", codCliente);
+            use = (Cliente) query.getSingleResult();
+            System.out.println("busca algo o no "+use.getApellidos());
+        } catch (Exception e) {
+            System.out.println("ERROR" + e);
+            use = null;
         }
 
-        return cliente;
+        return use;
     }
 
 }
