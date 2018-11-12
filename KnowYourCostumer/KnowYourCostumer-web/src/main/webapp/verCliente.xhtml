@@ -23,8 +23,14 @@
                 </div>
 
                 <h:panelGrid columns="12">
-                    <h:outputText value="Cédula:" /> 
-                    <h:inputText class="input" style="width: 170px" value="#{beanClientesBusqueda.cliente.codGenero.descripcion}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h:outputText value="Tipo de identificación:" /> 
+                    <h:inputText class="input" style="width: 170px" value="#{beanClientesBusqueda.identificacion.codTipoIdentificacion.descripcion}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h:outputText value="Número de identificación:" /> 
+                    <h:inputText class="input" style="width: 170px" value="#{beanClientesBusqueda.identificacion.numeroIdentificacion}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+                </h:panelGrid>
+                <br></br>
+                <h:panelGrid columns="12">
                     <h:outputText value="Apellidos:" />
                     <h:inputText class="input" style="width: 170px" value="#{beanClientesBusqueda.cliente.apellidos}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <h:outputText value="Nombres:" />
@@ -35,18 +41,15 @@
                 <h:panelGrid columns="10">
                     <h:outputText value="Genero:" />
                     &nbsp;&nbsp;
-                    <p:selectOneMenu id="genero11" value="#{beanClientes.genero}"> 
-                        <f:selectItem itemLabel="Seleccionar" itemValue="" />
-                        <f:selectItems value="#{beanClientes.genero}" />
-                    </p:selectOneMenu>
+                    <h:inputText class="input" style="width: 170px" value="#{beanClientesBusqueda.cliente.codGenero.descripcion}"></h:inputText>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <h:outputText value="Profesión: " />
-                    <h:inputText class="input" style="width: 170px" value="#{beanClientes.profecion}" ></h:inputText>
+                    <h:inputText class="input" style="width: 170px" value="#{beanClientesBusqueda.profesionCliente.codProfesion.descripcion}" ></h:inputText>
                 </h:panelGrid>
                 <br></br>
                 <h:panelGrid columns="20">
                     <h:outputLabel value="País de nacimiento:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <h:inputText class="input" style="width: 170px" value="#{beanClientesBusqueda.cliente.paisNacimiento.nombre}"></h:inputText>
+                    <h:inputText class="input" style="width: 170px" value="#{beanClientesBusqueda.cliente.paisNacimiento.nombre}"></h:inputText>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <h:outputLabel value="Ciudadanía:" /> 
                     <h:inputText class="input" style="width: 170px" value="#{beanClientes.ciudadania}"></h:inputText>
@@ -56,10 +59,7 @@
                 <br></br>
                 <h:panelGrid columns="10">
                     <h:outputLabel for="car3" value="Estado Civil: " /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:selectOneMenu id="car3" value="#{beanClientes.estadoCivil}"> 
-                        <f:selectItem itemLabel="Seleccionar" itemValue="" />
-                        <f:selectItems value="#{beanClientes.estadoCivil}" />
-                    </p:selectOneMenu>
+                    <h:inputText class="input" style="width: 170px" value="#{beanClientesBusqueda.cliente.codEstadoCivil.descripcion}"></h:inputText>
 
 
                 </h:panelGrid>
@@ -89,62 +89,55 @@
                 </div>
                 <h:panelGrid columns="30">
                     <h:outputLabel for="car4" value="País de residencia:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:selectOneMenu id="car4" value="#{beanClientes.paisResidencia}"> 
-                        <f:selectItem itemLabel="Seleccionar" itemValue="" />
-                        <f:selectItems value="#{beanClientes.paisResidencia}" />
-                    </p:selectOneMenu>
+                    <h:inputText class="input" style="width: 170px" value="#{beanClientesBusqueda.cliente.codDireccion.codCalle.codCiudad.codPais.nombre}"></h:inputText>
+
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 
                     <h:outputLabel for="car5" value="Provincia de residencia:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:selectOneMenu id="car5" value="#{beanClientes.provinciaResidencia}"> 
-                        <f:selectItem itemLabel="Seleccionar" itemValue="" />
-                        <f:selectItems value="#{beanClientes.provinciaResidencia}" />
-                    </p:selectOneMenu>
+                    <h:inputText class="input" style="width: 170px" value="#{beanClientesBusqueda.cliente.codDireccion.codCalle.codCiudad.codProvincia.nombre}"></h:inputText>
+
 
 
                 </h:panelGrid>
                 <br></br>
                 <h:panelGrid columns="10">
                     <h:outputLabel for="car6" value="Ciudad de residencia:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:selectOneMenu id="car6" value="#{beanClientes.ciudadResidencia}"> 
-                        <f:selectItem itemLabel="Seleccionar" itemValue="" />
-                        <f:selectItems value="#{beanClientes.ciudadResidencia}" />
-                    </p:selectOneMenu>
+                    <h:inputText class="input" style="width: 170px" value="#{beanClientesBusqueda.cliente.codDireccion.codCalle.codCiudad.nombre}"></h:inputText>
 
 
                 </h:panelGrid>
                 <br></br>
                 <h:panelGrid columns="12">
                     <h:outputText value="Calle principal::" /> 
-                    <h:inputText class="input" value="#{beanClientes.callePrincipal}" ></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h:inputText class="input" value="#{beanClientesBusqueda.cliente.codDireccion.codCalle.nombre}" ></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <h:outputText value="#CASA:" />
-                    <h:inputText class="input" style="width: 170px" value="#{beanClientes.numCasa}"></h:inputText>
+                    <h:inputText class="input" style="width: 170px" value="#{beanClientesBusqueda.cliente.codDireccion.numero}"></h:inputText>
 
 
                 </h:panelGrid>
 
                 <h:panelGrid columns="12">
                     <h:outputText value="Calle secundaria:" />
-                    <h:inputText class="input" style="width: 170px" value="#{beanClientes.calleSecundaria}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h:inputText class="input" style="width: 170px" value="#{beanClientesBusqueda.cliente.codDireccion.codCalleTrans.nombre}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 
                 </h:panelGrid>
                 <h:panelGrid columns="12">
                     <h:outputText value="Referencia:" />
-                    <h:inputText class="input" style="width: 170px" value="#{beanClientes.referencia}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h:inputText class="input" style="width: 170px" value="#{beanClientesBusqueda.cliente.codDireccion.referencia}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 
                 </h:panelGrid>
                 <h:panelGrid columns="12">
                     <h:outputText value="Teléfono celular N°:" />
-                    <h:inputText class="input" style="width: 170px" value="#{beanClientes.celular}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h:inputText class="input" style="width: 170px" value="#{beanClientesBusqueda.numeroTelefono.codTipoTelefono}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 
                 </h:panelGrid>
                 <h:panelGrid columns="12">
                     <h:outputText value="Teléfono de domicilio:" />
-                    <h:inputText class="input" style="width: 170px" value="#{beanClientes.domicilio}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h:inputText class="input" style="width: 170px" value="#{beanClientesBusqueda.numeroTelefono.codTipoTelefono}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 
                 </h:panelGrid>
@@ -155,13 +148,13 @@
 
                 <h:panelGrid columns="12">
                     <h:outputText value="Tipo de Referencia:" /> 
-                    <h:inputText class="input"  value="#{beanClientes.tipoReferencia}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h:inputText class="input"  value="#{beanClientesBusqueda.referenciaCliente.codTipoReferencia.description}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </h:panelGrid>
                 <h:panelGrid columns="12">
                     <h:outputText value="Cédula:" /> 
-                    <h:inputText class="input"  value="#{beanClientes.cedulaReferencia}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h:inputText class="input"  value="#{beanClientesBusqueda.referenciaCliente.cliCodCliente}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <h:outputText value="Apellidos:" />
-                    <h:inputText class="input" style="width: 170px" value="#{beanClientes.apellidosReferencia}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <h:inputText class="input" style="width: 170px" value="#{beanClientesBusqueda.referenciaCliente.codReferencia}"></h:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <h:outputText value="Nombres:" />
                     <h:inputText class="input" style="width: 170px" value="#{beanClientes.nombresReferencia}" ></h:inputText>
 
@@ -271,7 +264,7 @@
                     <h:commandButton class="btn__submit"  type="submit" value="REGRESAR" action="buscarClienteTabla.xhtml" > </h:commandButton>
                 </div>
             </h:form>
-         
+
         </div>
 
     </h:body>

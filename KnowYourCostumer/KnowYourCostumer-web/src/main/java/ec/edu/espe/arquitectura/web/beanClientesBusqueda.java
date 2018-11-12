@@ -6,6 +6,11 @@
 package ec.edu.espe.arquitectura.web;
 
 import ec.edu.espe.arquitectura.model.Cliente;
+import ec.edu.espe.arquitectura.model.Identificacion;
+import ec.edu.espe.arquitectura.model.NumeroTelefono;
+import ec.edu.espe.arquitectura.model.Profesion;
+import ec.edu.espe.arquitectura.model.ProfesionCliente;
+import ec.edu.espe.arquitectura.model.Referencia;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -411,13 +416,21 @@ public class beanClientesBusqueda {
     }
 
     private Cliente cliente;
+    private Identificacion identificacion;
+    private Profesion profesion;// otra profesion
+    private ProfesionCliente profesionCliente;
+    private NumeroTelefono numeroTelefono;
+    private Referencia referenciaCliente;
 
     //Metodo para crear la cabecera de las encuestas
     public String Busqueda(Integer cod) {
         String path;
         System.out.println("este codigo toma" + cod);
         setCliente(bean_cliente.buscarCliente(cod));
-       // nombres = cliente.getNombres();
+        setIdentificacion(bean_cliente.buscarClienteIndentificacion(cliente));
+        setProfesionCliente(bean_cliente.buscarClienteProfesion(cliente));
+        setNumeroTelefono(bean_cliente.buscarClienteTelefono(cliente));
+        setReferenciaCliente(bean_cliente.buscarClienteReferencia(cliente));
 
         return path = "/verCliente?faces-redirect=true";
 
@@ -435,6 +448,62 @@ public class beanClientesBusqueda {
      */
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    /**
+     * @return the identificacion
+     */
+    public Identificacion getIdentificacion() {
+        return identificacion;
+    }
+
+    /**
+     * @param identificacion the identificacion to set
+     */
+    public void setIdentificacion(Identificacion identificacion) {
+        this.identificacion = identificacion;
+    }
+
+    /**
+     * @return the profesionCliente
+     */
+    public ProfesionCliente getProfesionCliente() {
+        return profesionCliente;
+    }
+
+    /**
+     * @param profesionCliente the profesionCliente to set
+     */
+    public void setProfesionCliente(ProfesionCliente profesionCliente) {
+        this.profesionCliente = profesionCliente;
+    }
+
+    /**
+     * @return the numeroTelefono
+     */
+    public NumeroTelefono getNumeroTelefono() {
+        return numeroTelefono;
+    }
+
+    /**
+     * @param numeroTelefono the numeroTelefono to set
+     */
+    public void setNumeroTelefono(NumeroTelefono numeroTelefono) {
+        this.numeroTelefono = numeroTelefono;
+    }
+
+    /**
+     * @return the referenciaCliente
+     */
+    public Referencia getReferenciaCliente() {
+        return referenciaCliente;
+    }
+
+    /**
+     * @param referenciaCliente the referenciaCliente to set
+     */
+    public void setReferenciaCliente(Referencia referenciaCliente) {
+        this.referenciaCliente = referenciaCliente;
     }
 
 }

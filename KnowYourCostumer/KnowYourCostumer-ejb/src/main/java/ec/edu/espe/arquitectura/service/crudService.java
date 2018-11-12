@@ -7,6 +7,10 @@ package ec.edu.espe.arquitectura.service;
 
 import ec.edu.espe.arquitectura.dao.ClienteFacade;
 import ec.edu.espe.arquitectura.model.Cliente;
+import ec.edu.espe.arquitectura.model.Identificacion;
+import ec.edu.espe.arquitectura.model.NumeroTelefono;
+import ec.edu.espe.arquitectura.model.ProfesionCliente;
+import ec.edu.espe.arquitectura.model.Referencia;
 import java.sql.Time;
 import java.util.Date;
 import java.util.List;
@@ -52,6 +56,26 @@ public class crudService {
     public Cliente buscarCliente(Integer codCliente) {
         System.out.println("nuevooooooo" + codCliente);
         return clienteFacade.busqueda(codCliente);
+
+    }
+      public Identificacion buscarClienteIndentificacion(Cliente obj) {
+       // System.out.println("nuevooooooo" + codCliente);
+        return clienteFacade.busquedaIndentificacion(obj);
+
+    }
+         public ProfesionCliente buscarClienteProfesion(Cliente obj) {
+       // System.out.println("nuevooooooo" + codCliente);
+        return clienteFacade.busquedaProfesion(obj);
+
+    }
+                 public NumeroTelefono buscarClienteTelefono(Cliente obj) {
+       // System.out.println("nuevooooooo" + codCliente);
+        return clienteFacade.busquedaTelefono(obj);
+
+    }
+                                public Referencia buscarClienteReferencia(Cliente obj) {
+       // System.out.println("nuevooooooo" + codCliente);
+        return clienteFacade.busquedaReferencia(obj);
 
     }
 }

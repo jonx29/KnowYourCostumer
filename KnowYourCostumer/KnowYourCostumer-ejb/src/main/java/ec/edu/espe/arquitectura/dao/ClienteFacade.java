@@ -6,6 +6,11 @@
 package ec.edu.espe.arquitectura.dao;
 
 import ec.edu.espe.arquitectura.model.Cliente;
+import ec.edu.espe.arquitectura.model.Identificacion;
+import ec.edu.espe.arquitectura.model.NumeroTelefono;
+import ec.edu.espe.arquitectura.model.Profesion;
+import ec.edu.espe.arquitectura.model.ProfesionCliente;
+import ec.edu.espe.arquitectura.model.Referencia;
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
@@ -250,7 +255,7 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
     public int ingresarDatosEconomicos(String actividad, double ingresos, double egresos) {
         int retorno = 0;
         //try {
-        if (ingresos!=0 && egresos!=0) {
+        if (ingresos != 0 && egresos != 0) {
             Query query1 = em.createNativeQuery("INSERT INTO tipo_actividad_economica(cod_tipo_actividad_economica, descripcion) "
                     + "VALUES ((SELECT MAX(cod_tipo_actividad_economica)+1 FROM tipo_actividad_economica),'" + actividad + "')");
             query1.executeUpdate();
@@ -266,12 +271,12 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
             query4.executeUpdate();
 
             retorno = 1;
-        }else{
+        } else {
             retorno = 0;
         }
         /*} catch (Exception ex) {
-            retorno = 0;
-        }*/
+         retorno = 0;
+         }*/
         return retorno;
     }
 
@@ -335,14 +340,14 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
 //    public Cliente busqueda(Integer codCliente) {
 //
 //        Cliente cliente = null;
-//        System.out.println("este es oara buscar al cliente");
+//        System.out.println("este es oara buscar al cliente nuenoooooooooooooo");
 //
 //        try {
 //            Query q = em.createNativeQuery("SELECT * FROM cliente WHERE cod_cliente='" + codCliente + "'");
 //            List li = q.getResultList();
-//
+//            System.out.println("tamaño de ka lista"+li.size());
 //            if (li.size() >= 1) {
-//                System.out.println("este es el if");
+//                System.out.println("este es el if nooooooooooooooooo");
 //                for (Object lista : li) {
 //                    System.out.println("este es el for");
 //                    Object[] clientes = (Object[]) (lista);
@@ -360,7 +365,7 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
 //                    Date fechaNac = (Date) clientes[8];
 //                    Date fechaRegis = (Date) clientes[9];
 //                    Time tiempo = (Time) clientes[10];
-//                   // cliente = new Cliente(codCliente, nombres, apellidos, fechaRegis, fechaRegis);
+//                    cliente = new Cliente(codCliente, nombres, apellidos, fechaRegis, fechaRegis);
 //
 //                }
 //            }
@@ -371,13 +376,75 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
 //        return cliente;
 //    }
     public Cliente busqueda(Integer codCliente) {
-         Cliente use;
+        Cliente use;
         try {
             System.out.println("entra a la busqueda");
             Query query = em.createQuery("SELECT c FROM Cliente c WHERE c.codCliente = :codCliente");
             query.setParameter("codCliente", codCliente);
             use = (Cliente) query.getSingleResult();
-            System.out.println("busca algo o no "+use.getApellidos());
+            System.out.println("busca algo o no " + use.getApellidos());
+        } catch (Exception e) {
+            System.out.println("ERROR" + e);
+            use = null;
+        }
+
+        return use;
+    }
+
+    public Identificacion busquedaIndentificacion(Cliente obj) {
+        Identificacion use;
+        try {
+            System.out.println("entra a la busqueda de identificacion"+obj.getCodCliente());
+            Query query = em.createQuery("SELECT i FROM Identificacion i WHERE i.codCliente = :codCliente");
+            query.setParameter("codCliente", obj);
+            use = (Identificacion) query.getSingleResult();
+            System.out.println("busca algo o no " + use.getNumeroIdentificacion());
+        } catch (Exception e) {
+            System.out.println("ERROR" + e);
+            use = null;
+        }
+
+        return use;
+    }
+
+    public ProfesionCliente busquedaProfesion(Cliente obj) {
+        ProfesionCliente use;
+        try {
+            System.out.println("entra a la busqueda");
+            Query query = em.createQuery("SELECT p FROM ProfesionCliente p WHERE p.codCliente = :codCliente");
+            query.setParameter("codCliente", obj);
+            use = (ProfesionCliente) query.getSingleResult();
+            System.out.println("busca algo o no " + use);
+        } catch (Exception e) {
+            System.out.println("ERROR" + e);
+            use = null;
+        }
+
+        return use;
+    }
+       public NumeroTelefono busquedaTelefono(Cliente obj) {
+       NumeroTelefono use;
+        try {
+            System.out.println("entra a la busqueda");
+            Query query = em.createQuery("SELECT n FROM NumeroTelefono n WHERE n.codCliente = :codCliente");
+            query.setParameter("codCliente", obj);
+            use = (NumeroTelefono) query.getSingleResult();
+            System.out.println("busca algo o no " + use);
+        } catch (Exception e) {
+            System.out.println("ERROR" + e);
+            use = null;
+        }
+
+        return use;
+    }
+             public Referencia busquedaReferencia(Cliente obj) {
+      Referencia use;
+        try {
+            System.out.println("entra a la busqueda");
+            Query query = em.createQuery("SELECT r FROM Referencia r WHERE r.codCliente = :codCliente");
+            query.setParameter("codCliente", obj);
+            use = (Referencia) query.getSingleResult();
+            System.out.println("busca algo o no " + use);
         } catch (Exception e) {
             System.out.println("ERROR" + e);
             use = null;
