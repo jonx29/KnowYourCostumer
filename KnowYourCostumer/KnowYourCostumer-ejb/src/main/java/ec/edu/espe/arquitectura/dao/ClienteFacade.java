@@ -5,9 +5,14 @@
  */
 package ec.edu.espe.arquitectura.dao;
 
+import ec.edu.espe.arquitectura.model.ActividadEconomica;
+import ec.edu.espe.arquitectura.model.CargoPolitico;
 import ec.edu.espe.arquitectura.model.Cliente;
+import ec.edu.espe.arquitectura.model.EgresoCliente;
 import ec.edu.espe.arquitectura.model.Identificacion;
+import ec.edu.espe.arquitectura.model.IngresoCliente;
 import ec.edu.espe.arquitectura.model.NumeroTelefono;
+import ec.edu.espe.arquitectura.model.Parentesco;
 import ec.edu.espe.arquitectura.model.Profesion;
 import ec.edu.espe.arquitectura.model.ProfesionCliente;
 import ec.edu.espe.arquitectura.model.Referencia;
@@ -394,7 +399,7 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
     public Identificacion busquedaIndentificacion(Cliente obj) {
         Identificacion use;
         try {
-            System.out.println("entra a la busqueda de identificacion"+obj.getCodCliente());
+            System.out.println("entra a la busqueda de identificacion" + obj.getCodCliente());
             Query query = em.createQuery("SELECT i FROM Identificacion i WHERE i.codCliente = :codCliente");
             query.setParameter("codCliente", obj);
             use = (Identificacion) query.getSingleResult();
@@ -422,8 +427,9 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
 
         return use;
     }
-       public NumeroTelefono busquedaTelefono(Cliente obj) {
-       NumeroTelefono use;
+
+    public NumeroTelefono busquedaTelefono(Cliente obj) {
+        NumeroTelefono use;
         try {
             System.out.println("entra a la busqueda");
             Query query = em.createQuery("SELECT n FROM NumeroTelefono n WHERE n.codCliente = :codCliente");
@@ -437,8 +443,9 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
 
         return use;
     }
-             public Referencia busquedaReferencia(Cliente obj) {
-      Referencia use;
+
+    public Referencia busquedaReferencia(Cliente obj) {
+        Referencia use;
         try {
             System.out.println("entra a la busqueda");
             Query query = em.createQuery("SELECT r FROM Referencia r WHERE r.codCliente = :codCliente");
@@ -452,5 +459,100 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
 
         return use;
     }
+//este es el ultimo 
 
+    public CargoPolitico busquedaCargaPolitica(Cliente obj) {
+        CargoPolitico use;
+        try {
+            System.out.println("entra a la busqueda");
+            Query query = em.createQuery("SELECT c FROM CargoPolitico c WHERE c.codCliente = :codCliente");
+            query.setParameter("codCliente", obj);
+            use = (CargoPolitico) query.getSingleResult();
+            System.out.println("busca algo o no " + use);
+        } catch (Exception e) {
+            System.out.println("ERROR" + e);
+            use = null;
+        }
+
+        return use;
+    }
+
+    public ActividadEconomica busquedaActividadEconomica(Cliente obj) {
+        ActividadEconomica use;
+        try {
+            System.out.println("entra a la busqueda");
+            Query query = em.createQuery("SELECT a FROM ActividadEconomica a WHERE a.codCliente = :codCliente");
+            query.setParameter("codCliente", obj);
+            use = (ActividadEconomica) query.getSingleResult();
+            System.out.println("busca algo o no " + use);
+        } catch (Exception e) {
+            System.out.println("ERROR" + e);
+            use = null;
+        }
+
+        return use;
+    }
+
+    public EgresoCliente busquedaEgreso(Cliente obj) {
+        EgresoCliente use;
+        try {
+            System.out.println("entra a la busqueda");
+            Query query = em.createQuery("SELECT e FROM EgresoCliente e WHERE e.codCliente = :codCliente");
+            query.setParameter("codCliente", obj);
+            use = (EgresoCliente) query.getSingleResult();
+            System.out.println("busca algo o no " + use);
+        } catch (Exception e) {
+            System.out.println("ERROR" + e);
+            use = null;
+        }
+
+        return use;
+    }
+
+    public IngresoCliente busquedaIngreso(Cliente obj) {
+        IngresoCliente use;
+        try {
+            System.out.println("entra a la busqueda");
+            Query query = em.createQuery("SELECT i FROM IngresoCliente i WHERE i.codCliente = :codCliente");
+            query.setParameter("codCliente", obj);
+            use = (IngresoCliente) query.getSingleResult();
+            System.out.println("busca algo o no " + use);
+        } catch (Exception e) {
+            System.out.println("ERROR" + e);
+            use = null;
+        }
+
+        return use;
+    }
+
+    public Parentesco busquedaParentesco(Cliente obj) {
+        Parentesco use;
+        try {
+            System.out.println("entra a la busqueda");
+            Query query = em.createQuery("SELECT p FROM Parentesco p WHERE p.codCliente = :codCliente");
+            query.setParameter("codCliente", obj);
+            use = (Parentesco) query.getSingleResult();
+            System.out.println("busca algo o no " + use);
+        } catch (Exception e) {
+            System.out.println("ERROR" + e);
+            use = null;
+        }
+
+        return use;
+    }
+        public Identificacion busquedaIndentificacion1(Cliente obj) {
+        Identificacion use;
+        try {
+            System.out.println("entra a la busqueda de identificacion" + obj.getCodCliente());
+            Query query = em.createQuery("SELECT i FROM Identificacion i WHERE i.codCliente = :codCliente");
+            query.setParameter("codCliente", obj);
+            use = (Identificacion) query.getSingleResult();
+            System.out.println("busca algo o no " + use.getNumeroIdentificacion());
+        } catch (Exception e) {
+            System.out.println("ERROR" + e);
+            use = null;
+        }
+
+        return use;
+    }
 }
