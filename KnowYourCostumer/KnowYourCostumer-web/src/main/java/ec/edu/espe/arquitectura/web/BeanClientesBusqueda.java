@@ -14,10 +14,12 @@ import ec.edu.espe.arquitectura.model.Referencia;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import ec.edu.espe.arquitectura.service.crudService;
+import ec.edu.espe.arquitectura.service.CrudService;
 import java.sql.Time;
 import java.util.Date;
 import java.util.List;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.persistence.Query;
 
 /**
@@ -26,12 +28,12 @@ import javax.persistence.Query;
  */
 @ManagedBean()
 @SessionScoped
-public class beanClientesBusqueda {
+public class BeanClientesBusqueda {
     //@EJB
     // Bean_loginLocal bean_login;
 
-    @EJB
-    crudService bean_cliente;
+    @Inject
+    CrudService bean_cliente;
     private Cliente objCliente;
     public String mensaje;
 
@@ -125,7 +127,7 @@ public class beanClientesBusqueda {
         this.fecha_nace = fecha_nace;
     }
 
-    public beanClientesBusqueda() {
+    public BeanClientesBusqueda() {
         objCliente = new Cliente();
     }
 
@@ -422,10 +424,10 @@ public class beanClientesBusqueda {
     private NumeroTelefono numeroTelefono;
     private Referencia referenciaCliente;
 
-    //Metodo para crear la cabecera de las encuestas
     public String Busqueda(Integer cod) {
         String path;
         System.out.println("este codigo toma" + cod);
+        
         setCliente(bean_cliente.buscarCliente(cod));
         setIdentificacion(bean_cliente.buscarClienteIndentificacion(cliente));
         setProfesionCliente(bean_cliente.buscarClienteProfesion(cliente));
@@ -434,6 +436,17 @@ public class beanClientesBusqueda {
 
         return path = "/verCliente?faces-redirect=true";
 
+    }
+    public String Busqueda2(Integer cod) {
+
+        setCliente(bean_cliente.buscarCliente(cod));
+        setIdentificacion(bean_cliente.buscarClienteIndentificacion(cliente));
+        setProfesionCliente(bean_cliente.buscarClienteProfesion(cliente));
+        setNumeroTelefono(bean_cliente.buscarClienteTelefono(cliente));
+        setReferenciaCliente(bean_cliente.buscarClienteReferencia(cliente));
+
+        System.out.println("CODIGO A MODIFICAR: " + cod);
+        return "/modificar2?faces-redirect=true";
     }
 
     /**

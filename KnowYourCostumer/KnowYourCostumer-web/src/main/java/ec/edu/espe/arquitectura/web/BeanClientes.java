@@ -9,22 +9,25 @@ import ec.edu.espe.arquitectura.model.Cliente;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import ec.edu.espe.arquitectura.service.crudService;
+import ec.edu.espe.arquitectura.service.CrudService;
 import java.io.Serializable;
 import java.util.Date;
+import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  *
  * @author User
  */
+//@Named
 @ManagedBean()
 @SessionScoped
-public class beanClientes implements Serializable {
+public class BeanClientes implements Serializable {
     //@EJB
     // Bean_loginLocal bean_login;
 
-    @EJB
-    crudService bean_cliente;
+    @Inject
+    CrudService bean_cliente;
     private Cliente objCliente;
     public String mensaje;
 
@@ -146,7 +149,7 @@ public class beanClientes implements Serializable {
         this.fecha_nace = fecha_nace;
     }
 
-    public beanClientes() {
+    public BeanClientes() {
         objCliente = new Cliente();
         ingresos = 0d;
         egresos = 0d;

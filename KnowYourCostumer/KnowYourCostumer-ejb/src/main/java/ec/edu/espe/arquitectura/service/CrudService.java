@@ -24,7 +24,7 @@ import javax.ejb.Stateless;
  */
 @Stateless
 @LocalBean
-public class crudService {
+public class CrudService {
 
     @EJB
     private ClienteFacade clienteFacade;
@@ -78,4 +78,13 @@ public class crudService {
         return clienteFacade.busquedaReferencia(obj);
 
     }
+
+    public ClienteFacade getClienteFacade() {
+        return clienteFacade;
+    }
+
+    public void setClienteFacade(ClienteFacade clienteFacade) {
+        this.clienteFacade = clienteFacade;
+    }
+                                
 }

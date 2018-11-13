@@ -16,7 +16,7 @@ import javax.ejb.LocalBean;
  */
 @Stateless
 @LocalBean
-public class loginService {
+public class LoginService {
 
     //Atributos
 

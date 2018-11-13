@@ -6,13 +6,10 @@
 package ec.edu.espe.arquitectura.kyc;
 
 import ec.edu.espe.arquitectura.model.Cliente;
-import ec.edu.espe.arquitectura.service.crudService;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
@@ -26,7 +23,7 @@ import javax.persistence.Query;
  */
 @ManagedBean()
 @SessionScoped
-public class listaCientes {
+public class ListaCientes {
 
     private ArrayList<Cliente> list = new ArrayList();
     private ArrayList<Cliente> list1 = new ArrayList();
