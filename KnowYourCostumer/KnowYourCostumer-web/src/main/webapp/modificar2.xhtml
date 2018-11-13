@@ -42,8 +42,15 @@
                 <br></br>
                 <h:panelGrid columns="2">
                     <h:outputLabel for="tipoIdentificacion" value="Tipo de identificación:" /> 
-                    <p:selectOneMenu id="tipoIdentificacion" value="#{modificarBean.tiposIdentificacion}">
-                        <!-- <f:selectItem itemLabel="#{beanClientesBusqueda.identificacion.codTipoIdentificacion.descripcion}"/> -->
+                    <p:selectOneMenu 
+                        id="tipoIdentificacion" 
+                        value="#{beanClientesBusqueda.cliente.identificacionList.get(0).codTipoIdentificacion}">
+                        <f:selectItems
+                            value="#{modificarBean.tiposIdentificacion}"
+                            var="tipoIdentificacion"
+                            itemLabel="#{tipoIdentificacion.descripcion}"
+                            itemValue="#{tipoIdentificacion}"
+                            />
                     </p:selectOneMenu>
                 </h:panelGrid>
                 <br></br>
@@ -59,33 +66,36 @@
                 <br></br>
                 <h:panelGrid columns="4">
                     <h:outputLabel for="genero" value="Genero:" />
-                    <p:selectOneMenu id="genero">
-                        <f:selectItem itemLabel="#{beanClientesBusqueda.cliente.codGenero.descripcion}"/>
+                    <p:selectOneMenu 
+                        id="genero" 
+                        value="#{beanClientesBusqueda.cliente.codGenero}">
+                        <f:selectItems
+                            value="#{modificarBean.generoList}"
+                            var="genero"
+                            itemLabel="#{genero.descripcion}"
+                            itemValue="#{genero}"
+                            />
                     </p:selectOneMenu>
-                    <h:outputLabel for="profesion" value="Profesión: " />
-                    <p:selectOneMenu id="profesion" style="width: 400px"/>
-                        <f:selectItem 
-                            itemLabel="#{beanClientesBusqueda.profesionCliente.codProfesion.descripcion}"/>
+                    
                 </h:panelGrid>
                 <br></br>
                 <h:panelGrid columns="4">
-                    <h:outputLabel for="paisNacimiento" value="País de nacimiento:" /> 
-                    <p:selectOneMenu id="paisNacimiento" style="width: 200px">
-                        <f:selectItem itemLabel="#{beanClientesBusqueda.cliente.paisNacimiento.nombre}"/>
-                    </p:selectOneMenu>
-                    <h:outputLabel for="ciudadania" value="Ciudadanía:" /> 
-                    <h:inputText 
-                        id="ciudadania"
-                        class="input" 
-                        style="width: 170px" 
-                        value="#{beanClientes.ciudadania}">
-                    </h:inputText>
+                    
+                    
                 </h:panelGrid>
                 <br></br>
                 <h:panelGrid columns="4">
                     <h:outputLabel for="estadoCivil" value="Estado Civil: " />
-                    <p:selectOneMenu id="estadoCivil" style="width: 100px">
-                        <f:selectItem itemValue="#{beanClientesBusqueda.cliente.codEstadoCivil.descripcion}"/>
+                    <p:selectOneMenu 
+                        id="estadoCivil" 
+                        style="width: 100px"
+                        value="#{beanClientesBusqueda.cliente.codEstadoCivil}"
+                        >
+                        <f:selectItems 
+                            value="#{modificarBean.estadoCivilList}"
+                            var="#{estadoCivil}"
+                            itemLabel="#{estadoCivil}"
+                            itemValue="#{estadoCivil.codEstadoCivil}"/>
                     </p:selectOneMenu>
                     <h:outputLabel for="fechaNacimiento" value="Fecha de Nacimiento:" /> 
                     <p:calendar 
@@ -113,8 +123,17 @@
                 </div>
                 <h:panelGrid columns="4">
                     <h:outputLabel for="paisResidencia" value="País" /> 
-                    <p:selectOneMenu id="paisNacimiento" style="width: 200px">
-                        <f:selectItem itemLabel="#{beanClientesBusqueda.cliente.codDireccion.codCalle.codCiudad.codPais.nombre}"/>
+                    <p:selectOneMenu 
+                        id="paisResidencia" 
+                        style="width: 200px"
+                        value="#{beanClientesBusqueda.cliente.codDireccion.codCalle.codCiudad.codPais}"
+                        >
+                        <f:selectItems 
+                            value="#{modificarBean.paisList}"
+                            var="pais"
+                            itemLabel="#{pais.nombre}"
+                            itemValue="#{pais}"
+                            />
                     </p:selectOneMenu>
                     <h:outputLabel for="provinciaResidencia" value="Provincia" /> 
                     <p:selectOneMenu id="provinciaResidencia" style="width: 200px">
@@ -191,16 +210,16 @@
                         class="input"  
                         value="#{beanClientesBusqueda.referenciaCliente.cliCodCliente}">
                     </h:inputText>
-                    <h:outputLabel for="apellidos" value="Apellidos:" />
+                    <h:outputLabel for="apellidos2" value="Apellidos:" />
                     <h:inputText 
-                        id="apellidos" 
+                        id="apellidos2" 
                         class="input" 
                         style="width: 170px" 
                         value="#{beanClientesBusqueda.referenciaCliente.codReferencia}">
                     </h:inputText>
                     <h:outputLabel for="nombres" value="Nombres:" />
                     <h:inputText 
-                        id="nombres"
+                        id="nombres2"
                         class="input" 
                         style="width: 170px" 
                         value="#{beanClientes.nombresReferencia}" >
@@ -208,9 +227,9 @@
                 </h:panelGrid>
                 <br></br>
                 <h:panelGrid columns="4">
-                    <h:outputLabel for="genero" value="Genero:" />
+                    <h:outputLabel for="genero2" value="Genero:" />
                     <p:selectOneMenu
-                        id="genero"
+                        id="genero2"
                         value="#{beanClientes.generoReferencia}"
                         style="width: 100px"> 
                         <f:selectItem itemLabel="#{beanClientes.generoReferencia}" />

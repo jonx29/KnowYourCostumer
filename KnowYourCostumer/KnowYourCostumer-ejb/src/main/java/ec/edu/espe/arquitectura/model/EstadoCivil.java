@@ -106,7 +106,7 @@ public class EstadoCivil implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.espe.arquitectura.ecdb.EstadoCivil[ codEstadoCivil=" + codEstadoCivil + " ]";
+        return descripcion;
     }
     
 }

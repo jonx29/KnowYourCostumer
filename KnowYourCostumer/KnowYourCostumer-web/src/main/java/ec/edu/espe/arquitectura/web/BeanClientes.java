@@ -11,6 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import ec.edu.espe.arquitectura.service.CrudService;
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.Date;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -435,7 +436,7 @@ public class BeanClientes implements Serializable {
         }
     }
 
-    public String insertar() {
+    public String insertar() throws ParseException {
         if ("RUC".equals(tipo_cedula)) {
             if (validacionRUC(cedula)) {
 

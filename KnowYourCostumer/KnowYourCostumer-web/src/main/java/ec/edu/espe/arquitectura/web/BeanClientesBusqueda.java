@@ -461,6 +461,7 @@ public class BeanClientesBusqueda {
         setIngresoCliente(bean_cliente.buscarClienteIngreso(cliente));
         setParentescoCliente(bean_cliente.buscarParentesco(cliente));
         
+        
         System.out.println("CODIGO A MODIFICAR: " + cod);
         return "/modificar2?faces-redirect=true";
     }
