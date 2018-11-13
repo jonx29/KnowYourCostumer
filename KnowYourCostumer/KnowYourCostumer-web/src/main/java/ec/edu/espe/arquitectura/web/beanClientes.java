@@ -11,6 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import ec.edu.espe.arquitectura.service.crudService;
 import java.io.Serializable;
+import java.text.ParseException;
 import java.util.Date;
 
 /**
@@ -432,7 +433,7 @@ public class beanClientes implements Serializable {
         }
     }
 
-    public String insertar() {
+    public String insertar() throws ParseException {
         if ("RUC".equals(tipo_cedula)) {
             if (validacionRUC(cedula)) {
 
@@ -448,7 +449,8 @@ public class beanClientes implements Serializable {
                                     numCasa, referencia, celular, domicilio) == 1)
                             && (bean_cliente.ingresarEconomicos(actividadEconomica, ingresos, egresos) == 1)
                             && (bean_cliente.ingresarPolitica(cargoPolitico, fechaInicio, fechaFin) == 1)
-                            && (bean_cliente.ingresarParentesco(nombresEmpleados, apellidosEmpleados, fechaEmpleado, paisEmpleado, parentesco) == 1)) {
+                            && (bean_cliente.ingresarParentesco(nombresEmpleados, apellidosEmpleados, fechaEmpleado, paisEmpleado, parentesco) == 1)
+                        &&(bean_cliente.referenciasCliente(tipoReferencia, cedulaReferencia, nombresReferencia, apellidosReferencia, GeneroReferencia, paisReferencia, estadoCivilReferencia)==1)){
                         limpiarCampos();
                         mensaje = "Inserción de Datos correctamente";
                         return "insercion";

@@ -61,7 +61,7 @@ public class listaCientes {
         String listaCodFinal = codigo1[0];
         String[] codigoFinal = listaCodFinal.split(", ");
         int cod = 0;
-        for (int i = 0; i <1; i++) {
+        for (int i = 0; i <listaNOMBRE.size(); i++) {
             cod++;
           // list.add(new Cliente(cod,"jeff", "tambaco", null, null));
            list.add(new Cliente(Integer.parseInt(codigoFinal[i]), listaNOMBRE.get(i), listaAPELLIDO.get(i), null, null));

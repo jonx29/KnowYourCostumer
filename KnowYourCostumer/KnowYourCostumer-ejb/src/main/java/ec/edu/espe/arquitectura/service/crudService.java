@@ -17,6 +17,7 @@ import ec.edu.espe.arquitectura.model.Parentesco;
 import ec.edu.espe.arquitectura.model.ProfesionCliente;
 import ec.edu.espe.arquitectura.model.Referencia;
 import java.sql.Time;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -38,7 +39,7 @@ public class crudService {
         return clienteFacade.eliminarRegistro(codCliente);
     }
 
-    public int ingresar(String apellidos, String nombres, Date nace, Date ingresa, String genero1, String estado1, String profesion, String cedula, String pais, String tipoIdef) {
+    public int ingresar(String apellidos, String nombres, Date nace, Date ingresa, String genero1, String estado1, String profesion, String cedula, String pais, String tipoIdef) throws ParseException {
         return clienteFacade.ingresarCliente(apellidos, nombres, nace, ingresa, genero1, estado1, profesion, cedula, pais, tipoIdef);
     }
 
@@ -54,10 +55,14 @@ public class crudService {
         return clienteFacade.ingresarActividadPolitica(cargo, inicio, Fin);
     }
 
-    public int ingresarParentesco(String nombre, String apellido, Date nace, String pais, String parentesco1) {
+    public int ingresarParentesco(String nombre, String apellido, Date nace, String pais, String parentesco1) throws ParseException {
         return clienteFacade.ingresarParentescoEmpleados(nombre, apellido, nace, pais, parentesco1);
     }
 
+    public int referenciasCliente(String referencia, String cedula, String nombres, String apellidos, String genero, String pais, String estadoCivil){
+        return clienteFacade.referencias(referencia, cedula, nombres, apellidos, genero, pais, estadoCivil);
+    }
+    
     public Cliente buscarCliente(Integer codCliente) {
         System.out.println("nuevooooooo" + codCliente);
         return clienteFacade.busqueda(codCliente);

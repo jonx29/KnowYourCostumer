@@ -18,6 +18,7 @@ import ec.edu.espe.arquitectura.model.ProfesionCliente;
 import ec.edu.espe.arquitectura.model.Referencia;
 import java.math.BigDecimal;
 import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -80,6 +81,8 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
             query.executeUpdate();
             Query query15 = em.createNativeQuery("Delete from cliente where cod_cliente = " + (codigo + 1));
             query15.executeUpdate();
+            Query query16 = em.createNativeQuery("Delete from cliente where cod_cliente = " + (codigo + 2));
+            query16.executeUpdate();
             retorno = 1;
         } catch (Exception ex) {
             retorno = 0;
@@ -159,38 +162,45 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
         return totalCedulas;
     }
 
-    public int ingresarCliente(String apellidos, String nombres, Date nace, Date registro, String genero1, String estado1, String profesion, String cedula, String pais, String tipoIdef) {
+    public int ingresarCliente(String apellidos, String nombres, Date nace, Date registro, String genero1, String estado1, String profesion, String cedula, String pais, String tipoIdef) throws ParseException {
         int retorno = 0;
         try {
             if (cedula(cedula) != 1) {
                 if (pais != null) {
-                    Query query1;
-                    if (profesiones(profesion) != 1) {
-                        query1 = em.createNativeQuery("INSERT INTO profesion(cod_profesion, descripcion) "
-                                + "VALUES (" + maxCodigoProfesion() + ",'" + profesion + "')");
-                        query1.executeUpdate();
+                    String dateString2 = "2001-01-01";
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                    Date date1 = format.parse(dateString2);
+                    if (nace.compareTo(date1) <= 0) {
+                        Query query1;
+                        if (profesiones(profesion) != 1) {
+                            query1 = em.createNativeQuery("INSERT INTO profesion(cod_profesion, descripcion) "
+                                    + "VALUES (" + maxCodigoProfesion() + ",'" + profesion + "')");
+                            query1.executeUpdate();
+                        } else {
+                        }
+                        Query query2 = em.createNativeQuery("INSERT INTO profesion_cliente(cod_profesion_cliente, cod_cliente, cod_profesion) "
+                                + "VALUES ((SELECT MAX(cod_profesion_cliente)+1 FROM profesion_cliente),1,(SELECT cod_profesion FROM profesion where descripcion='" + profesion + "'))");
+                        query2.executeUpdate();
+                        Query query3 = em.createNativeQuery("INSERT INTO identificacion(cod_identificacion, cod_tipo_identificacion, cod_cliente, cod_pais, numero_identificacion) "
+                                + "VALUES ((SELECT MAX(cod_identificacion)+1 FROM identificacion)," + tipoIdentificacion(tipoIdef) + ",1,(SELECT cod_pais FROM pais where nombre='" + pais + "')," + Integer.parseInt(cedula) + ")");
+                        query3.executeUpdate();
+
+                        Date hoy = new Date();
+                        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+                        Query query = em.createNativeQuery("INSERT INTO cliente(cod_cliente, cod__direccion, cod_estado_civil, "
+                                + "cod_genero, cod_tipo_personeria, pais_nacimiento, nombres, apellidos, fecha_nacimiento, fecha_registro, hora_registro) "
+                                + "VALUES (" + maxCodigo() + ", 1, " + estadoCivil(estado1) + "," + genero(genero1) + ", 1, (SELECT cod_pais FROM pais WHERE nombre = '" + pais + "'), '" + nombres + "', '" + apellidos + "', '" + nace + "', '" + registro + "', '" + sdf.format(hoy) + "')");
+                        query.executeUpdate();
+
+                        Query query20 = em.createNativeQuery("UPDATE profesion_cliente SET cod_cliente= (SELECT MAX(cod_cliente) FROM cliente) where cod_profesion_cliente=(SELECT MAX(cod_profesion_cliente) FROM profesion_cliente)");
+                        query20.executeUpdate();
+                        Query query21 = em.createNativeQuery("UPDATE identificacion SET cod_cliente= (SELECT MAX(cod_cliente) FROM cliente) where cod_identificacion=(SELECT MAX(cod_identificacion) FROM identificacion)");
+                        query21.executeUpdate();
+
+                        retorno = 1;
                     } else {
+                        retorno = 0;
                     }
-                    Query query2 = em.createNativeQuery("INSERT INTO profesion_cliente(cod_profesion_cliente, cod_cliente, cod_profesion) "
-                            + "VALUES ((SELECT MAX(cod_profesion_cliente)+1 FROM profesion_cliente),1,(SELECT cod_profesion FROM profesion where descripcion='" + profesion + "'))");
-                    query2.executeUpdate();
-                    Query query3 = em.createNativeQuery("INSERT INTO identificacion(cod_identificacion, cod_tipo_identificacion, cod_cliente, cod_pais, numero_identificacion) "
-                            + "VALUES ((SELECT MAX(cod_identificacion)+1 FROM identificacion)," + tipoIdentificacion(tipoIdef) + ",1,(SELECT cod_pais FROM pais where nombre='" + pais + "')," + Integer.parseInt(cedula) + ")");
-                    query3.executeUpdate();
-
-                    Date hoy = new Date();
-                    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
-                    Query query = em.createNativeQuery("INSERT INTO cliente(cod_cliente, cod__direccion, cod_estado_civil, "
-                            + "cod_genero, cod_tipo_personeria, pais_nacimiento, nombres, apellidos, fecha_nacimiento, fecha_registro, hora_registro) "
-                            + "VALUES (" + maxCodigo() + ", 1, " + estadoCivil(estado1) + "," + genero(genero1) + ", 1, (SELECT cod_pais FROM pais WHERE nombre = '" + pais + "'), '" + nombres + "', '" + apellidos + "', '" + nace + "', '" + registro + "', '" + sdf.format(hoy) + "')");
-                    query.executeUpdate();
-
-                    Query query20 = em.createNativeQuery("UPDATE profesion_cliente SET cod_cliente= (SELECT MAX(cod_cliente) FROM cliente) where cod_profesion_cliente=(SELECT MAX(cod_profesion_cliente) FROM profesion_cliente)");
-                    query20.executeUpdate();
-                    Query query21 = em.createNativeQuery("UPDATE identificacion SET cod_cliente= (SELECT MAX(cod_cliente) FROM cliente) where cod_identificacion=(SELECT MAX(cod_identificacion) FROM identificacion)");
-                    query21.executeUpdate();
-
-                    retorno = 1;
                 } else {
                     retorno = 0;
                 }
@@ -259,48 +269,56 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
 
     public int ingresarDatosEconomicos(String actividad, double ingresos, double egresos) {
         int retorno = 0;
-        //try {
-        if (ingresos != 0 && egresos != 0) {
-            Query query1 = em.createNativeQuery("INSERT INTO tipo_actividad_economica(cod_tipo_actividad_economica, descripcion) "
-                    + "VALUES ((SELECT MAX(cod_tipo_actividad_economica)+1 FROM tipo_actividad_economica),'" + actividad + "')");
-            query1.executeUpdate();
-            Query query2 = em.createNativeQuery("INSERT INTO actividad_economica(cod_actividad_economica, cod_tipo_actividad_economica, cod_cliente) "
-                    + "VALUES ((SELECT MAX(cod_actividad_economica)+1 FROM actividad_economica),(SELECT MAX(cod_tipo_actividad_economica) FROM tipo_actividad_economica),(SELECT MAX(cod_cliente) FROM cliente))");
-            query2.executeUpdate();
+        try {
+            if (ingresos != 0 && egresos != 0) {
+                Query query1 = em.createNativeQuery("INSERT INTO tipo_actividad_economica(cod_tipo_actividad_economica, descripcion) "
+                        + "VALUES ((SELECT MAX(cod_tipo_actividad_economica)+1 FROM tipo_actividad_economica),'" + actividad + "')");
+                query1.executeUpdate();
+                Query query2 = em.createNativeQuery("INSERT INTO actividad_economica(cod_actividad_economica, cod_tipo_actividad_economica, cod_cliente) "
+                        + "VALUES ((SELECT MAX(cod_actividad_economica)+1 FROM actividad_economica),(SELECT MAX(cod_tipo_actividad_economica) FROM tipo_actividad_economica),(SELECT MAX(cod_cliente) FROM cliente))");
+                query2.executeUpdate();
 
-            Query query3 = em.createNativeQuery("INSERT INTO ingreso_cliente(cod_ingreso_cliente, cod_tipo_ingreso, cod_cliente, valor) "
-                    + "VALUES ((SELECT MAX(cod_ingreso_cliente)+1 FROM ingreso_cliente),1,(SELECT MAX(cod_cliente) FROM cliente)," + ingresos + ")");
-            query3.executeUpdate();
-            Query query4 = em.createNativeQuery("INSERT INTO egreso_cliente(cod_egreso_cliente, cod_tipo_egreso, cod_cliente, valor) "
-                    + "VALUES ((SELECT MAX(cod_egreso_cliente)+1 FROM egreso_cliente),1,(SELECT MAX(cod_cliente) FROM cliente)," + egresos + ")");
-            query4.executeUpdate();
+                Query query3 = em.createNativeQuery("INSERT INTO ingreso_cliente(cod_ingreso_cliente, cod_tipo_ingreso, cod_cliente, valor) "
+                        + "VALUES ((SELECT MAX(cod_ingreso_cliente)+1 FROM ingreso_cliente),1,(SELECT MAX(cod_cliente) FROM cliente)," + ingresos + ")");
+                query3.executeUpdate();
+                Query query4 = em.createNativeQuery("INSERT INTO egreso_cliente(cod_egreso_cliente, cod_tipo_egreso, cod_cliente, valor) "
+                        + "VALUES ((SELECT MAX(cod_egreso_cliente)+1 FROM egreso_cliente),1,(SELECT MAX(cod_cliente) FROM cliente)," + egresos + ")");
+                query4.executeUpdate();
 
-            retorno = 1;
-        } else {
+                retorno = 1;
+            } else {
+                eliminarRegistro(maxCodigo() - 1);
+                retorno = 0;
+            }
+        } catch (Exception ex) {
+            eliminarRegistro(maxCodigo() - 1);
             retorno = 0;
         }
-        /*} catch (Exception ex) {
-         retorno = 0;
-         }*/
         return retorno;
     }
 
     public int ingresarActividadPolitica(String cargo, Date inicio, Date Fin) {
         int retorno = 0;
-        //try{
-        Query query1 = em.createNativeQuery("INSERT INTO tipo_cargo_politico(cod_tipo_cargo_politico, descripcion) "
-                + "VALUES ((SELECT MAX(cod_tipo_cargo_politico)+1 FROM tipo_cargo_politico),'" + cargo + "')");
-        query1.executeUpdate();
-        Query query2 = em.createNativeQuery("INSERT INTO cargo_politico(cod_cargo_politico, cod_tipo_cargo_politico, cod_cliente, fecha_inicio, fecha_fin) "
-                + "VALUES ((SELECT MAX(cod_cargo_politico)+1 FROM cargo_politico),(SELECT MAX(cod_tipo_cargo_politico) FROM tipo_cargo_politico),"
-                + "(SELECT MAX(cod_cliente) FROM cliente),'" + inicio + "','" + Fin + "')");
-        query2.executeUpdate();
+        try {
+            if (inicio.compareTo(Fin) <= 0) {
+                Query query1 = em.createNativeQuery("INSERT INTO tipo_cargo_politico(cod_tipo_cargo_politico, descripcion) "
+                        + "VALUES ((SELECT MAX(cod_tipo_cargo_politico)+1 FROM tipo_cargo_politico),'" + cargo + "')");
+                query1.executeUpdate();
+                Query query2 = em.createNativeQuery("INSERT INTO cargo_politico(cod_cargo_politico, cod_tipo_cargo_politico, cod_cliente, fecha_inicio, fecha_fin) "
+                        + "VALUES ((SELECT MAX(cod_cargo_politico)+1 FROM cargo_politico),(SELECT MAX(cod_tipo_cargo_politico) FROM tipo_cargo_politico),"
+                        + "(SELECT MAX(cod_cliente) FROM cliente),'" + inicio + "','" + Fin + "')");
+                query2.executeUpdate();
 
-        retorno = 1;
-        /*} catch (Exception ex) {
-         retorno = 0;
-         }*/
+                retorno = 1;
+            } else {
+                eliminarRegistro(maxCodigo() - 1);
+                retorno = 0;
 
+            }
+        } catch (Exception ex) {
+            eliminarRegistro(maxCodigo() - 1);
+            retorno = 0;
+        }
         return retorno;
     }
 
@@ -313,33 +331,81 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
         return totalparentesco;
     }
 
-    public int ingresarParentescoEmpleados(String nombre, String apellido, Date nace, String pais, String parentesco1) {
+    public int ingresarParentescoEmpleados(String nombre, String apellido, Date nace, String pais, String parentesco1) throws ParseException {
         int retorno = 0;
-        //try{        
-        Query query2;
-        if (parentesco(parentesco1) != 1) {
-            query2 = em.createNativeQuery("INSERT INTO tipo_parentesco(cod_tipo_parentesco, descripcion) "
-                    + "VALUES ((SELECT MAX(cod_tipo_parentesco)+1 FROM tipo_parentesco),'" + parentesco1 + "')");
-            query2.executeUpdate();
-        } else {
+        try {
+            String dateString2 = "2001-01-01";
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            Date date1 = format.parse(dateString2);
+            if (nace.compareTo(date1) <= 0) {
+                Query query2;
+                if (parentesco(parentesco1) != 1) {
+                    query2 = em.createNativeQuery("INSERT INTO tipo_parentesco(cod_tipo_parentesco, descripcion) "
+                            + "VALUES ((SELECT MAX(cod_tipo_parentesco)+1 FROM tipo_parentesco),'" + parentesco1 + "')");
+                    query2.executeUpdate();
+                } else {
+                }
+                Query query1 = em.createNativeQuery("INSERT INTO cliente(cod_cliente, cod__direccion, cod_estado_civil, "
+                        + "cod_genero, cod_tipo_personeria, pais_nacimiento, nombres, apellidos, fecha_nacimiento, fecha_registro, hora_registro) "
+                        + "VALUES (" + maxCodigo() + ", 1, 1, 4, 1,(SELECT cod_pais FROM pais WHERE nombre = '" + pais + "'), '" + nombre + "', '" + apellido + "', "
+                        + "'" + nace + "', '1900-01-01', '01:00:00')");
+                query1.executeUpdate();
+
+                Query query3 = em.createNativeQuery("INSERT INTO parentesco(cod_parentesco, cod_cliente, cli_cod_cliente, cod_tipo_parentesco) VALUES ("
+                        + "(SELECT MAX(cod_parentesco)+1 FROM parentesco),(SELECT MAX(cod_cliente)-1 FROM cliente),(SELECT MAX(cod_cliente) FROM cliente),"
+                        + "(SELECT cod_tipo_parentesco FROM tipo_parentesco WHERE descripcion ='" + parentesco1 + "'))");
+                query3.executeUpdate();
+
+                retorno = 1;
+            } else {
+                eliminarRegistro(maxCodigo() - 1);
+                retorno = 0;
+            }
+        } catch (Exception ex) {
+            eliminarRegistro(maxCodigo() - 1);
+            retorno = 0;
         }
-        Query query1 = em.createNativeQuery("INSERT INTO cliente(cod_cliente, cod__direccion, cod_estado_civil, "
-                + "cod_genero, cod_tipo_personeria, pais_nacimiento, nombres, apellidos, fecha_nacimiento, fecha_registro, hora_registro) "
-                + "VALUES (" + maxCodigo() + ", 1, 1, 4, 1,(SELECT cod_pais FROM pais WHERE nombre = '" + pais + "'), '" + nombre + "', '" + apellido + "', "
-                + "'" + nace + "', '1900-01-01', '01:00:00')");
-        query1.executeUpdate();
-
-        Query query3 = em.createNativeQuery("INSERT INTO parentesco(cod_parentesco, cod_cliente, cli_cod_cliente, cod_tipo_parentesco) VALUES ("
-                + "(SELECT MAX(cod_parentesco)+1 FROM parentesco),(SELECT MAX(cod_cliente)-1 FROM cliente),(SELECT MAX(cod_cliente) FROM cliente),"
-                + "(SELECT cod_tipo_parentesco FROM tipo_parentesco WHERE descripcion ='" + parentesco1 + "'))");
-        query3.executeUpdate();
-
-        retorno = 1;
-        /*} catch (Exception ex) {sout  
-         retorno = 0;
-         }*/
-
         return retorno;
+    }
+
+    public int referenciasCount(String referencia) {
+        int totalreferencia = 0;
+        List<Long> listareferencia = new ArrayList<Long>();
+        Query q_maximo = em.createNativeQuery("SELECT count(cod_tipo_referencia) FROM tipo_referencia where description='" + referencia + "'");
+        listareferencia = q_maximo.getResultList();
+        totalreferencia = Integer.parseInt(listareferencia.get(0).toString());
+        return totalreferencia;
+    }
+
+    public int referencias(String referencia, String cedula, String nombres, String apellidos, String genero, String pais, String estadoCivil) {
+        int retorno = 0;
+        try {
+            Query query1;
+            if (referenciasCount(referencia) != 1) {
+                query1 = em.createNativeQuery("INSERT INTO tipo_referencia(cod_tipo_referencia, description) VALUES ((SELECT MAX(cod_tipo_referencia)+1 "
+                        + "from tipo_referencia), '" + referencia + "')");
+                query1.executeUpdate();
+                Query query = em.createNativeQuery("INSERT INTO cliente(cod_cliente, cod__direccion, cod_estado_civil, "
+                        + "cod_genero, cod_tipo_personeria, pais_nacimiento, nombres, apellidos, fecha_nacimiento, fecha_registro, hora_registro) "
+                        + "VALUES (" + maxCodigo() + ", 1, " + estadoCivil(estadoCivil) + ",4, 1, (SELECT cod_pais FROM pais WHERE nombre = '" + pais + "'), '" + nombres + "', '" + apellidos + "', '1900-01-01', '1900-01-01', '01:00:00')");
+                query.executeUpdate();
+                Query query3 = em.createNativeQuery("INSERT INTO referencia(cod_referencia,cod_tipo_referencia, cod_cliente, cli_cod_cliente) VALUES "
+                        + "((SELECT MAX(cod_referencia)+1 from referencia),(SELECT MAX(cod_tipo_referencia) from tipo_referencia), (SELECT MAX(cod_cliente)-2 FROM cliente),'" + (maxCodigo() - 1) + "')");
+                query3.executeUpdate();
+                Query query2 = em.createNativeQuery("INSERT INTO identificacion(cod_identificacion, cod_tipo_identificacion, cod_cliente, cod_pais, numero_identificacion) "
+                        + "VALUES ((SELECT MAX(cod_identificacion)+1 FROM identificacion),1,1,(SELECT cod_pais FROM pais where nombre='" + pais + "')," + Integer.parseInt(cedula) + ")");
+                query2.executeUpdate();
+                retorno = 1;
+            } else {
+                eliminarRegistro(maxCodigo() - 1);
+                retorno = 0;
+            }
+        } catch (Exception ex) {
+            eliminarRegistro(maxCodigo() - 1);
+            retorno = 0;
+        }
+        return retorno;
+
     }
 
 //    public Cliente busqueda(Integer codCliente) {
@@ -540,7 +606,8 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
 
         return use;
     }
-        public Identificacion busquedaIndentificacion1(Cliente obj) {
+
+    public Identificacion busquedaIndentificacion1(Cliente obj) {
         Identificacion use;
         try {
             System.out.println("entra a la busqueda de identificacion" + obj.getCodCliente());

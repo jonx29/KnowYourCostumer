@@ -55,8 +55,7 @@
                 <h:panelGrid columns="12">
                     <h:outputText value="Tipo de documento:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <p:selectOneMenu id="docoumento" value="#{beanClientes.tipo_cedula}"> 
-                        <f:selectItem itemLabel="Cedula de ciudadania" itemValue="Cedula de ciudadania" />                       
-                        <f:selectItem itemLabel="Pasaporte" itemValue="Pasaporte" />                     
+                        <f:selectItem itemLabel="Cedula de ciudadania" itemValue="Cedula de ciudadania" />  
                         <f:selectItem itemLabel="RUC" itemValue="RUC" />                       
                     </p:selectOneMenu>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <h:outputText value="Cédula:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -88,13 +87,18 @@
                 <h:panelGrid columns="20">
                     <h:outputLabel for="car1" value="País de nacimiento:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <p:selectOneMenu id="car1" value="#{beanClientes.pais}"> 
-                        <f:selectItem itemLabel="Seleccionar" itemValue="" />
-                        <f:selectItem itemLabel="Ecuador" itemValue="Ecuador" />                       
+                        <f:selectItem itemLabel="Ecuador" itemValue="Ecuador"/>                       
+                        <f:selectItem itemLabel="Colombia" itemValue="Colombia"/>     
+                        <f:selectItem itemLabel="Venezuela" itemValue="Venezuela"/>     
+                        <f:selectItem itemLabel="Chile" itemValue="Chile"/>     
+                        <f:selectItem itemLabel="Argentina" itemValue="Argentina"/>     
+                        <f:selectItem itemLabel="Brasil" itemValue="Brasi"/>     
+                        <f:selectItem itemLabel="España" itemValue="España"/>     
+                        <f:selectItem itemLabel="Uruguay" itemValue="Uruguay"/>     
+                        <f:selectItem itemLabel="Paraguay" itemValue="Paraguay"/>                       
+                        <f:selectItem itemLabel="Perú" itemValue="Perú"/>                      
                     </p:selectOneMenu>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <h:outputLabel value="Ciudadanía:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.ciudadania}" required="true"></p:inputText>
-
                 </h:panelGrid>
                 <br></br>
                 <h:panelGrid columns="10">
@@ -112,11 +116,7 @@
                 <br></br>
                 <h:panelGrid columns="10">
                     <h:outputLabel for="popup1" value="Fecha de Registro:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:calendar id="popup1" pattern="yyyy-MM-dd" value="#{beanClientes.fecha_ingreso}" required="true"/>
-                </h:panelGrid>
-                <br></br>
-                <h:panelGrid columns="6">
-
+                    <p:calendar id="popup1" pattern="yyyy-MM-dd" value="#{beanClientes.fecha_ingreso}" required="true"/>&nbsp;&nbsp;&nbsp;&nbsp;
                     <h:outputLabel for="popup2" value="Fecha de Nacimiento:" /> &nbsp;&nbsp;&nbsp;&nbsp;
                     <p:calendar id="popup2" pattern="yyyy-MM-dd" value="#{beanClientes.fecha_nace}" required="true"/>
 
@@ -128,16 +128,45 @@
                 <h:panelGrid columns="30">
                     <h:outputLabel for="car4" value="País de residencia:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <p:selectOneMenu id="car4" value="#{beanClientes.paisResidencia}"> 
-                        <f:selectItem itemLabel="Seleccionar" itemValue="" />
-                        <f:selectItem itemLabel="Ecuador" itemValue="Ecuador" />                       
+                            <f:selectItem itemLabel="Ecuador" itemValue="Ecuador"/>                       
+                            <f:selectItem itemLabel="Colombia" itemValue="Colombia"/>     
+                            <f:selectItem itemLabel="Venezuela" itemValue="Venezuela"/>     
+                            <f:selectItem itemLabel="Chile" itemValue="Chile"/>     
+                            <f:selectItem itemLabel="Argentina" itemValue="Argentina"/>     
+                            <f:selectItem itemLabel="Brasil" itemValue="Brasi"/>     
+                            <f:selectItem itemLabel="España" itemValue="España"/>     
+                            <f:selectItem itemLabel="Uruguay" itemValue="Uruguay"/>     
+                            <f:selectItem itemLabel="Paraguay" itemValue="Paraguay"/>                       
+                            <f:selectItem itemLabel="Perú" itemValue="Perú"/>                      
                     </p:selectOneMenu>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 
                     <h:outputLabel for="car5" value="Provincia de residencia:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:selectOneMenu id="car5" value="#{beanClientes.provinciaResidencia}"> 
-                        <f:selectItem itemLabel="Seleccionar" itemValue="" />
-                        <f:selectItem itemLabel="Pichincha" itemValue="Pichincha" />                       
+                    <p:selectOneMenu id="car5" value="#{beanClientes.provinciaResidencia}"> <f:selectItem itemLabel="Azuay" itemValue="Azuay" /> 
+                        <f:selectItem itemLabel="Bolívar" itemValue="Bolívar"/> 
+                        <f:selectItem itemLabel="Cañar" itemValue="Cañar"/> 
+                        <f:selectItem itemLabel="Carchi" itemValue="Carchi"/> 
+                        <f:selectItem itemLabel="Chimborazo" itemValue="Chimborazo"/> 
+                        <f:selectItem itemLabel="Cotopaxi" itemValue="Cotopaxi"/> 
+                        <f:selectItem itemLabel="El Oro" itemValue="El Oro"/> 
+                        <f:selectItem itemLabel="Esmeraldas" itemValue="Esmeraldas"/> 
+                        <f:selectItem itemLabel="Galápagos" itemValue="Galápagos"/> 
+                        <f:selectItem itemLabel="Guayas" itemValue="Guayas"/> 
+                        <f:selectItem itemLabel="Imbabura" itemValue="Imbabura"/> 
+                        <f:selectItem itemLabel="Loja" itemValue="Loja"/> 
+                        <f:selectItem itemLabel="Los Ríos" itemValue="Los Ríos"/> 
+                        <f:selectItem itemLabel="Manabí" itemValue="Manabí"/> 
+                        <f:selectItem itemLabel="Morona Santiago" itemValue="Morona Santiago"/> 
+                        <f:selectItem itemLabel="Napo" itemValue="Napo"/> 
+                        <f:selectItem itemLabel="Orellana" itemValue="Orellana"/> 
+                        <f:selectItem itemLabel="Pastaza" itemValue="Pastaza"/> 
+                        <f:selectItem itemLabel="Pichincha" itemValue="Pichincha" /> 
+                        <f:selectItem itemLabel="Santa Elena" itemValue="Santa Elena"/> 
+                        <f:selectItem itemLabel="Santo Domingo" itemValue="Santo Domingo"/> 
+                        <f:selectItem itemLabel="Sucumbíos" itemValue="Sucumbíos"/> 
+                        <f:selectItem itemLabel="Tungurahua" itemValue="Tungurahua"/> 
+                        <f:selectItem itemLabel="Zamora Chinchipe" itemValue="Zamora Chinchipe"/>                     
                     </p:selectOneMenu>
 
 
@@ -177,10 +206,6 @@
                 <h:panelGrid columns="12">
                     <h:outputText value="Teléfono celular N°:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <p:inputText class="input" style="width: 170px" value="#{beanClientes.celular}" required="true" onkeypress="if (event.which &lt;48 || event.which &gt; 57) return false;" maxlength="12"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-
-                </h:panelGrid>
-                <h:panelGrid columns="12">
                     <h:outputText value="Teléfono de domicilio:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <p:inputText class="input" style="width: 170px" value="#{beanClientes.domicilio}" required="true" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) return false;" maxlength="9"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </h:panelGrid>
@@ -191,15 +216,15 @@
 
                 <h:panelGrid columns="12">
                     <h:outputText value="Tipo de Referencia:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:inputText class="input"  value="#{beanClientes.tipoReferencia}" required="true"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input"  value="#{beanClientes.tipoReferencia}" required="true" onkeypress="if (event.which &lt; 65 || event.which &gt; 90)if (event.which &lt; 97 || event.which &gt; 122) return false;"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <h:outputText value="Cédula:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <p:inputText class="input" value="#{beanClientes.cedulaReferencia}" required="true" onkeypress="if (event.which &lt;48 || event.which &gt; 57) return false;" maxlength="10"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </h:panelGrid>
                 <h:panelGrid columns="12">
                     <h:outputText value="Apellidos:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.apellidosReferencia}" required="true"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.apellidosReferencia}" required="true" onkeypress="if (event.which &lt; 65 || event.which &gt; 90)if (event.which &lt; 97 || event.which &gt; 122) return false;"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <h:outputText value="Nombres:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.nombresReferencia}" required="true"></p:inputText>
+                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.nombresReferencia}" required="true" onkeypress="if (event.which &lt; 65 || event.which &gt; 90)if (event.which &lt; 97 || event.which &gt; 122) return false;"></p:inputText>
 
                 </h:panelGrid>
                 <br></br>
@@ -217,18 +242,18 @@
                 <h:panelGrid columns="20">
                     <h:outputLabel for="car11" value="País de nacimiento:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <p:selectOneMenu id="car11" value="#{beanClientes.paisReferencia}"> 
-                        <f:selectItem itemLabel="Seleccionar" itemValue="" />
-                        <f:selectItems value="#{beanClientes.paisReferencia}" />
+                            <f:selectItem itemLabel="Ecuador" itemValue="Ecuador"/>                       
+                            <f:selectItem itemLabel="Colombia" itemValue="Colombia"/>     
+                            <f:selectItem itemLabel="Venezuela" itemValue="Venezuela"/>     
+                            <f:selectItem itemLabel="Chile" itemValue="Chile"/>     
+                            <f:selectItem itemLabel="Argentina" itemValue="Argentina"/>     
+                            <f:selectItem itemLabel="Brasil" itemValue="Brasi"/>     
+                            <f:selectItem itemLabel="España" itemValue="España"/>     
+                            <f:selectItem itemLabel="Uruguay" itemValue="Uruguay"/>     
+                            <f:selectItem itemLabel="Paraguay" itemValue="Paraguay"/>                       
+                            <f:selectItem itemLabel="Perú" itemValue="Perú"/>   
                     </p:selectOneMenu>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <h:outputLabel for="car21" value="Ciudadanía:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:selectOneMenu id="car21" value="#{beanClientes.ciudadaniaReferencia}"> 
-                        <f:selectItem itemLabel="Seleccionar" itemValue="" />
-                        <f:selectItems value="#{beanClientes.ciudadaniaReferencia}" />
-                    </p:selectOneMenu>
-                </h:panelGrid>
-                <br></br>
-                <h:panelGrid columns="10">
                     <h:outputLabel for="car31" value="Estado Civil: " /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <p:selectOneMenu id="car31" value="#{beanClientes.estadoCivilReferencia}">                
                         <f:selectItem itemLabel="Soltero/a" itemValue="Soltero/a" />                       
@@ -246,14 +271,14 @@
 
                 <h:panelGrid columns="12">                    
                     <h:outputText value="Parentesco:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:inputText class="input"  value="#{beanClientes.parentesco}" required="true"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input"  value="#{beanClientes.parentesco}" required="true" onkeypress="if (event.which &lt; 65 || event.which &gt; 90)if (event.which &lt; 97 || event.which &gt; 122) return false;"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </h:panelGrid>
                 <br></br>
                 <h:panelGrid columns="12">
                     <h:outputText value="Nombres:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:inputText class="input"  value="#{beanClientes.nombresEmpleados}" required="true"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input"  value="#{beanClientes.nombresEmpleados}" required="true" onkeypress="if (event.which &lt; 65 || event.which &gt; 90)if (event.which &lt; 97 || event.which &gt; 122) return false;"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <h:outputText value="Apellidos:" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.apellidosEmpleados}" required="true"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <p:inputText class="input" style="width: 170px" value="#{beanClientes.apellidosEmpleados}" required="true" onkeypress="if (event.which &lt; 65 || event.which &gt; 90)if (event.which &lt; 97 || event.which &gt; 122) return false;"></p:inputText>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
                 </h:panelGrid>
                 <br></br>
@@ -263,8 +288,17 @@
                     <p:calendar id="parNacimiento" pattern="yyyy-MM-dd" value="#{beanClientes.fechaEmpleado}" required="true" />
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <h:outputLabel for="parPais" value="Pais de nacimiento:" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <p:selectOneMenu id="parPais" value="#{beanClientes.paisEmpleado}">
-                        <f:selectItem itemLabel="Ecuador" itemValue="Ecuador" />     
+                        <p:selectOneMenu id="parPais" value="#{beanClientes.paisEmpleado}">
+                            <f:selectItem itemLabel="Ecuador" itemValue="Ecuador"/>                       
+                            <f:selectItem itemLabel="Colombia" itemValue="Colombia"/>     
+                            <f:selectItem itemLabel="Venezuela" itemValue="Venezuela"/>     
+                            <f:selectItem itemLabel="Chile" itemValue="Chile"/>     
+                            <f:selectItem itemLabel="Argentina" itemValue="Argentina"/>     
+                            <f:selectItem itemLabel="Brasil" itemValue="Brasi"/>     
+                            <f:selectItem itemLabel="España" itemValue="España"/>     
+                            <f:selectItem itemLabel="Uruguay" itemValue="Uruguay"/>     
+                            <f:selectItem itemLabel="Paraguay" itemValue="Paraguay"/>                       
+                            <f:selectItem itemLabel="Perú" itemValue="Perú"/>     
                     </p:selectOneMenu>
 
                 </h:panelGrid>
@@ -315,8 +349,6 @@
                 </div>
             </h:form>
             <center><a href='menu.xhtml'><input class="botones" type='submit' name='boton' value='Regresar'/></a></center>
-
-            <center><h:outputText id="mensaje" value="#{beanClientes.mensaje}"/></center>
         </div>
 
     </h:body>
