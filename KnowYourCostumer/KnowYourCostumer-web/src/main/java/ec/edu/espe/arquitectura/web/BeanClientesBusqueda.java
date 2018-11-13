@@ -5,14 +5,23 @@
  */
 package ec.edu.espe.arquitectura.web;
 
+import ec.edu.espe.arquitectura.model.ActividadEconomica;
+import ec.edu.espe.arquitectura.model.CargoPolitico;
 import ec.edu.espe.arquitectura.model.Cliente;
-import javax.ejb.EJB;
+import ec.edu.espe.arquitectura.model.EgresoCliente;
+import ec.edu.espe.arquitectura.model.Identificacion;
+import ec.edu.espe.arquitectura.model.IngresoCliente;
+import ec.edu.espe.arquitectura.model.NumeroTelefono;
+import ec.edu.espe.arquitectura.model.Parentesco;
+import ec.edu.espe.arquitectura.model.Profesion;
+import ec.edu.espe.arquitectura.model.ProfesionCliente;
+import ec.edu.espe.arquitectura.model.Referencia;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import ec.edu.espe.arquitectura.service.crudService;
-import java.io.Serializable;
-import java.text.ParseException;
+import java.sql.Time;
 import java.util.Date;
+import javax.inject.Inject;
 
 /**
  *
@@ -20,17 +29,16 @@ import java.util.Date;
  */
 @ManagedBean()
 @SessionScoped
-public class beanClientes implements Serializable {
+public class BeanClientesBusqueda {
     //@EJB
     // Bean_loginLocal bean_login;
 
-    @EJB
+    @Inject
     crudService bean_cliente;
     private Cliente objCliente;
     public String mensaje;
 
     //Datos Personales
-    public String tipo_cedula;
     public String cedula;
     public String apellidos;
     public String nombres;
@@ -41,6 +49,7 @@ public class beanClientes implements Serializable {
     public String pais;
     public String ciudadania;
     public String estadoCivil;
+    public Time hora;
 
     //Direccion de Residencia
     public String paisResidencia;
@@ -64,7 +73,6 @@ public class beanClientes implements Serializable {
     public String estadoCivilReferencia;
 
     //Parentesco con empleados    
-    public String parentesco;
     public String apellidosEmpleados;
     public String nombresEmpleados;
     public Date fechaEmpleado;
@@ -72,40 +80,13 @@ public class beanClientes implements Serializable {
 
     //Datos Economicos
     public String actividadEconomica;
-    public double ingresos = new Double(0);
-    public double egresos = new Double(0);
+    public int ingresos;
+    public int egresos;
 
     //Actividad Politica
     public String cargoPolitico;
     public Date fechaInicio;
     public Date fechaFin;
-
-    
-    
-    public double getIngresos() {
-        return ingresos;
-    }
-
-    public void setIngresos(double ingresos) {
-        this.ingresos = ingresos;
-    }
-
-    public double getEgresos() {
-        return egresos;
-    }
-
-    public void setEgresos(double egresos) {
-        this.egresos = egresos;
-    }
-
-    
-    public String getTipo_cedula() {
-        return tipo_cedula;
-    }
-
-    public void setTipo_cedula(String tipo_cedula) {
-        this.tipo_cedula = tipo_cedula;
-    }
 
     public String getCedula() {
         return cedula;
@@ -147,11 +128,8 @@ public class beanClientes implements Serializable {
         this.fecha_nace = fecha_nace;
     }
 
-    public beanClientes() {
+    public BeanClientesBusqueda() {
         objCliente = new Cliente();
-        ingresos = 0d;
-        egresos = 0d;
-        mensaje="";
     }
 
     /**
@@ -214,6 +192,14 @@ public class beanClientes implements Serializable {
 
     public void setEstadoCivil(String estadoCivil) {
         this.estadoCivil = estadoCivil;
+    }
+
+    public Time getHora() {
+        return hora;
+    }
+
+    public void setHora(Time hora) {
+        this.hora = hora;
     }
 
     public String getPaisResidencia() {
@@ -392,6 +378,22 @@ public class beanClientes implements Serializable {
         this.actividadEconomica = actividadEconomica;
     }
 
+    public int getIngresos() {
+        return ingresos;
+    }
+
+    public void setIngresos(int ingresos) {
+        this.ingresos = ingresos;
+    }
+
+    public int getEgresos() {
+        return egresos;
+    }
+
+    public void setEgresos(int egresos) {
+        this.egresos = egresos;
+    }
+
     public String getCargoPolitico() {
         return cargoPolitico;
     }
@@ -416,188 +418,186 @@ public class beanClientes implements Serializable {
         this.fechaFin = fechaFin;
     }
 
-    public String getParentesco() {
-        return parentesco;
+    private Cliente cliente;
+    private Identificacion identificacion;
+    private Profesion profesion;// otra profesion
+    private ProfesionCliente profesionCliente;
+    private NumeroTelefono numeroTelefono;
+    private Referencia referenciaCliente;
+    private CargoPolitico cargoPoliticoCliente;
+    private ActividadEconomica actividadEconomicaCliente;
+    private EgresoCliente egresoCliente;
+    private IngresoCliente ingresoCliente;
+    private Parentesco parentescoCliente;
+
+    public String Busqueda(Integer cod) {
+        String path;
+        System.out.println("este codigo toma" + cod);
+        
+        setCliente(bean_cliente.buscarCliente(cod));
+        setIdentificacion(bean_cliente.buscarClienteIndentificacion(cliente));
+        setProfesionCliente(bean_cliente.buscarClienteProfesion(cliente));
+        setNumeroTelefono(bean_cliente.buscarClienteTelefono(cliente));
+        setReferenciaCliente(bean_cliente.buscarClienteReferencia(cliente));
+        setCargoPoliticoCliente(bean_cliente.buscarClientePolitico(cliente));
+        setActividadEconomicaCliente(bean_cliente.buscarClienteActividadEconomica(cliente));
+        setEgresoCliente(bean_cliente.buscarClienteEgreso(cliente));
+        setIngresoCliente(bean_cliente.buscarClienteIngreso(cliente));
+        setParentescoCliente(bean_cliente.buscarParentesco(cliente));
+
+        return path = "/verCliente?faces-redirect=true";
+
+    }
+    public String Busqueda2(Integer cod) {
+
+        setCliente(bean_cliente.buscarCliente(cod));
+        setIdentificacion(bean_cliente.buscarClienteIndentificacion(cliente));
+        setProfesionCliente(bean_cliente.buscarClienteProfesion(cliente));
+        setNumeroTelefono(bean_cliente.buscarClienteTelefono(cliente));
+        setReferenciaCliente(bean_cliente.buscarClienteReferencia(cliente));
+
+        System.out.println("CODIGO A MODIFICAR: " + cod);
+        return "/modificar2?faces-redirect=true";
     }
 
-    public void setParentesco(String parentesco) {
-        this.parentesco = parentesco;
+    /**
+     * @return the cliente
+     */
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public String eliminar() {
-        if (bean_cliente.eliminar(objCliente.codigo()) == 1) {
-            return "eliminacion";
-        } else {
-            mensaje = "No se pudo realizar la eliminacion";
-            return null;
-        }
+    /**
+     * @param cliente the cliente to set
+     */
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
-    public String insertar() throws ParseException {
-        if ("RUC".equals(tipo_cedula)) {
-            if (validacionRUC(cedula)) {
-
-            } else {
-                mensaje = "No es un RUC correcto";
-                return null;
-            }
-        } else {
-            if ("Cedula de ciudadania".equals(tipo_cedula)) {
-                if (validacionCedula(cedula)) {
-                    if ((bean_cliente.ingresar(apellidos, nombres, fecha_nace, fecha_ingreso, Genero, estadoCivil, profecion, cedula, pais, tipo_cedula) == 1)
-                            && (bean_cliente.ingresarRes(paisResidencia, ciudadResidencia, provinciaResidencia, callePrincipal, calleSecundaria,
-                                    numCasa, referencia, celular, domicilio) == 1)
-                            && (bean_cliente.ingresarEconomicos(actividadEconomica, ingresos, egresos) == 1)
-                            && (bean_cliente.ingresarPolitica(cargoPolitico, fechaInicio, fechaFin) == 1)
-                            && (bean_cliente.ingresarParentesco(nombresEmpleados, apellidosEmpleados, fechaEmpleado, paisEmpleado, parentesco) == 1)
-                            &&(bean_cliente.referenciasCliente(tipoReferencia, cedulaReferencia, nombresReferencia, apellidosReferencia, GeneroReferencia, paisReferencia, estadoCivilReferencia)==1)) {
-                        limpiarCampos();
-                        mensaje = "Inserción de Datos correctamente";
-                        return "insercion";
-                    } else {
-                        mensaje = "No se pudo realizar la inserción de los datos";
-                        return null;
-                    }
-                } else {
-                    mensaje = "No se pudo realizar la inserción, cédula no existente";
-                    return null;
-                }
-            } else {
-                mensaje = "Opcion no valida";
-                return null;
-            }
-        }
-        return mensaje;
+    /**
+     * @return the identificacion
+     */
+    public Identificacion getIdentificacion() {
+        return identificacion;
     }
 
-    public boolean validacionCedula(String cedula) {
-        boolean resp_dato = false;
-        int num_provincias = 24;
-        if (cedula.length() == 10) {
-            char[] caracteres = new char[cedula.length()];
-            for (int i = 0; i < cedula.length(); i++) {
-                caracteres[i] = (char) cedula.charAt(i);
-                if (!Character.isDigit(caracteres[i])) {
-                    return resp_dato;
-                }
-            }
-            //verifica que los dos primeros dígitos correspondan a un valor entre 1 y NUMERO_DE_PROVINCIAS
-            int prov = Integer.parseInt(cedula.substring(0, 2));
-            if (!((prov > 0) && (prov <= num_provincias))) {
-                //addError("La cédula ingresada no es válida");
-                System.out.println("Error: cedula ingresada mal");
-                return resp_dato;
-            }
-            //verifica que el último dígito de la cédula sea válido
-            int[] d = new int[10];
-            //Asignamos el string a un array
-            for (int i = 0; i < d.length; i++) {
-                d[i] = Integer.parseInt(cedula.charAt(i) + "");
-            }
-            int imp = 0;
-            int par = 0;
-            //sumamos los duplos de posición impar
-            for (int i = 0; i < d.length; i += 2) {
-                d[i] = ((d[i] * 2) > 9) ? ((d[i] * 2) - 9) : (d[i] * 2);
-                imp += d[i];
-            }
-            //sumamos los digitos de posición par
-            for (int i = 1; i < (d.length - 1); i += 2) {
-                par += d[i];
-            }
-            //Sumamos los dos resultados
-            int suma = imp + par;
-            //Restamos de la decena superior
-            int d10 = Integer.parseInt(String.valueOf(suma + 10).substring(0, 1)
-                    + "0") - suma;
-            //Si es diez el décimo dígito es cero     
-            d10 = (d10 == 10) ? 0 : d10;
-            //si el décimo dígito calculado es igual al digitado la cédula es correcta
-            if (d10 == d[9]) {
-                resp_dato = true;
-                return resp_dato;
-            } else {
-                //addError("La cédula ingresada no es válida");
-                return resp_dato;
-            }
-        } else {
-            return resp_dato;
-        }
-    }
-    private static final int NUM_PROVINCIAS = 24;
-    private static int[] coeficientes = {4, 3, 2, 7, 6, 5, 4, 3, 2};
-    private static int constante = 11;
-
-    public Boolean validacionRUC(String ruc) {
-        boolean resp_dato = false;
-        final int prov = Integer.parseInt(ruc.substring(0, 2));
-        if (!((prov > 0) && (prov <= NUM_PROVINCIAS))) {
-            resp_dato = false;
-        }
-        int[] d = new int[10];
-        int suma = 0;
-        for (int i = 0; i < d.length; i++) {
-            d[i] = Integer.parseInt(ruc.charAt(i) + "");
-        }
-        for (int i = 0; i < d.length - 1; i++) {
-            d[i] = d[i] * coeficientes[i];
-            suma += d[i];
-        }
-        int aux, resp;
-        aux = suma % constante;
-        resp = constante - aux;
-        resp = (aux == 0) ? 0 : resp;
-        if (resp == d[9]) {
-            resp_dato = true;
-        } else {
-            resp_dato = false;
-        }
-        return resp_dato;
+    /**
+     * @param identificacion the identificacion to set
+     */
+    public void setIdentificacion(Identificacion identificacion) {
+        this.identificacion = identificacion;
     }
 
-    public void limpiarCampos() {
-        cedula = "";
-        apellidos = "";
-        nombres = "";
-        profecion = "";
-        Genero = "";
-        pais = "";
-        ciudadania = "";
-        estadoCivil = "";
+    /**
+     * @return the profesionCliente
+     */
+    public ProfesionCliente getProfesionCliente() {
+        return profesionCliente;
+    }
 
-        //Direccion de Residencia
-        paisResidencia = "";
-        provinciaResidencia = "";
-        ciudadResidencia = "";
-        callePrincipal = "";
-        numCasa = 0;
-        calleSecundaria = "";
-        referencia = "";
-        celular = 0;
-        domicilio = 0;
+    /**
+     * @param profesionCliente the profesionCliente to set
+     */
+    public void setProfesionCliente(ProfesionCliente profesionCliente) {
+        this.profesionCliente = profesionCliente;
+    }
 
-        //Referencias
-        tipoReferencia = "";
-        cedulaReferencia = "";
-        apellidosReferencia = "";
-        nombresReferencia = "";
-        GeneroReferencia = "";
-        paisReferencia = "";
-        ciudadaniaReferencia = "";
-        estadoCivilReferencia = "";
+    /**
+     * @return the numeroTelefono
+     */
+    public NumeroTelefono getNumeroTelefono() {
+        return numeroTelefono;
+    }
 
-        //Parentesco con empleados    
-        apellidosEmpleados = "";
-        nombresEmpleados = "";
-        paisEmpleado = "";
+    /**
+     * @param numeroTelefono the numeroTelefono to set
+     */
+    public void setNumeroTelefono(NumeroTelefono numeroTelefono) {
+        this.numeroTelefono = numeroTelefono;
+    }
 
-        //Datos Economicos
-        actividadEconomica = "";
-        ingresos = 0;
-        egresos = 0;
+    /**
+     * @return the referenciaCliente
+     */
+    public Referencia getReferenciaCliente() {
+        return referenciaCliente;
+    }
 
-        //Actividad Politica
-        cargoPolitico = "";
+    /**
+     * @param referenciaCliente the referenciaCliente to set
+     */
+    public void setReferenciaCliente(Referencia referenciaCliente) {
+        this.referenciaCliente = referenciaCliente;
+    }
+
+    /**
+     * @return the cargoPoliticoCliente
+     */
+    public CargoPolitico getCargoPoliticoCliente() {
+        return cargoPoliticoCliente;
+}
+
+    /**
+     * @param cargoPoliticoCliente the cargoPoliticoCliente to set
+     */
+    public void setCargoPoliticoCliente(CargoPolitico cargoPoliticoCliente) {
+        this.cargoPoliticoCliente = cargoPoliticoCliente;
+    }
+
+    /**
+     * @return the actividadEconomicaCliente
+     */
+    public ActividadEconomica getActividadEconomicaCliente() {
+        return actividadEconomicaCliente;
+    }
+
+    /**
+     * @param actividadEconomicaCliente the actividadEconomicaCliente to set
+     */
+    public void setActividadEconomicaCliente(ActividadEconomica actividadEconomicaCliente) {
+        this.actividadEconomicaCliente = actividadEconomicaCliente;
+    }
+
+    /**
+     * @return the egresoCliente
+     */
+    public EgresoCliente getEgresoCliente() {
+        return egresoCliente;
+    }
+
+    /**
+     * @param egresoCliente the egresoCliente to set
+     */
+    public void setEgresoCliente(EgresoCliente egresoCliente) {
+        this.egresoCliente = egresoCliente;
+    }
+
+    /**
+     * @return the ingresoCliente
+     */
+    public IngresoCliente getIngresoCliente() {
+        return ingresoCliente;
+    }
+
+    /**
+     * @param ingresoCliente the ingresoCliente to set
+     */
+    public void setIngresoCliente(IngresoCliente ingresoCliente) {
+        this.ingresoCliente = ingresoCliente;
+    }
+
+    /**
+     * @return the parentescoCliente
+     */
+    public Parentesco getParentescoCliente() {
+        return parentescoCliente;
+    }
+
+    /**
+     * @param parentescoCliente the parentescoCliente to set
+     */
+    public void setParentescoCliente(Parentesco parentescoCliente) {
+        this.parentescoCliente = parentescoCliente;
     }
 
 }

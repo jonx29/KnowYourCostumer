@@ -9,7 +9,6 @@ import ec.edu.espe.arquitectura.model.Usuario;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.persistence.EntityManager;
@@ -24,7 +23,7 @@ import javax.persistence.Query;
 @ManagedBean()
 @SessionScoped
 
-public class listaUsuario {
+public class ListaUsuario {
     
     private ArrayList<Usuario> list = new ArrayList();
     

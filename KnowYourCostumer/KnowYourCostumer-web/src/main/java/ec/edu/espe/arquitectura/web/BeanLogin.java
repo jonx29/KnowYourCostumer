@@ -5,11 +5,11 @@
  */
 package ec.edu.espe.arquitectura.web;
 
-import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import ec.edu.espe.arquitectura.model.Usuario;
-import ec.edu.espe.arquitectura.service.loginService;
+import ec.edu.espe.arquitectura.service.LoginService;
+import javax.faces.bean.ManagedBean;
+import javax.inject.Inject;
 
 /**
  *
@@ -17,18 +17,16 @@ import ec.edu.espe.arquitectura.service.loginService;
  */
 @ManagedBean()
 @SessionScoped
-public class beanLogin {
+public class BeanLogin {
 
     //@EJB
     // Bean_loginLocal bean_login;
-    @EJB
-    loginService bean_login;
+    @Inject
+    LoginService bean_login;
     private Usuario objUsuario = new Usuario();
     public String mensaje;
 
-    public beanLogin() {
-
-    }
+    
 
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;

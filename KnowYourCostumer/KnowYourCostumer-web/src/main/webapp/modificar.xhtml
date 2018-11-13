@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml"
+                template="plantilla.xhtml"
+                xmlns:c="http://java.sun.com/jsf/core"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"               
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name ="titulo">
+        Usuarios
+    </ui:define>
+
+    <ui:define name="cabecera">
+        <h1><center>Lista de Clientes Registrados</center></h1>
+    </ui:define>
+
+
+    <ui:define name="contenido">
+        <h:form id="formDatos">
+            <p:dataTable 
+                    id="dtcliente" 
+                    value="#{modificarBean.clientes}" 
+                    var="cliente" 
+                    emptyMessage="No hay datos que mostrar">
+                <p:column 
+                    headerText="Código del Cliente" 
+                    filterBy="#{cliente.codCliente}">
+                    <p:outputLabel 
+                        value="#{cliente.codCliente}"/>
+                </p:column>
+                <p:column 
+                    filterBy="#{cliente.nombres}" >
+                    <center>
+                        <c:facet name="header">
+                            Nombres
+                        </c:facet>
+                        <p:outputLabel 
+                            value="#{cliente.nombres}"/>
+                    </center>
+                </p:column>
+                <p:column 
+                    filterBy="#{cliente.apellidos}" >
+                    <center>
+                        <c:facet 
+                            name="header">
+                            Apellidos
+                        </c:facet>
+                        <p:outputLabel 
+                            value="#{cliente.apellidos}"/>
+                    </center></p:column>              
+                <p:column headerText="">
+                    <center>
+                        <p:commandButton 
+                            value="Modificar" 
+                            action="#{beanClientesBusqueda.Busqueda2(cliente.codCliente)}"  >                              
+                        </p:commandButton>
+                    </center>
+                </p:column>
+            </p:dataTable> 
+        </h:form>
+
+        <br></br><br></br>
+        <center><a href='menu.xhtml'><input type='submit' name='boton' value='Regresar'/></a></center>     
+
+    </ui:define>
+
+</ui:composition>

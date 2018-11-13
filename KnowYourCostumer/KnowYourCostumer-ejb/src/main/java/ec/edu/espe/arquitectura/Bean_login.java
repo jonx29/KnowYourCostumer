@@ -18,9 +18,9 @@ import javax.persistence.Query;
  * @author User
  */
 @Stateful
-public class Bean_login implements Bean_loginLocal {
+public class Bean_login {
 
-    @Override
+    
         public String Usuario(String usu, String contra) {
         String val = "0";
         List<String> usuario = new ArrayList<String>();
