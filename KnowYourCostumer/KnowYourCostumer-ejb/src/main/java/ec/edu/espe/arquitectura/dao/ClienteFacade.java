@@ -540,4 +540,19 @@ public class ClienteFacade extends AbstractFacade<Cliente> {
 
         return use;
     }
+        public Identificacion busquedaIndentificacion1(Cliente obj) {
+        Identificacion use;
+        try {
+            System.out.println("entra a la busqueda de identificacion" + obj.getCodCliente());
+            Query query = em.createQuery("SELECT i FROM Identificacion i WHERE i.codCliente = :codCliente");
+            query.setParameter("codCliente", obj);
+            use = (Identificacion) query.getSingleResult();
+            System.out.println("busca algo o no " + use.getNumeroIdentificacion());
+        } catch (Exception e) {
+            System.out.println("ERROR" + e);
+            use = null;
+        }
+
+        return use;
+    }
 }

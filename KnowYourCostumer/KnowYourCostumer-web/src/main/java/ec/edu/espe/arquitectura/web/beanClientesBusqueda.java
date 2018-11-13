@@ -446,6 +446,7 @@ public class beanClientesBusqueda {
         setEgresoCliente(bean_cliente.buscarClienteEgreso(cliente));
         setIngresoCliente(bean_cliente.buscarClienteIngreso(cliente));
         setParentescoCliente(bean_cliente.buscarParentesco(cliente));
+    
 
         return path = "/verCliente?faces-redirect=true";
 

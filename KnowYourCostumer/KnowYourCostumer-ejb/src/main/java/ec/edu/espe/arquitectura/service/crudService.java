@@ -116,4 +116,9 @@ public class crudService {
         return clienteFacade.busquedaParentesco(obj);
 
     }
+//        public Identificacion buscarParentesco1(Cliente obj) {
+//        // System.out.printlnC("nuevooooooo" + codCliente);
+//        return clienteFacade.busquedaParentesco(obj);
+//
+//    }
 }
