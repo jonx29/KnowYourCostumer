@@ -5,9 +5,14 @@
  */
 package ec.edu.espe.arquitectura.web;
 
+import ec.edu.espe.arquitectura.model.ActividadEconomica;
+import ec.edu.espe.arquitectura.model.CargoPolitico;
 import ec.edu.espe.arquitectura.model.Cliente;
+import ec.edu.espe.arquitectura.model.EgresoCliente;
 import ec.edu.espe.arquitectura.model.Identificacion;
+import ec.edu.espe.arquitectura.model.IngresoCliente;
 import ec.edu.espe.arquitectura.model.NumeroTelefono;
+import ec.edu.espe.arquitectura.model.Parentesco;
 import ec.edu.espe.arquitectura.model.Profesion;
 import ec.edu.espe.arquitectura.model.ProfesionCliente;
 import ec.edu.espe.arquitectura.model.Referencia;
@@ -421,6 +426,11 @@ public class beanClientesBusqueda {
     private ProfesionCliente profesionCliente;
     private NumeroTelefono numeroTelefono;
     private Referencia referenciaCliente;
+    private CargoPolitico cargoPoliticoCliente;
+    private ActividadEconomica actividadEconomicaCliente;
+    private EgresoCliente egresoCliente;
+    private IngresoCliente ingresoCliente;
+    private Parentesco parentescoCliente;
 
     //Metodo para crear la cabecera de las encuestas
     public String Busqueda(Integer cod) {
@@ -431,6 +441,11 @@ public class beanClientesBusqueda {
         setProfesionCliente(bean_cliente.buscarClienteProfesion(cliente));
         setNumeroTelefono(bean_cliente.buscarClienteTelefono(cliente));
         setReferenciaCliente(bean_cliente.buscarClienteReferencia(cliente));
+        setCargoPoliticoCliente(bean_cliente.buscarClientePolitico(cliente));
+        setActividadEconomicaCliente(bean_cliente.buscarClienteActividadEconomica(cliente));
+        setEgresoCliente(bean_cliente.buscarClienteEgreso(cliente));
+        setIngresoCliente(bean_cliente.buscarClienteIngreso(cliente));
+        setParentescoCliente(bean_cliente.buscarParentesco(cliente));
 
         return path = "/verCliente?faces-redirect=true";
 
@@ -504,6 +519,76 @@ public class beanClientesBusqueda {
      */
     public void setReferenciaCliente(Referencia referenciaCliente) {
         this.referenciaCliente = referenciaCliente;
+    }
+
+    /**
+     * @return the cargoPoliticoCliente
+     */
+    public CargoPolitico getCargoPoliticoCliente() {
+        return cargoPoliticoCliente;
+    }
+
+    /**
+     * @param cargoPoliticoCliente the cargoPoliticoCliente to set
+     */
+    public void setCargoPoliticoCliente(CargoPolitico cargoPoliticoCliente) {
+        this.cargoPoliticoCliente = cargoPoliticoCliente;
+    }
+
+    /**
+     * @return the actividadEconomicaCliente
+     */
+    public ActividadEconomica getActividadEconomicaCliente() {
+        return actividadEconomicaCliente;
+    }
+
+    /**
+     * @param actividadEconomicaCliente the actividadEconomicaCliente to set
+     */
+    public void setActividadEconomicaCliente(ActividadEconomica actividadEconomicaCliente) {
+        this.actividadEconomicaCliente = actividadEconomicaCliente;
+    }
+
+    /**
+     * @return the egresoCliente
+     */
+    public EgresoCliente getEgresoCliente() {
+        return egresoCliente;
+    }
+
+    /**
+     * @param egresoCliente the egresoCliente to set
+     */
+    public void setEgresoCliente(EgresoCliente egresoCliente) {
+        this.egresoCliente = egresoCliente;
+    }
+
+    /**
+     * @return the ingresoCliente
+     */
+    public IngresoCliente getIngresoCliente() {
+        return ingresoCliente;
+    }
+
+    /**
+     * @param ingresoCliente the ingresoCliente to set
+     */
+    public void setIngresoCliente(IngresoCliente ingresoCliente) {
+        this.ingresoCliente = ingresoCliente;
+    }
+
+    /**
+     * @return the parentescoCliente
+     */
+    public Parentesco getParentescoCliente() {
+        return parentescoCliente;
+    }
+
+    /**
+     * @param parentescoCliente the parentescoCliente to set
+     */
+    public void setParentescoCliente(Parentesco parentescoCliente) {
+        this.parentescoCliente = parentescoCliente;
     }
 
 }
