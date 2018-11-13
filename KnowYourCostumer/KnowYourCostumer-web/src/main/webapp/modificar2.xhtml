@@ -42,8 +42,8 @@
                 <br></br>
                 <h:panelGrid columns="2">
                     <h:outputLabel for="tipoIdentificacion" value="Tipo de identificación:" /> 
-                    <p:selectOneMenu id="tipoIdentificacion">
-                        <f:selectItem itemLabel="#{beanClientesBusqueda.identificacion.codTipoIdentificacion.descripcion}"/>
+                    <p:selectOneMenu id="tipoIdentificacion" value="#{modificarBean.tiposIdentificacion}">
+                        <!-- <f:selectItem itemLabel="#{beanClientesBusqueda.identificacion.codTipoIdentificacion.descripcion}"/> -->
                     </p:selectOneMenu>
                 </h:panelGrid>
                 <br></br>
