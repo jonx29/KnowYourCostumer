@@ -18,7 +18,7 @@ import ec.edu.espe.arquitectura.model.ProfesionCliente;
 import ec.edu.espe.arquitectura.model.Referencia;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import ec.edu.espe.arquitectura.service.crudService;
+import ec.edu.espe.arquitectura.service.CrudService;
 import java.sql.Time;
 import java.util.Date;
 import javax.inject.Inject;
@@ -34,7 +34,7 @@ public class BeanClientesBusqueda {
     // Bean_loginLocal bean_login;
 
     @Inject
-    crudService bean_cliente;
+    CrudService bean_cliente;
     private Cliente objCliente;
     public String mensaje;
 
